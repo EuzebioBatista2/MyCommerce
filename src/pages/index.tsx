@@ -1,6 +1,6 @@
 import { Poppins } from 'next/font/google'
 import Head from 'next/head'
-import Login from './components/template/Login'
+import LoginLayout from './components/template/LoginLayout'
 
 const poppins = Poppins({
   weight: ['100', '200', '300', '600', '700', '800'],
@@ -10,14 +10,14 @@ const poppins = Poppins({
 
 export default function Home() {
   return (
-    <main className={`${poppins.className} w-screen`}>
+    <main className={`${poppins.className} flex w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Head>
         <title>MyCommerce</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <header>
-        <Login />
-      </header>
+    
+      <LoginLayout />
+      
     </main>
   )
 }
