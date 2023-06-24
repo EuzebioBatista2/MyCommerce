@@ -16,7 +16,7 @@ export default class LoginLayout extends Component {
         </div>
         <div className="flex flex-col w-full items-center justify-center h-2/5 px-4">
           <Form type="login" />
-          <Button text="conta Google" icon={IconGoogle} />
+          <Button color="blue" text="conta Google" icon={IconGoogle} />
         </div>
         <div className="flex flex-col w-full relative my-3 h-1/5 gap-2 px-4">
           <ul className="flex flex-col items-start justify-start text-sm text-gray-600 gap-2">

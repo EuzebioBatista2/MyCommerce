@@ -6,6 +6,14 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx}',
     './public/icons/*.{js,ts,jsx,tsx}'
   ],
+  safelist: [
+    {
+      pattern: /^bg-(blue|yellow|gray|red)-(300|500)/,
+    },
+    {
+      pattern: /^border-(blue|yellow|gray|red)-(300|500)/,
+    },
+  ],
   theme: {
     extend: {
       backgroundImage: {

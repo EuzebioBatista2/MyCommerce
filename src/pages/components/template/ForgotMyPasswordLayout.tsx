@@ -12,9 +12,12 @@ export default class ForgotMyPasswordLayout extends Component {
         <div className="flex items-center justify-center h-1/5">
           <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} />
         </div>
-        <div className="flex flex-col w-full items-center justify-center h-3/5 px-4">
-          <h1>Esqueceu sua senha?</h1>
-          <h2>Insira seu e-mail abaixo para confirmar seu identidade.</h2>
+        <div className="flex flex-col w-full items-center justify-center  h-3/5 px-4">
+          <div className="flex flex-col text-center gap-3">
+            <h1 className="font-semibold text-2xl">Esqueceu sua senha?</h1>
+            <h2 className="font-semibol text-base text-gray-800">Insira seu e-mail abaixo.</h2>
+            <h3 className="text-sm text-gray-600">*Será enviado um e-mail para confirmar sua autenticação*</h3>
+          </div>
           <Form type="forgotPassword" />
         </div>
         <div className="flex w-full items-end justify-center h-1/5">

@@ -13,6 +13,7 @@ export default class LoginLayout extends Component {
           <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} />
         </div>
         <div className="flex flex-col w-full items-center justify-center h-3/5 px-4">
+          <h1 className="font-semibold text-2xl">Cadastro de conta</h1>
           <Form type="register" />
           <p className="text-sm mt-4">
             Já possui conta? faça um login clicando <Link href={'/'} className="text-blue-700"><strong>aqui</strong></Link>
