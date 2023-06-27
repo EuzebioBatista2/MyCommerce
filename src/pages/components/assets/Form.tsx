@@ -3,11 +3,20 @@ import Button from "./Button"
 import { IconBack } from "../../../../public/icons/icons"
 import Link from "next/link"
 import { submitRegister } from "@/functions/submitRegister"
+import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer"
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
 }
 
+
 export default function Form(props: IFormProps) {
+  const {setLoading} = useLoadingReducer()
+
+  const onLoading = async (event: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true)
+    await submitRegister(event)
+    setLoading(false)
+  }
 
   return (
     props.type === 'login' ? (
@@ -20,7 +29,7 @@ export default function Form(props: IFormProps) {
       </div>
     ) : (props.type === 'register' ? (
       <div className="flex flex-col items-center justify-center w-full">
-        <form action="" method="post" className="flex flex-col w-full" onSubmit={submitRegister} >
+        <form action="" method="post" className="flex flex-col w-full" onSubmit={onLoading} >
           <Input type="text" text="Nome" id="name" />
           <Input type="text" text="Email" id="email" />
           <Input type="password" text="Senha" id="password" />

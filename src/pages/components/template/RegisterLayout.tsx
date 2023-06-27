@@ -3,12 +3,13 @@ import { Component } from "react";
 import Form from "../assets/Form";
 import Link from "next/link";
 import Footer from "./Footer";
+import Loading from "../assets/Loading";
 
 export default class LoginLayout extends Component {
-
   render() {
     return (
       <div className='flex flex-col items-center justify-center w-full h-full'>
+        <Loading />
         <div className="flex items-center justify-center h-1/5">
           <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} />
         </div>

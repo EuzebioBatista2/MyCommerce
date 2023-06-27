@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import loginReducer from './reducers/loginReducers'
+import loadingReducer from './reducers/loadingReducers'
 
 export const store = configureStore({
   reducer: {
-    loginReducer
+    loginReducer,
+    loadingReducer
   },
 });
 

@@ -1,19 +1,21 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import firebase from 'firebase';
+import 'firebase/auth';
+import 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storage: process.env.NEXT_PUBLIC_FIREBASE_STORAGE,
-    message: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGE,
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
-const appFirebase = initializeApp(firebaseConfig)
-export const auth = getAuth(appFirebase)
-export const storageFirebase = getFirestore(appFirebase)
-export const authFirebase = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password)
-}
+
+const appFirebase = firebase.apps.length
+  ? firebase.app()
+  : firebase.initializeApp(firebaseConfig);
+export const authFirebase = appFirebase.auth()
+export const storageFirebase = appFirebase.storage()
+
+
