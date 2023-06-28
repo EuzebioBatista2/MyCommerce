@@ -12,7 +12,7 @@ export default class LoginLayout extends Component {
     return (
       <div className='flex flex-col items-center justify-center w-full h-full'>
         <div className="flex items-center justify-center h-1/5">
-          <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} />
+          <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} style={{ height: "auto", width: "auto" }}  />
         </div>
         <div className="flex flex-col w-full items-center justify-center h-2/5 px-4">
           <Form type="login" />

@@ -1,46 +1,42 @@
-import { useLoadingReducer } from '@/store/reducers/loadingReducers/useLoadingReducer';
 import { authFirebase, storageFirebase } from '../../backend/config';
-import { verifyEmail } from "./verifyFields/verifyEmail"
-import { verifyImage } from "./verifyFields/verifyImage"
-import { verifyName } from "./verifyFields/verifyName"
-import { verifyPassword } from "./verifyFields/verifyPassword"
 
-export function submitRegister(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault()
-  const name = document.querySelector<HTMLInputElement>('#name')
-  const email = document.querySelector<HTMLInputElement>('#email')
-  const password = document.querySelector<HTMLInputElement>('#password')
-  const confirmPassword = document.querySelector<HTMLInputElement>('#confirmPassword')
-  const image = document.querySelector<HTMLInputElement>('#file')
+export interface IDataForm {
+  name?: string
+  email: string | undefined
+  password: string | undefined
+  confirmPassword?: string | undefined
+  image?: any
+}
 
-  const isNameValid = verifyName(name);
-  const isEmailValid = verifyEmail(email);
-  const isPasswordValid =  verifyPassword(password, confirmPassword);
-  const isImageValid = verifyImage(image);
-  
-  if (isNameValid && isEmailValid && isPasswordValid && isImageValid) {
-    if (email && password && name && image) {
-      authFirebase.createUserWithEmailAndPassword(email.value, password.value)
+export function submitRegister(event: React.FormEvent<HTMLFormElement>, props: IDataForm): Promise<void> {
+  return new Promise(async (resolve, reject) => {
+    event.preventDefault()
+    const inputName = props.name ? props.name : ''
+    const inputEmail = props.email ? props.email : ''
+    const inputPassword = props.password ? props.password : ''
+    const image = props.image ? props.image : ''
+
+    authFirebase.createUserWithEmailAndPassword(inputEmail, inputPassword)
       .then((userCredential) => {
-          const user = userCredential.user;
+        const user = userCredential.user;
 
-          if (user) {
-            return user.updateProfile({
-              displayName: name.value,
-              photoURL: image.value
-            });
-          }
-        })
-        .then(() => {
-          const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/${image.files?.[0].name}`);
-          if (image.files?.[0]) {
-            urlImage.put(image.files?.[0]);
-          }
-        })
-        .catch((error) => {
-          // Tratar erros
-          console.error('Erro ao criar usuário:', error);
-        });
-    }
+        if (user) {
+          return user.updateProfile({
+            displayName: inputName,
+            photoURL: image.value
+          });
+        }
+      })
+      .then(() => {
+        const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/${image[0].name}`);
+        if (image[0].name !== '') {
+          urlImage.put(image[0]);
+        }
+        resolve()
+      })
+      .catch(() => {
+        reject()
+      });
   }
+  )
 }

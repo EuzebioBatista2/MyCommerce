@@ -1,11 +1,9 @@
 import { toastComponent } from "../toasts/Toast"
 
-export const verifyImage = (inputImage: HTMLInputElement | null): boolean => {
-  if(inputImage && inputImage.files?.[0]) {
-    inputImage.className = `${inputImage.className.replace('text-red-500 border-red-500', '')}`
+export const verifyImage = (inputImage: any): boolean => {
+  if(inputImage && inputImage[0].name !== '') {
     return true
-  } else if(inputImage) {
-    inputImage.className += " text-red-500 border-red-500"
+  } else if(inputImage === '') {
     toastComponent({type: 'error'}, 'Campo de imagem vazio!')
   }
   return false
