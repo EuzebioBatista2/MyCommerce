@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 
-export default function Home() {
+export default function Login() {
   return (
     <main className={`flex w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Head>

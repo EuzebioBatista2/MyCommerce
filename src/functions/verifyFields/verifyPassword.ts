@@ -1,9 +1,9 @@
 import { toastComponent } from "../toasts/Toast"
 
-export const verifyPassword = (inputPassword: string, inputConfirmPassword: string ): boolean => {
-  if (inputPassword === inputConfirmPassword && (inputPassword !== '' && inputConfirmPassword !== '')) {
+export const verifyPassword = (inputPassword: string ): boolean => {
+  if (inputPassword !== '') {
     return true
-  } else if(inputPassword === '' || inputConfirmPassword === '') {
+  } else if(inputPassword === '') {
     toastComponent({type: 'error'}, 'Senhas não conferem!')
   }
   return false

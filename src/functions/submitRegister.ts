@@ -1,20 +1,13 @@
+import { RegisterType } from '@/types/registerType';
 import { authFirebase, storageFirebase } from '../../backend/config';
 
-export interface IDataForm {
-  name?: string
-  email: string | undefined
-  password: string | undefined
-  confirmPassword?: string | undefined
-  image?: any
-}
-
-export function submitRegister(event: React.FormEvent<HTMLFormElement>, props: IDataForm): Promise<void> {
+export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: RegisterType): Promise<void> {
   return new Promise(async (resolve, reject) => {
     event.preventDefault()
-    const inputName = props.name ? props.name : ''
-    const inputEmail = props.email ? props.email : ''
-    const inputPassword = props.password ? props.password : ''
-    const image = props.image ? props.image : ''
+    const inputName = data.name ? data.name : ''
+    const inputEmail = data.email ? data.email : ''
+    const inputPassword = data.password ? data.password : ''
+    const image = data.image ? data.image : ''
 
     authFirebase.createUserWithEmailAndPassword(inputEmail, inputPassword)
       .then((userCredential) => {

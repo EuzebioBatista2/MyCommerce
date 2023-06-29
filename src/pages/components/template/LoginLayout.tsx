@@ -5,14 +5,16 @@ import Link from "next/link";
 import Footer from "./Footer";
 import Button from "../assets/Button";
 import { IconGoogle } from "../../../../public/icons/icons";
+import Loading from "../assets/Loading";
 
 export default class LoginLayout extends Component {
 
   render() {
     return (
       <div className='flex flex-col items-center justify-center w-full h-full'>
+        <Loading />
         <div className="flex items-center justify-center h-1/5">
-          <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} style={{ height: "auto", width: "auto" }}  />
+          <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} style={{ height: "auto", width: "auto" }} />
         </div>
         <div className="flex flex-col w-full items-center justify-center h-2/5 px-4">
           <Form type="login" />

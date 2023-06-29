@@ -2,15 +2,11 @@ import Input from "./Input"
 import Button from "./Button"
 import { IconBack } from "../../../../public/icons/icons"
 import Link from "next/link"
-import { submitRegister } from "@/functions/submitRegister"
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer"
-import { toastComponent } from "@/functions/toasts/Toast"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { verifyEmail } from "@/functions/verifyFields/verifyEmail"
-import { verifyName } from "@/functions/verifyFields/verifyName"
-import { verifyPassword } from "@/functions/verifyFields/verifyPassword"
-import { verifyImage } from "@/functions/verifyFields/verifyImage"
+import { onLoadingRegister } from "@/functions/loadingPage/onLoadingRegister"
+import { onLoadingLogin } from "@/functions/loadingPage/onLoadingLogin"
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
 }
@@ -18,51 +14,35 @@ interface IFormProps {
 
 export default function Form(props: IFormProps) {
 
+  // Controlando o estados dos inputs
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [image, setImage] = useState<any>(null)
 
+  // Variável para regular o loading e o router para mudança de página
   const { setLoading } = useLoadingReducer()
   const router = useRouter()
 
+  // Alterando o style dos inputs em caso de erro
   const [styleInputName, setStyleInputName] = useState<boolean>(true)
   const [styleInputEmail, setStyleInputEmail] = useState<boolean>(true)
   const [styleInputPassword, setStyleInputPassword] = useState<boolean>(true)
   const [styleInputImage, setStyleInputImage] = useState<boolean>(true)
 
-  async function OnloadingRegister(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setLoading(true)
-
-    const isNameValid = verifyName(name || '')
-    const isEmailValid = verifyEmail(email || '')
-    const isPasswordValid = verifyPassword(password || '', confirmPassword || '')
-    const isImageValid = verifyImage(image || '')
-
-    setStyleInputName(isNameValid)
-    setStyleInputEmail(isEmailValid)
-    setStyleInputPassword(isPasswordValid)
-    setStyleInputImage(isImageValid)
-    
-    console.log(isNameValid, isEmailValid, isPasswordValid, isImageValid)
-
-    if (isNameValid && isEmailValid && isPasswordValid && isImageValid) {
-      await submitRegister(event, { name, email, password, confirmPassword, image })
-        .then(() => {
-          toastComponent({ type: 'success' }, 'Cadastro realizado com sucesso!')
-          router.push('/')
-        })
-        .catch(() => {})
-    }
-    setLoading(false)
-  }
-
   return (
     props.type === 'login' ? (
       <div className="flex flex-col items-center justify-center w-full">
-        <form action="" method="post" className="flex flex-col w-full">
+        <form action="" method="post" className="flex flex-col w-full" 
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+          onLoadingLogin(setLoading, event, router, {email, password})
+          .then((isValid) => {
+            setStyleInputEmail(!!isValid.isEmailValid)
+            setStyleInputPassword(!!isValid.isPasswordValid)
+          })
+        }}
+        >
           <Input type="email" text="Email" id="email" className={styleInputEmail ? '' : 'text-red-500 border-red-500'}
             onChange={(event) => { setEmail(event.target.value), setStyleInputEmail(true) }} value={email} />
           <Input type="password" text="Senha" id="password" className={styleInputPassword ? '' : 'text-red-500 border-red-500'}
@@ -72,8 +52,16 @@ export default function Form(props: IFormProps) {
       </div>
     ) : (props.type === 'register' ? (
       <div className="flex flex-col items-center justify-center w-full">
-        <form action="" method="post" className="flex flex-col w-full"
-          onSubmit={(event: React.FormEvent<HTMLFormElement>) => OnloadingRegister(event)} >
+        <form action=""  className="flex flex-col w-full"
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+            onLoadingRegister(setLoading, event, router, {name, email, password, confirmPassword, image})
+            .then((isValid) => {
+              setStyleInputName(!!isValid.isNameValid)
+              setStyleInputEmail(!!isValid.isEmailValid)
+              setStyleInputPassword(!!isValid.isPasswordValid)
+              setStyleInputImage(!!isValid.isImageValid)
+            })
+          }} >
           <Input type="text" text="Nome" id="name" className={styleInputName ? '' : 'text-red-500 border-red-500'}
             onChange={(event) => { setName(event.target.value), setStyleInputName(true) }} value={name} />
           <Input type="text" text="Email" id="email" className={styleInputEmail ? '' : 'text-red-500 border-red-500'}
