@@ -4,7 +4,7 @@ import { verifyEmail } from "../verifyFields/verifyEmail"
 import { verifyConfirmPassword } from "../verifyFields/verifyConfirmPassword"
 import { verifyImage } from "../verifyFields/verifyImage"
 import { RegisterType } from "@/types/registerType"
-import { submitRegister } from "../submitRegister"
+import { submitRegister } from "../../../backend/auth/submitRegister"
 import { toastComponent } from "../toasts/Toast"
 import { IIsValidType } from "@/types/isValidType"
 

@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { onLoadingRegister } from "@/functions/loadingPage/onLoadingRegister"
 import { onLoadingLogin } from "@/functions/loadingPage/onLoadingLogin"
+import { useUserReducer } from "@/store/reducers/loginReducers/useLoginReducer"
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
 }

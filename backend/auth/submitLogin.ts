@@ -1,5 +1,5 @@
 import { UserType } from "@/types/userType";
-import { authFirebase } from "../../backend/config";
+import { authFirebase } from "../config";
 
 export function submitLogin(event: React.FormEvent<HTMLFormElement>, data: UserType): Promise<void> {
   return new Promise((resolve, reject) => {

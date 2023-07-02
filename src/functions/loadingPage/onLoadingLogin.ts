@@ -3,7 +3,7 @@ import { UserType } from "@/types/userType";
 import { NextRouter } from "next/router";
 import { verifyEmail } from "../verifyFields/verifyEmail";
 import { verifyPassword } from "../verifyFields/verifyPassword";
-import { submitLogin } from "../submitLogin";
+import { submitLogin } from "../../../backend/auth/submitLogin";
 import { toastComponent } from "../toasts/Toast";
 
 export async function onLoadingLogin(

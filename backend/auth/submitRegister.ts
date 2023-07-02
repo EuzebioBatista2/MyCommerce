@@ -1,5 +1,8 @@
 import { RegisterType } from '@/types/registerType';
-import { authFirebase, storageFirebase } from '../../backend/config';
+import { authFirebase, storageFirebase } from '../config';
+import { dbImageAndData } from '../db/dbImageAndData';
+
+let dataUid: any
 
 export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: RegisterType): Promise<void> {
   return new Promise(async (resolve, reject) => {
@@ -11,19 +14,21 @@ export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: Re
 
     authFirebase.createUserWithEmailAndPassword(inputEmail, inputPassword)
       .then((userCredential) => {
-        const user = userCredential.user;
+        let user = userCredential.user;
 
         if (user) {
+          dataUid = user.uid
           return user.updateProfile({
             displayName: inputName,
             photoURL: image.value
           });
+          
         }
       })
       .then(() => {
         const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/${image[0].name}`);
         if (image[0].name !== '') {
-          urlImage.put(image[0]);
+          urlImage.put(image[0]).then(() => urlImage.getDownloadURL().then((downloadURL) => dbImageAndData(downloadURL, dataUid)));
         }
         resolve()
       })

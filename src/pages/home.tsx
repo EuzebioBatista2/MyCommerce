@@ -1,14 +1,43 @@
 import Head from "next/head";
+import NavProfile from "./components/assets/NavProfile";
+import Loading from "./components/assets/Loading";
+import Footer from "./components/template/Footer";
+import NavMenu from "./components/assets/NavMenu";
+import { IconAdd, IconHome } from "../../public/icons/icons";
 
 export default function Home() {
+  
   return (
-    <main className={`flex w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
+    <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
+      <Loading />
       <Head>
         <title>MyCommerce</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-    
-      <h1>Página de login</h1>    
+      <nav className="w-full h-20 bg-gray-600">
+        <NavProfile /> 
+      </nav>
+      <section  className="w-full h-16 bg-red-500">
+        <div className="flex h-full justify-between items-center">
+          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <i>{IconHome}</i>
+            <span className="mt-1">Página Inicial</span>
+          </div>
+          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <span className="mt-1">Adcionar Produto</span>
+            <i>{IconAdd}</i>
+          </div>
+        </div>
+      </section>
+      <section className="h-full bg-purple-300">
+        <h1>seção</h1>
+      </section>
+      <nav className="h-20 bg-gray-700">
+        <NavMenu />
+      </nav>
+      <footer className="h-16 bg-green-400">
+        <Footer />
+      </footer>
     </main>
   )
 }
