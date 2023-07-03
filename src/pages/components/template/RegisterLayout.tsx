@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Component } from "react";
-import Form from "../assets/Form";
+import Form from "../assets/FormAuth";
 import Link from "next/link";
 import Footer from "./Footer";
 import Loading from "../assets/Loading";

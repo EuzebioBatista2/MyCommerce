@@ -1,4 +1,4 @@
-import { IIsValidType } from "@/types/isValidType";
+import { IIsValidAuthType } from "@/types/isValidType";
 import { UserType } from "@/types/userType";
 import { NextRouter } from "next/router";
 import { verifyEmail } from "../verifyFields/verifyEmail";
@@ -10,7 +10,7 @@ export async function onLoadingLogin(
   loading: (value: boolean) => void, 
   event: React.FormEvent<HTMLFormElement>, 
   router: NextRouter,
-  data: UserType): Promise<IIsValidType> {
+  data: UserType): Promise<IIsValidAuthType> {
     event.preventDefault()
     loading(true)
 

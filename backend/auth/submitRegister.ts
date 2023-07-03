@@ -2,9 +2,9 @@ import { RegisterType } from '@/types/registerType';
 import { authFirebase, storageFirebase } from '../config';
 import { dbImageAndData } from '../db/dbImageAndData';
 
-let dataUid: any
 
 export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: RegisterType): Promise<void> {
+  let dataUid: any
   return new Promise(async (resolve, reject) => {
     event.preventDefault()
     const inputName = data.name ? data.name : ''

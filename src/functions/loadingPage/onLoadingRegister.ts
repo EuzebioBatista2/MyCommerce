@@ -6,9 +6,9 @@ import { verifyImage } from "../verifyFields/verifyImage"
 import { RegisterType } from "@/types/registerType"
 import { submitRegister } from "../../../backend/auth/submitRegister"
 import { toastComponent } from "../toasts/Toast"
-import { IIsValidType } from "@/types/isValidType"
+import { IIsValidAuthType } from "@/types/isValidType"
 
-export async function onLoadingRegister(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: RegisterType): Promise<IIsValidType> {
+export async function onLoadingRegister(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: RegisterType): Promise<IIsValidAuthType> {
   event.preventDefault()
   loading(true)
   const isNameValid = verifyName(data.name || '')

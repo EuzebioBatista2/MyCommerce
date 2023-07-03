@@ -4,9 +4,9 @@ import Loading from "./components/assets/Loading";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
 import { IconAdd, IconHome } from "../../public/icons/icons";
+import Link from "next/link";
 
 export default function Home() {
-  
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -23,10 +23,10 @@ export default function Home() {
             <i>{IconHome}</i>
             <span className="mt-1">Página Inicial</span>
           </div>
-          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <span className="mt-1">Adcionar Produto</span>
             <i>{IconAdd}</i>
-          </div>
+          </Link>
         </div>
       </section>
       <section className="h-full bg-purple-300">
