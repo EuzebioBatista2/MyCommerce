@@ -34,7 +34,7 @@ export default function Input(props: IInputProps) {
           className={`absolute ${animation ? 'text-sm left-1 top-1' : 'text-base left-2 top-7'} transtion duration-500 ease-in-out`}
         >{props.text}</label>
         <input type={props.type} name={props.id} id={props.id}
-          className={`h-8 px-1 self-end border-b bg-transparent ${animation ? 'border-blue-500' : 'border-black'} ${props.inputError ? '' : 'text-red-500 border-red-500'} outline-none w-full transtion duration-500 ease-in-out`}
+          className={`h-8 px-1 pr-8 self-end border-b bg-transparent ${animation ? 'border-blue-500' : 'border-black'} ${props.inputError ? '' : 'text-red-500 border-red-500'} outline-none w-full transtion duration-500 ease-in-out`}
           onClick={() => setAnimation(true)} onBlur={(event) => verifyBlur(event)} onFocus={() => setAnimation(true)} value={props.value} onChange={props.onChange}
         />
       </div>

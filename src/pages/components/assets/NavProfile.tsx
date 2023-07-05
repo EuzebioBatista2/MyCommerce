@@ -19,7 +19,7 @@ export default function NavProfile() {
         setMenu(false)
         const name = await dbNamePerfil()
         const url = await dbImagePerfil()
-        if (typeof url === 'string'&& typeof name === 'string') {
+        if (typeof url === 'string' && typeof name === 'string') {
           setUserImage(url)
           setUserName(name)
         }

@@ -37,7 +37,7 @@ export default function FormProducts(props: IFormProductProps) {
         onChange={(event) => {setName(event.target.value), setStyleInputName(true)}} 
         />
         <Input type="number" text="Quantidade" id="amount" inputError={styleInputAmount} value={amount === 0 ? '' : amount}
-        onChange={(event) => {setAmount(event.target.value), setStyleInputAmount(true)}} 
+        onChange={(event) => {setAmount(event.target.value), setStyleInputAmount(true)}}
         />
         <Input type="number" text="Preço(unidade)" id="price" inputError={styleInputPrice} value={price === 0 ? '' : price}
         onChange={(event) => {setPrice(event.target.value), setStyleInputPrice(true)}} 

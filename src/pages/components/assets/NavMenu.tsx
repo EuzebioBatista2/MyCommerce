@@ -1,12 +1,14 @@
+import { useRouter } from "next/router";
 import { IconBag, IconSell, IconUserNegative } from "../../../../public/icons/icons";
+import Link from "next/link";
 
 export default function NavMenu() {
   return (
     <div className="flex items-center w-full h-full">
-      <div className="flex flex-col items-center justify-center w-1/3">
+      <Link href={'/products'} className="flex flex-col items-center justify-center w-1/3">
         <i>{IconBag}</i>
         <span>Produtos</span>
-      </div>
+      </Link>
       <hr className="h-4/5 border border-black" />
       <div className="flex flex-col items-center justify-center w-1/3">
         <i>{IconSell}</i>
