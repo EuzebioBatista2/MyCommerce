@@ -8,3 +8,8 @@ export interface FinalProductType {
   name: string;
   data: ProductType;
 }
+
+export interface ProductTypeState {
+  productFinal: FinalProductType;
+  uid: string;
+}

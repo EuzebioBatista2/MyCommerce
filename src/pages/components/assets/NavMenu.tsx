@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import { IconBag, IconSell, IconUserNegative } from "../../../../public/icons/icons";
+import { IconBag, IconCart, IconUserNegative } from "../../../../public/icons/icons";
 import Link from "next/link";
 
 export default function NavMenu() {
@@ -10,10 +9,10 @@ export default function NavMenu() {
         <span>Produtos</span>
       </Link>
       <hr className="h-4/5 border border-black" />
-      <div className="flex flex-col items-center justify-center w-1/3">
-        <i>{IconSell}</i>
-        <span>Vender</span>
-      </div>
+      <Link href={'/cart'} className="flex flex-col items-center justify-center w-1/3">
+        <i>{IconCart}</i>
+        <span>Carrinho</span>
+      </Link>
       <hr className="h-4/5 border border-black" />
       <div className="flex flex-col items-center justify-center w-1/3">
         <i>{IconUserNegative}</i>

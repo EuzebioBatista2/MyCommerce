@@ -6,7 +6,7 @@ import Button from "./Button"
 import { onLoadingProduct } from "@/functions/loadingPage/onLoadingProduct"
 
 interface IFormProductProps {
-  type: 'product' | 'sell'
+  type: 'product' | 'edit'
 }
 export default function FormProducts(props: IFormProductProps) {
 

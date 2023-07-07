@@ -44,7 +44,7 @@ export default function NavProfile() {
         </div>
         <i className="flex items-center h-4 w-4">{activate ? IconArrowDown : IconArrowLeft}</i>
       </div>
-      <div className={`absolute w-1/2 bg-gray-400 right-0 top-14 overflow-hidden transition-all duration-300 ease-in-out ${activate ? 'flex flex-col items-center h-24' : 'h-0'}`}>
+      <div className={`absolute w-1/2 bg-gray-400 right-0 top-14 overflow-hidden transition-all duration-300 ease-in-out ${activate ? 'flex flex-col items-center h-24 z-20' : 'h-0'}`}>
         <div className="flex items-center justify-center w-full h-1/2 gap-1">
           <span>Dados do usuário</span>
           <i>{IconEditLogin}</i>

@@ -7,6 +7,7 @@ interface IInputProps {
   onChange: (event: any) => void
   value?: string | undefined | number
   inputError: boolean
+  animated?: boolean
 }
 
 export default function Input(props: IInputProps) {
@@ -31,7 +32,7 @@ export default function Input(props: IInputProps) {
     ) : (
       <div className="flex items-center justify-center h-14 relative px-1 w-full">
         <label htmlFor={props.id}
-          className={`absolute ${animation ? 'text-sm left-1 top-1' : 'text-base left-2 top-7'} transtion duration-500 ease-in-out`}
+          className={`absolute ${animation || props.value != '' ? 'text-sm left-1 top-1' : 'text-base left-2 top-7'} transtion duration-500 ease-in-out`}
         >{props.text}</label>
         <input type={props.type} name={props.id} id={props.id}
           className={`h-8 px-1 pr-8 self-end border-b bg-transparent ${animation ? 'border-blue-500' : 'border-black'} ${props.inputError ? '' : 'text-red-500 border-red-500'} outline-none w-full transtion duration-500 ease-in-out`}

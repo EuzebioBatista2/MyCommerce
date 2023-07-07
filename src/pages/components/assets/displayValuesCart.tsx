@@ -1,13 +1,13 @@
-import { FinalProductType, ProductType } from "@/types/productType"
+import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
-import { getDataSearch } from "../../../../backend/db/dbSearch"
 import { IconDelete, IconEdit, IconMoney } from "../../../../public/icons/icons"
-import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
+import ReactPaginate from 'react-paginate';
 import { dbOnlyOneProduct } from "../../../../backend/db/dbOnlyOneProduct";
 import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer";
 import { useRouter } from "next/router";
+import { dbGetCart } from "../../../../backend/db/dbGetCart";
 
-export default function DisplayValueProducts() {
+export default function DisplayValuesCart() {
   const [products, setProducts] = useState<{ name: string, data: ProductType, uid: string }[]>([])
   const [total, setTotal] = useState<number>(0)
   const [currentPage, setCurrentPage] = useState(0);
@@ -28,10 +28,10 @@ export default function DisplayValueProducts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getDataSearch().then((data) => { 
+      await dbGetCart().then((data) => { 
         setProducts(data) 
       });
-      await getDataSearch().then((data) => { 
+      await dbGetCart().then((data) => { 
         setTotal(data.reduce((acc, product) => {
           return acc + product.data.amount * product.data.price;
         }, 0));
@@ -41,16 +41,14 @@ export default function DisplayValueProducts() {
   }, [])
 
   return (
-    <div className="">
-      <table className="my-6 mx-4 h-4/5">
+    <div className="w-full">
+      <table className="my-6 w-full">
         <thead className="text-left">
           <tr className="bg-gray-400 ">
             <th className="p-2">Produto</th>
             <th className="p-2">Qnt</th>
             <th className="p-2">Preço</th>
-            <th className="p-2">Edit</th>
             <th className="p-2">Del</th>
-            <th className="p-2">Vender</th>
           </tr>
         </thead>
         <tbody>
@@ -59,23 +57,15 @@ export default function DisplayValueProducts() {
               <td className="px-2 py-1">{product.data.name}</td>
               <td className="px-2 py-1">{product.data.amount}</td>
               <td className="px-2 py-1">{product.data.price}</td>
-              <td className="px-2 py-1 text-center"><button onClick={() => (dbOnlyOneProduct(product.uid).then((data) => {
-                setUpdateProduct(data)
-                router.push('/products/editProduct')
-              }))}>{IconEdit}</button></td>
               <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
-              <td className="px-2 py-1 text-center"><button onClick={() => (dbOnlyOneProduct(product.uid).then((data) => {
-                setUpdateProduct(data)
-                router.push('/products/sellProduct')
-              }))}>{IconMoney}</button></td>
             </tr>
           ))}
-          <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={6}><strong>Valor total:</strong> {total}</td></tr>
+          <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={4}><strong>Valor total:</strong> {total}</td></tr>
         </tbody>
       </table>
       <ReactPaginate
-        previousLabel={'Ante'}
-        nextLabel={'Prox'}
+        previousLabel={'◄'}
+        nextLabel={'►'}
         breakLabel={'...'}
         breakClassName={'break-me'}
         pageCount={totalPages}
