@@ -19,7 +19,7 @@ export async function onLoadingSell(loading: any, event: React.FormEvent<HTMLFor
   if(isNameValid && isAmountValid && isPriceValid) {
     await dbPutOnCart(event, data.productFinal)
       .then(() => {
-        submitUpdate(event, {
+        submitUpdate({
           productFinal: {
             name: data.productFinal.name,
             data: {
@@ -28,7 +28,7 @@ export async function onLoadingSell(loading: any, event: React.FormEvent<HTMLFor
               price: data.productFinal.data.price
             }
           },
-          uid: data.uid}).then(() => {
+          uid: data.uid}, event).then(() => {
             toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
             router.push('/products')
           })

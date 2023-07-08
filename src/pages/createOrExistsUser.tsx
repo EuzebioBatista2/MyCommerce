@@ -7,11 +7,13 @@ import Input from "./components/assets/Input";
 import Link from "next/link";
 import { useState } from "react";
 import Loading from "./components/assets/Loading";
-import DisplayValuesCart from "./components/assets/displayValuesCart";
+import Button from "./components/assets/Button";
+import { useRouter } from "next/router";
 
-export default function Cart() {
+export default function CreateOrExistsUser() {
   const [ search, setSearch ] = useState('')
-  
+
+  const router = useRouter()  
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -42,7 +44,8 @@ export default function Cart() {
         <i className="absolute right-2 top-6">{IconSearch}</i>
         </div>
         <div className="p-4">
-          <DisplayValuesCart />
+          <Button color="blue" text="Cria conta do Usuário" onClick={() => router.push('/createUser')} />
+          <Button color="yellow" text="Usuário existente"  />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">

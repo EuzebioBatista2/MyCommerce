@@ -18,7 +18,6 @@ export default function SellForm() {
   const { setLoading } = useLoadingReducer()
   const router = useRouter()
 
-  const [styleInputName, setStyleInputName] = useState<boolean>(true)
   const [styleInputAmount, setStyleInputAmount] = useState<boolean>(true)
 
   useEffect(() => {
@@ -42,7 +41,6 @@ export default function SellForm() {
           uid: productId.uid
         }, productId.productFinal.data.amount)
           .then((isValid) => {
-            setStyleInputName(!!isValid.isNameValid)
             setStyleInputAmount(!!isValid.isAmountValid)
           })
       }}

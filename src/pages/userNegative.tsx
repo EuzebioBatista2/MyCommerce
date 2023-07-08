@@ -7,9 +7,9 @@ import Input from "./components/assets/Input";
 import Link from "next/link";
 import { useState } from "react";
 import Loading from "./components/assets/Loading";
-import DisplayValuesCart from "./components/assets/displayValuesCart";
+import DisplayValueProducts from "./components/assets/displayValuesProducts";
 
-export default function Cart() {
+export default function Products() {
   const [ search, setSearch ] = useState('')
   
   return (
@@ -34,16 +34,14 @@ export default function Cart() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col w-full h-full bg-purple-300">
+      <section className="flex flex-col h-full bg-purple-300">
         <div className="flex items-center justify-center h-16 bg-gray-700 relative">
         <Input type="text" text="Pesquisar" id="search" value={search}
         onChange={(event) => {setSearch(event.target.value)}} inputError={true}
         />
         <i className="absolute right-2 top-6">{IconSearch}</i>
         </div>
-        <div className="p-4">
-          <DisplayValuesCart />
-        </div>
+        <DisplayValueProducts />
       </section>
       <nav className="h-20 bg-gray-700">
         <NavMenu />

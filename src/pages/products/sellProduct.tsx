@@ -5,7 +5,6 @@ import NavProfile from "../components/assets/NavProfile";
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
-import EditForm from "../components/assets/editForm";
 import SellForm from "../components/assets/sellForm";
 
 export default function SellProduct() {

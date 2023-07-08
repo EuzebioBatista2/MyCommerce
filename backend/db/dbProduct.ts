@@ -1,9 +1,9 @@
 import { FinalProductType, ProductType } from "@/types/productType";
 import { authFirebase, dbFirebase } from "../config";
 
-export function submitProduct (event: React.FormEvent<HTMLFormElement>, data: ProductType): Promise<void> {
+export function submitProduct (data: ProductType, event?: React.FormEvent<HTMLFormElement>): Promise<void> {
   return new Promise((resolve, reject) => {
-    event.preventDefault()
+    event?.preventDefault()
     const dataNew: FinalProductType = {
       name: data.name.toLocaleLowerCase(),
       data: data

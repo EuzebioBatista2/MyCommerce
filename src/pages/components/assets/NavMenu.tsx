@@ -14,10 +14,10 @@ export default function NavMenu() {
         <span>Carrinho</span>
       </Link>
       <hr className="h-4/5 border border-black" />
-      <div className="flex flex-col items-center justify-center w-1/3">
+      <Link href={'/userNegative'} className="flex flex-col items-center justify-center w-1/3">
         <i>{IconUserNegative}</i>
         <span>Fiado</span>
-      </div>
+      </Link>
     </div>
   )
 }

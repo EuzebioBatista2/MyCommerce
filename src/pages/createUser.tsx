@@ -1,14 +1,14 @@
 import Head from "next/head";
+import Loading from "./components/assets/Loading";
+import NavProfile from "./components/assets/NavProfile";
+import { IconArrowLeft, IconHome } from "../../public/icons/icons";
+import Footer from "./components/template/Footer";
+import NavMenu from "./components/assets/NavMenu";
+import FormProducts from "./components/assets/FormProducts";
 import Link from "next/link";
-import Loading from "../components/assets/Loading";
-import NavProfile from "../components/assets/NavProfile";
-import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
-import NavMenu from "../components/assets/NavMenu";
-import Footer from "../components/template/Footer";
-import EditForm from "../components/assets/EditForm";
+import UserForm from "./components/assets/userForm";
 
-export default function EditProduct() {
-
+export default function CreateUser() {
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -32,8 +32,8 @@ export default function EditProduct() {
       </section>
       <section className="h-full w-full  bg-purple-300">
         <div className="flex flex-col items-center justify-center w-full h-full px-4">
-          <h1 className="font-semibold text-2xl">Editar Produto</h1>
-          <EditForm />
+          <h1 className="font-semibold text-2xl">Cadastro de Usuários</h1>
+          <UserForm />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">

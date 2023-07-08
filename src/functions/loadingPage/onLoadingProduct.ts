@@ -15,7 +15,7 @@ export async function onLoadingProduct(loading: any, event: React.FormEvent<HTML
   const isPriceValid = verifyPrice(data.price)
 
   if(isNameValid && isAmountValid && isPriceValid) {
-    await submitProduct(event, data)
+    await submitProduct(data, event)
       .then(() => {
         toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
         router.push('/home')

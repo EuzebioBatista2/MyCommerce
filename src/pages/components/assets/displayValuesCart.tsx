@@ -1,18 +1,20 @@
 import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
-import { IconDelete, IconEdit, IconMoney } from "../../../../public/icons/icons"
+import { IconDelete } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
-import { dbOnlyOneProduct } from "../../../../backend/db/dbOnlyOneProduct";
-import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer";
-import { useRouter } from "next/router";
 import { dbGetCart } from "../../../../backend/db/dbGetCart";
+import { onLoadingDeleteCart } from "@/functions/loadingPage/onLoadingDelete";
+import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
+import Button from "./Button";
+import { onLoadingDeleteCartAll } from "@/functions/loadingPage/onLoadingDeleteCart";
+import { useRouter } from "next/router";
 
 export default function DisplayValuesCart() {
   const [products, setProducts] = useState<{ name: string, data: ProductType, uid: string }[]>([])
   const [total, setTotal] = useState<number>(0)
   const [currentPage, setCurrentPage] = useState(0);
 
-  const { setUpdateProduct } = useUpdateProductReducer()
+  const { setLoading } = useLoadingReducer()
   const router = useRouter()
 
   const itemsPerPage = 3;
@@ -57,7 +59,14 @@ export default function DisplayValuesCart() {
               <td className="px-2 py-1">{product.data.name}</td>
               <td className="px-2 py-1">{product.data.amount}</td>
               <td className="px-2 py-1">{product.data.price}</td>
-              <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
+              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteCart(setLoading, product.uid, product.name, product).then((products) => {
+                setProducts(products)
+                dbGetCart().then((data) => { 
+                  setTotal(data.reduce((acc, product) => {
+                    return acc + product.data.amount * product.data.price;
+                  }, 0));
+                })
+              })}>{IconDelete}</button></td>
             </tr>
           ))}
           <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={4}><strong>Valor total:</strong> {total}</td></tr>
@@ -78,6 +87,17 @@ export default function DisplayValuesCart() {
         
       />
 
+    <Button color="yellow" text="Fechar pagamento com dinheiro" onClick={() => {onLoadingDeleteCartAll(setLoading).then((products) => {
+      setProducts(products)
+      dbGetCart().then((data) => { 
+        setTotal(data.reduce((acc, product) => {
+          return acc + product.data.amount * product.data.price;
+        }, 0));
+      })
+    })}} />
+    <Button color="gray" text="Colocar na conta" onClick={() => {
+      router.push('/createOrExistsUser')
+    }}  />
     </div>
   )
 }

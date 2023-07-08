@@ -10,3 +10,8 @@ export interface IIsValidProductType {
   isAmountValid: boolean
   isPriceValid: boolean
 }
+
+export interface IIsValidCreateUser {
+  isNameValid: boolean
+  isPhoneValid: boolean
+}

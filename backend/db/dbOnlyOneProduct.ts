@@ -13,6 +13,8 @@ export function dbOnlyOneProduct(data: string):Promise<ProductTypeState> {
             },
             uid: data
           })
+        }).catch(() => {
+          reject()
         })
       }
     })

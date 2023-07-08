@@ -1,11 +1,13 @@
-import { FinalProductType, ProductType } from "@/types/productType"
+import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
 import { getDataSearch } from "../../../../backend/db/dbSearch"
 import { IconDelete, IconEdit, IconMoney } from "../../../../public/icons/icons"
-import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
+import ReactPaginate from 'react-paginate';
 import { dbOnlyOneProduct } from "../../../../backend/db/dbOnlyOneProduct";
 import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer";
 import { useRouter } from "next/router";
+import { onLoadingDeleteProduct } from "@/functions/loadingPage/onLoadingDelete";
+import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 
 export default function DisplayValueProducts() {
   const [products, setProducts] = useState<{ name: string, data: ProductType, uid: string }[]>([])
@@ -13,6 +15,7 @@ export default function DisplayValueProducts() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const { setUpdateProduct } = useUpdateProductReducer()
+  const { setLoading } = useLoadingReducer()
   const router = useRouter()
 
   const itemsPerPage = 3;
@@ -63,7 +66,14 @@ export default function DisplayValueProducts() {
                 setUpdateProduct(data)
                 router.push('/products/editProduct')
               }))}>{IconEdit}</button></td>
-              <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
+              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteProduct(setLoading, product.uid, product.name).then((products) => {
+                setProducts(products)
+                getDataSearch().then((data) => { 
+                  setTotal(data.reduce((acc, product) => {
+                    return acc + product.data.amount * product.data.price;
+                  }, 0));
+                })
+              })}>{IconDelete}</button></td>
               <td className="px-2 py-1 text-center"><button onClick={() => (dbOnlyOneProduct(product.uid).then((data) => {
                 setUpdateProduct(data)
                 router.push('/products/sellProduct')
