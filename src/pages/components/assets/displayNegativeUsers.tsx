@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { IconCheck, IconDelete, IconEdit, IconInfo } from "../../../../public/icons/icons"
+import { IconCheck, IconDelete, IconEdit, IconInfo, IconSearch } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import { useRouter } from "next/router";
@@ -7,13 +7,17 @@ import { UserNegative } from "@/types/userType";
 import { dbGetUsers } from "../../../../backend/db/dbGetUsers";
 import { useInfoUserReducer } from "@/store/reducers/infoUserReducers/useInfoUserReducer";
 import { onLoadingAddUserCart } from "@/functions/loadingPage/onLoadingAddUserCart";
+import Input from "./Input";
+import { onLoadingDeleteNegativeUser } from "@/functions/loadingPage/onLoadingDeleteNegativeUser";
 
 export default function DisplayNegativeUsers() {
+  const [ search, setSearch ] = useState('')
+
   const [users, setUsers] = useState<{ name: string, data: UserNegative, uidCart: string, uidUser: string }[]>([])
   const [currentPage, setCurrentPage] = useState(0);
 
   const { setLoading } = useLoadingReducer()
-  const { setUserInfo } = useInfoUserReducer()
+  const { userInfo, setUserInfo } = useInfoUserReducer()
   const router = useRouter()
 
   const itemsPerPage = 3;
@@ -29,15 +33,21 @@ export default function DisplayNegativeUsers() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dbGetUsers().then((data) => {
+      await dbGetUsers(search).then((data) => {
         setUsers(data)
       })
     };
     fetchData();
-  }, [])
+  }, [search])
 
   return (
     <div className="w-full">
+      <div className="flex items-center justify-center h-16 bg-gray-700 relative">
+        <Input type="text" text="Pesquisar" id="search" value={search}
+          onChange={(event) => { setSearch(event.target.value) }} inputError={true}
+        />
+        <i className="absolute right-2 top-6">{IconSearch}</i>
+      </div>
       <table className="my-6 w-full">
         <thead className="text-left">
           <tr className="bg-gray-400 ">
@@ -55,11 +65,17 @@ export default function DisplayNegativeUsers() {
                 setUserInfo({ userInfo: { data: users.data, uidCart: users.uidCart, uidUser: users.uidUser } })
                 router.push('/infoUser')
               }}
-                >{IconInfo}</button></td>
+              >{IconInfo}</button></td>
               <td className="px-2 py-1 text-center"><button onClick={() => {
                 onLoadingAddUserCart(setLoading, router, users.uidCart)
               }}>{IconCheck}</button></td>
-              <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
+              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteNegativeUser(setLoading, users.uidUser, users.uidCart)
+                .then(() => {
+                  dbGetUsers('').then((data) => {
+                    setUsers(data)
+                  })
+                })
+              }>{IconDelete}</button></td>
             </tr>
           ))}
         </tbody>

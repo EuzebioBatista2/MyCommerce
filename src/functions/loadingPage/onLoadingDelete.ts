@@ -1,6 +1,6 @@
 import { toastComponent } from "../toasts/Toast";
 import { dbDeleteProduct } from "../../../backend/db/dbDeleteProduct";
-import { getDataSearch } from "../../../backend/db/dbSearch";
+import { getDataSearchValue } from "../../../backend/db/dbSearch";
 import { ProductType, ProductTypeState } from "@/types/productType";
 import { dbGetCart } from "../../../backend/db/dbGetCart";
 import { dbOnlyOneProduct } from "../../../backend/db/dbOnlyOneProduct";
@@ -14,7 +14,7 @@ export async function onLoadingDeleteProduct(loading: any, data: string, name: s
       .then(() => {
         toastComponent({ type: 'success' }, `Produto: ${name} excluído com sucesso!`)
       })
-  await getDataSearch().then((list) => {
+  await getDataSearchValue('').then((list) => {
     loading(false)
     listProducts = list
   })

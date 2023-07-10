@@ -1,17 +1,14 @@
 import Head from "next/head";
 import NavProfile from "./components/assets/NavProfile";
-import { IconAdd, IconHome, IconSearch } from "../../public/icons/icons";
-import NavMenu from "./components/assets/NavMenu";
-import Footer from "./components/template/Footer";
-import Input from "./components/assets/Input";
-import Link from "next/link";
-import { useState } from "react";
 import Loading from "./components/assets/Loading";
-import DisplayValuesCart from "./components/assets/displayValuesCart";
-import DisplayValuesInfoUsers from "./components/assets/displayValuesInfoUsers";
+import Footer from "./components/template/Footer";
+import NavMenu from "./components/assets/NavMenu";
+import { IconAdd, IconHome, IconReport } from "../../public/icons/icons";
+import Link from "next/link";
+import LinkButton from "./components/assets/LinkButton";
+import DisplayValuesReport from "./components/assets/displayValuesReport";
 
-export default function InfoUser() {
-  
+export default function ReportSell() {
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -20,9 +17,9 @@ export default function InfoUser() {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <nav className="w-full h-20 bg-gray-600">
-        <NavProfile /> 
+        <NavProfile />
       </nav>
-      <section  className="w-full h-16 bg-red-500">
+      <section className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
           <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <i>{IconHome}</i>
@@ -34,8 +31,8 @@ export default function InfoUser() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col w-full h-full bg-purple-300">
-        <DisplayValuesInfoUsers />
+      <section className="flex flex-col h-full justify-between bg-purple-300">
+        <DisplayValuesReport />
       </section>
       <nav className="h-20 bg-gray-700">
         <NavMenu />

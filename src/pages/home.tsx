@@ -3,8 +3,10 @@ import NavProfile from "./components/assets/NavProfile";
 import Loading from "./components/assets/Loading";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
-import { IconAdd, IconHome } from "../../public/icons/icons";
+import { IconAdd, IconHome, IconReport } from "../../public/icons/icons";
 import Link from "next/link";
+import LinkButton from "./components/assets/LinkButton";
+import DisplayValuesDataHome from "./components/assets/displayValuesDataHome";
 
 export default function Home() {
   return (
@@ -33,12 +35,9 @@ export default function Home() {
         <div className="flex w-full items-center justify-center py-10">
           <h1 className="font-semibold text-2xl">Dados do comércio</h1>
         </div>
-        <ul className="flex h-full items-start flex-col text-xl gap-14 px-4">
-          <li>Quantidade de produtos:</li>
-          <li>Usuários em dívida:</li>
-        </ul>
-        <div className="flex h-16 items-center justify-end text-lg bg-gray-400"> 
-          <span className="mr-2">Valor total: </span>
+        <div className="flex h-full items-start flex-col text-xl gap-14 px-4">
+          <DisplayValuesDataHome />
+          <LinkButton link="/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">

@@ -10,8 +10,6 @@ import Loading from "./components/assets/Loading";
 import DisplayValueProducts from "./components/assets/displayValuesProducts";
 
 export default function Products() {
-  const [ search, setSearch ] = useState('')
-  
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -35,12 +33,6 @@ export default function Products() {
         </div>
       </section>
       <section className="flex flex-col h-full bg-purple-300">
-        <div className="flex items-center justify-center h-16 bg-gray-700 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
-        onChange={(event) => {setSearch(event.target.value)}} inputError={true}
-        />
-        <i className="absolute right-2 top-6">{IconSearch}</i>
-        </div>
         <DisplayValueProducts />
       </section>
       <nav className="h-20 bg-gray-700">

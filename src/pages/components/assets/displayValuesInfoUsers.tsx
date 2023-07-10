@@ -3,15 +3,16 @@ import ReactPaginate from 'react-paginate';
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import { useRouter } from "next/router";
 import { UserCart, UserNegative } from "@/types/userType";
-import { dbGetUser } from "../../../../backend/db/dbGetUsers";
-import { ProductType } from "@/types/productType";
-import { getDataSearch } from "../../../../backend/db/dbSearch";
-import { IconDelete } from "../../../../public/icons/icons";
+import { IconDelete, IconSearch } from "../../../../public/icons/icons";
 import { useInfoUserReducer } from "@/store/reducers/infoUserReducers/useInfoUserReducer";
 import { dbGetUserCart } from "../../../../backend/db/dbGetUserCart";
+import Input from "./Input";
+import { onLoadingDeleteProductUser } from "@/functions/loadingPage/onLoadingDeleteProductUser";
 
 export default function DisplayValuesInfoUsers() {
-  const [users, setUsers] = useState<{ data: UserNegative, uidCart: string, uidUser: string }>({ data: {name: '', phone: ''}, uidCart: '', uidUser: ''})
+  const [search, setSearch] = useState('')
+
+  const [users, setUsers] = useState<{ data: UserNegative, uidCart: string, uidUser: string }>({ data: { name: '', phone: '' }, uidCart: '', uidUser: '' })
   const [currentPage, setCurrentPage] = useState(0);
 
   const [products, setProducts] = useState<{ name: string, data: UserCart, uid: string }[]>([])
@@ -33,27 +34,39 @@ export default function DisplayValuesInfoUsers() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
-    setUsers(userInfo)
-    const fetchData = async () => {
-      await dbGetUserCart(userInfo.uidCart).then((data) => {
-        setProducts(data)
-      });
-      await dbGetUserCart(userInfo.uidCart).then((data) => {
-        setTotal(data.reduce((acc, product) => {
-          return acc + product.data.amount * product.data.price;
-        }, 0));
-      })
-    };
-    fetchData();
+    if (userInfo.uidUser !== '') {
+      setUsers(userInfo)
+      const fetchData = async () => {
+        await dbGetUserCart(userInfo.uidCart, search).then((data) => {
+          setProducts(data)
+        });
+        await dbGetUserCart(userInfo.uidCart, search).then((data) => {
+          setTotal(data.reduce((acc, product) => {
+            return acc + product.data.amount * product.data.price;
+          }, 0));
+        })
+      };
+      fetchData();
+    } else {
+      router.push('/userNegative')
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [search])
 
   return (
-    <div className="w-full">
+    <div className="">
+      <div className="flex items-center justify-center h-16 bg-gray-700 relative">
+        <Input type="text" text="Pesquisar" id="search" value={search}
+          onChange={(event) => { setSearch(event.target.value) }} inputError={true}
+        />
+        <i className="absolute right-2 top-6">{IconSearch}</i>
+      </div>
+
       <h2>Nome: {users.data.name}</h2>
       <h4>Telefone: {users.data.phone}</h4>
 
-      <table className="my-6 mx-4 h-4/5">
+      <table className="my-6 mx-4 h-2/5">
         <thead className="text-left">
           <tr className="bg-gray-400 ">
             <th className="p-2">Produto</th>
@@ -70,7 +83,18 @@ export default function DisplayValuesInfoUsers() {
               <td className="px-2 py-1">{product.data.amount}</td>
               <td className="px-2 py-1">{product.data.price}</td>
               <td className="px-2 py-1">{product.data.date}</td>
-              <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
+              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteProductUser(setLoading, userInfo.uidCart, product.uid)
+                .then(() => {
+                  dbGetUserCart(userInfo.uidCart, '').then((data) => {
+                    setProducts(data)
+                  });
+                  dbGetUserCart(userInfo.uidCart, '').then((data) => {
+                    setTotal(data.reduce((acc, product) => {
+                      return acc + product.data.amount * product.data.price;
+                    }, 0));
+                  })
+                })}
+              >{IconDelete}</button></td>
             </tr>
           ))}
           <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={5}><strong>Valor total:</strong> {total}</td></tr>

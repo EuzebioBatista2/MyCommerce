@@ -3,14 +3,12 @@ import NavProfile from "./components/assets/NavProfile";
 import { IconAdd, IconHome, IconSearch } from "../../public/icons/icons";
 import NavMenu from "./components/assets/NavMenu";
 import Footer from "./components/template/Footer";
-import Input from "./components/assets/Input";
 import Link from "next/link";
-import { useState } from "react";
 import Loading from "./components/assets/Loading";
 import DisplayNegativeUsers from "./components/assets/displayNegativeUsers";
 
 export default function Products() {
-  const [ search, setSearch ] = useState('')
+  
   
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
@@ -35,12 +33,6 @@ export default function Products() {
         </div>
       </section>
       <section className="flex flex-col h-full bg-purple-300">
-        <div className="flex items-center justify-center h-16 bg-gray-700 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
-        onChange={(event) => {setSearch(event.target.value)}} inputError={true}
-        />
-        <i className="absolute right-2 top-6">{IconSearch}</i>
-        </div>
         <DisplayNegativeUsers />
       </section>
       <nav className="h-20 bg-gray-700">

@@ -1,15 +1,18 @@
 import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
-import { getDataSearch } from "../../../../backend/db/dbSearch"
-import { IconDelete, IconEdit, IconMoney } from "../../../../public/icons/icons"
+import { getDataSearchValue } from "../../../../backend/db/dbSearch"
+import { IconDelete, IconEdit, IconMoney, IconSearch } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
 import { dbOnlyOneProduct } from "../../../../backend/db/dbOnlyOneProduct";
 import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer";
 import { useRouter } from "next/router";
 import { onLoadingDeleteProduct } from "@/functions/loadingPage/onLoadingDelete";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
+import Input from "./Input";
 
 export default function DisplayValueProducts() {
+  const [ search, setSearch ] = useState('')
+
   const [products, setProducts] = useState<{ name: string, data: ProductType, uid: string }[]>([])
   const [total, setTotal] = useState<number>(0)
   const [currentPage, setCurrentPage] = useState(0);
@@ -30,21 +33,27 @@ export default function DisplayValueProducts() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getDataSearch().then((data) => { 
-        setProducts(data) 
-      });
-      await getDataSearch().then((data) => { 
+    const fetchSearch = async () => {
+      await getDataSearchValue(search).then((data) => {
+        setProducts(data)
+      })
+      await getDataSearchValue(search).then((data) => {
         setTotal(data.reduce((acc, product) => {
           return acc + product.data.amount * product.data.price;
         }, 0));
       })
-    };
-    fetchData();
-  }, [])
+    }
+    fetchSearch()
+  }, [search])
 
   return (
     <div className="">
+      <div className="flex items-center justify-center h-16 bg-gray-700 relative">
+        <Input type="text" text="Pesquisar" id="search" value={search}
+          onChange={(event) => { setSearch(event.target.value) }} inputError={true}
+        />
+        <i className="absolute right-2 top-6">{IconSearch}</i>
+      </div>
       <table className="my-6 mx-4 h-4/5">
         <thead className="text-left">
           <tr className="bg-gray-400 ">
@@ -68,7 +77,7 @@ export default function DisplayValueProducts() {
               }))}>{IconEdit}</button></td>
               <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteProduct(setLoading, product.uid, product.name).then((products) => {
                 setProducts(products)
-                getDataSearch().then((data) => { 
+                getDataSearchValue(search).then((data) => {
                   setTotal(data.reduce((acc, product) => {
                     return acc + product.data.amount * product.data.price;
                   }, 0));
@@ -95,7 +104,7 @@ export default function DisplayValueProducts() {
         containerClassName={'pagination'}
         activeClassName={'bg-red-500 px-2 py-1'}
         className="flex w-full items-center justify-center gap-6 h-1/5"
-        
+
       />
 
     </div>

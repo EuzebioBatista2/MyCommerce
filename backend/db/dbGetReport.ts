@@ -1,13 +1,13 @@
 import { UserCart } from '@/types/userType';
 import { authFirebase, dbFirebase } from "../config"
 
-export const dbGetUserCart = (uidCart: string, value: string): Promise<{ name: string, data: UserCart, uid: string }[]> => {
+export const dbGetReport = ( value: string): Promise<{ name: string, data: UserCart, uid: string }[]> => {
   return new Promise((resolve, reject) => {
     let list: any[] = []
     let valueLower = value.toLocaleLowerCase()
     authFirebase.onAuthStateChanged((user) => {
       if (user) {
-        dbFirebase.doc(user.uid).collection('ListUsersProducts').doc(uidCart).collection('Products')
+        dbFirebase.doc(user.uid).collection('Report')
         .orderBy('name')
         .startAt(valueLower).endAt(valueLower + '\uf8ff')
         .get()
@@ -20,7 +20,6 @@ export const dbGetUserCart = (uidCart: string, value: string): Promise<{ name: s
               price: product.data().data.price,
               date: product.data().data.date
             },
-            uid: product.id
           }))
           resolve(list)
         }, (error) => {
