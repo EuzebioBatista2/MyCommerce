@@ -9,6 +9,7 @@ import { useState } from "react";
 import Loading from "./components/assets/Loading";
 import Button from "./components/assets/Button";
 import { useRouter } from "next/router";
+import LinkButton from "./components/assets/LinkButton";
 
 export default function CreateOrExistsUser() {
   const [ search, setSearch ] = useState('')
@@ -45,7 +46,7 @@ export default function CreateOrExistsUser() {
         </div>
         <div className="p-4">
           <Button color="blue" text="Cria conta do Usuário" onClick={() => router.push('/createUser')} />
-          <Button color="yellow" text="Usuário existente"  />
+          <LinkButton link={'/userNegative'} color="yellow" text="Usuário existente"  />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">

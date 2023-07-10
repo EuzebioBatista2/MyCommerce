@@ -12,3 +12,10 @@ export interface UserData {
   name: string
   data: UserNegative
 }
+
+export interface UserCart {
+  name: string;
+  amount: number;
+  price: number;
+  date: string;
+}

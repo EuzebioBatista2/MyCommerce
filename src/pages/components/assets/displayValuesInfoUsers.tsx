@@ -1,21 +1,24 @@
-import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
-import { IconDelete } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
-import { dbGetCart } from "../../../../backend/db/dbGetCart";
-import { onLoadingDeleteCart } from "@/functions/loadingPage/onLoadingDelete";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
-import Button from "./Button";
-import { onLoadingDeleteCartAll } from "@/functions/loadingPage/onLoadingDeleteCart";
 import { useRouter } from "next/router";
-import LinkButton from "./LinkButton";
+import { UserCart, UserNegative } from "@/types/userType";
+import { dbGetUser } from "../../../../backend/db/dbGetUsers";
+import { ProductType } from "@/types/productType";
+import { getDataSearch } from "../../../../backend/db/dbSearch";
+import { IconDelete } from "../../../../public/icons/icons";
+import { useInfoUserReducer } from "@/store/reducers/infoUserReducers/useInfoUserReducer";
+import { dbGetUserCart } from "../../../../backend/db/dbGetUserCart";
 
-export default function DisplayValuesCart() {
-  const [products, setProducts] = useState<{ name: string, data: ProductType, uid: string }[]>([])
-  const [total, setTotal] = useState<number>(0)
+export default function DisplayValuesInfoUsers() {
+  const [users, setUsers] = useState<{ data: UserNegative, uidCart: string, uidUser: string }>({ data: {name: '', phone: ''}, uidCart: '', uidUser: ''})
   const [currentPage, setCurrentPage] = useState(0);
 
+  const [products, setProducts] = useState<{ name: string, data: UserCart, uid: string }[]>([])
+  const [total, setTotal] = useState<number>(0)
+
   const { setLoading } = useLoadingReducer()
+  const { userInfo } = useInfoUserReducer()
   const router = useRouter()
 
   const itemsPerPage = 3;
@@ -30,27 +33,33 @@ export default function DisplayValuesCart() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
+    setUsers(userInfo)
     const fetchData = async () => {
-      await dbGetCart().then((data) => { 
-        setProducts(data) 
+      await dbGetUserCart(userInfo.uidCart).then((data) => {
+        setProducts(data)
       });
-      await dbGetCart().then((data) => { 
+      await dbGetUserCart(userInfo.uidCart).then((data) => {
         setTotal(data.reduce((acc, product) => {
           return acc + product.data.amount * product.data.price;
         }, 0));
       })
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <div className="w-full">
-      <table className="my-6 w-full">
+      <h2>Nome: {users.data.name}</h2>
+      <h4>Telefone: {users.data.phone}</h4>
+
+      <table className="my-6 mx-4 h-4/5">
         <thead className="text-left">
           <tr className="bg-gray-400 ">
             <th className="p-2">Produto</th>
             <th className="p-2">Qnt</th>
             <th className="p-2">Preço</th>
+            <th className="p-2">Data</th>
             <th className="p-2">Del</th>
           </tr>
         </thead>
@@ -60,17 +69,11 @@ export default function DisplayValuesCart() {
               <td className="px-2 py-1">{product.data.name}</td>
               <td className="px-2 py-1">{product.data.amount}</td>
               <td className="px-2 py-1">{product.data.price}</td>
-              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteCart(setLoading, product.uid, product.name, product).then((products) => {
-                setProducts(products)
-                dbGetCart().then((data) => { 
-                  setTotal(data.reduce((acc, product) => {
-                    return acc + product.data.amount * product.data.price;
-                  }, 0));
-                })
-              })}>{IconDelete}</button></td>
+              <td className="px-2 py-1">{product.data.date}</td>
+              <td className="px-2 py-1 text-center"><button>{IconDelete}</button></td>
             </tr>
           ))}
-          <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={4}><strong>Valor total:</strong> {total}</td></tr>
+          <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={5}><strong>Valor total:</strong> {total}</td></tr>
         </tbody>
       </table>
       <ReactPaginate
@@ -85,18 +88,8 @@ export default function DisplayValuesCart() {
         containerClassName={'pagination'}
         activeClassName={'bg-red-500 px-2 py-1'}
         className="flex w-full items-center justify-center gap-6 h-1/5"
-        
-      />
 
-    <Button color="yellow" text="Fechar pagamento com dinheiro" onClick={() => {onLoadingDeleteCartAll(setLoading).then((products) => {
-      setProducts(products)
-      dbGetCart().then((data) => { 
-        setTotal(data.reduce((acc, product) => {
-          return acc + product.data.amount * product.data.price;
-        }, 0));
-      })
-    })}} />
-    <LinkButton link={'/createOrExistsUser'} color="gray" text="Colocar na conta" />
+      />
     </div>
   )
 }

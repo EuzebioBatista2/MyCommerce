@@ -4,9 +4,8 @@ import NavProfile from "./components/assets/NavProfile";
 import { IconArrowLeft, IconHome } from "../../public/icons/icons";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
-import FormProducts from "./components/assets/FormProducts";
 import Link from "next/link";
-import UserForm from "./components/assets/userForm";
+import UserForm from "./components/assets/UserForm";
 
 export default function CreateUser() {
   return (

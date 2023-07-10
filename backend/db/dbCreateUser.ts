@@ -1,15 +1,14 @@
-import { FinalProductType, ProductType } from "@/types/productType";
+import { UserNegative } from './../../src/types/userType';
 import { authFirebase, dbFirebase } from "../config";
-import { UserData, UserNegative } from "@/types/userType";
 
 export function dbCreateUser (data: UserNegative, event?: React.FormEvent<HTMLFormElement>): Promise<void> {
   return new Promise((resolve, reject) => {
     event?.preventDefault()
-    const dataNew: UserData = {
-      name: data.name.toLocaleLowerCase(),
-      data: data
-    }
-    dbFirebase.doc(authFirebase.currentUser?.uid).collection('NegativeUsers').doc(data.name).collection('UserInformation').add(dataNew).then(() => {
+    dbFirebase.doc(authFirebase.currentUser?.uid).collection('ListUsersProducts').add({}).then((user) => {
+      dbFirebase.doc(authFirebase.currentUser?.uid).collection('ListUsers').add({
+        name: data.name.toLocaleLowerCase(), 
+        data: {name: data.name, phone: data.phone}, 
+        uid: user.id})
       resolve()
     }).catch(() => {
       reject()
