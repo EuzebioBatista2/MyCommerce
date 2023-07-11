@@ -1,7 +1,8 @@
+import { ReportType } from '@/types/reportType';
 import { UserCart } from '@/types/userType';
 import { authFirebase, dbFirebase } from "../config"
 
-export const dbGetReport = ( value: string): Promise<{ name: string, data: UserCart, uid: string }[]> => {
+export const dbGetReport = ( value: string): Promise<{ name: string, data: ReportType[], user: string, date: string, uid: string }[]> => {
   return new Promise((resolve, reject) => {
     let list: any[] = []
     let valueLower = value.toLocaleLowerCase()
@@ -14,13 +15,19 @@ export const dbGetReport = ( value: string): Promise<{ name: string, data: UserC
         .then((products) => {
           list = products.docs.map((product) => ({
             name: product.data().name,
-            data: {
-              name: product.data().data.name,
-              amount: product.data().data.amount,
-              price: product.data().data.price,
-              date: product.data().data.date
-            },
+            user: product.data().user,
+            data: product.data().data,
+            date: product.data().date,
+            uid: product.id
           }))
+
+          list.sort((a, b) => {
+            const dateA = new Date(a.date)
+            const dateB = new Date(b.date)
+
+            return dateA.getTime() - dateB.getTime()
+          });
+
           resolve(list)
         }, (error) => {
           reject(error)

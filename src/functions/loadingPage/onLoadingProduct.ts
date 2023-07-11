@@ -19,6 +19,8 @@ export async function onLoadingProduct(loading: any, event: React.FormEvent<HTML
       .then(() => {
         toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
         router.push('/home')
+      }).catch(() => {
+        toastComponent({ type: 'error' }, 'Produto já existe!')
       })
   }
   loading(false)

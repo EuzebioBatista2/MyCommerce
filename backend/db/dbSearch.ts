@@ -20,7 +20,7 @@ export const getDataSearchValue = (value: string): Promise<{name: string, data: 
                 uid: product.id
               })
             } else {
-
+              dbFirebase.doc(user.uid).collection('Products').doc(product.id).delete()
             }
           })
           resolve(list)

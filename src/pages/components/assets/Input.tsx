@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Button from "./Button"
 
 interface IInputProps {
   type: "text" | "password" | "file" | "number"
@@ -8,6 +9,7 @@ interface IInputProps {
   value?: string | undefined | number
   inputError: boolean
   animated?: boolean
+  userImage?: boolean
 }
 
 export default function Input(props: IInputProps) {
@@ -23,12 +25,22 @@ export default function Input(props: IInputProps) {
 
   return (
     props.type === "file" ? (
-      <div className="flex items-center h-14 relative px-1 py-3.5 text-sm">
-        <label htmlFor="file" className="w-1/2 text-base">{props.text}</label>
-        <input type={props.type} name={props.id} id={props.id} accept="image/*" onChange={props.onChange}
-          className={`${props.inputError ? '' : 'text-red-500 border-red-500'}`}
-        />
-      </div>
+      props.userImage ? (
+        <div className="flex items-center h-14 relative px-1 py-3.5 text-sm">
+          <label htmlFor={props.id} className="w-full text-base">
+            <span className="flex items-center justify-center w-full h-8 mt-4 relative bg-blue-500 text-lg font-semibold text-white rounded-sm">Selecione uma imagem</span></label>
+          <input type={props.type} name={props.id} id={props.id} accept="image/*" onChange={props.onChange}
+            className={`${props.inputError ? '' : 'text-red-500 border-red-500'} hidden`} 
+          />
+        </div>
+      ) : (
+        <div className="flex items-center h-14 relative px-1 py-3.5 text-sm">
+          <label htmlFor="file" className="w-1/2 text-base">{props.text}</label>
+          <input type={props.type} name={props.id} id={props.id} accept="image/*" onChange={props.onChange}
+            className={`${props.inputError ? '' : 'text-red-500 border-red-500'}`} 
+          />
+        </div>
+      )
     ) : (
       <div className="flex items-center justify-center h-14 relative px-1 w-full">
         <label htmlFor={props.id}

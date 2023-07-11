@@ -6,6 +6,7 @@ import { useMenuProfile } from "@/store/reducers/menuProfileReducers/useMenuProf
 import { IconArrowDown, IconArrowLeft, IconEditLogin, IconLogOut } from "../../../../public/icons/icons";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import { submitLogout } from "../../../../backend/auth/submitLogout";
+import Link from "next/link";
 
 export default function NavProfile() {
   const { setLoading } = useLoadingReducer()
@@ -45,10 +46,10 @@ export default function NavProfile() {
         <i className="flex items-center h-4 w-4">{activate ? IconArrowDown : IconArrowLeft}</i>
       </div>
       <div className={`absolute w-1/2 bg-gray-400 right-0 top-14 overflow-hidden transition-all duration-300 ease-in-out ${activate ? 'flex flex-col items-center h-24 z-20' : 'h-0'}`}>
-        <div className="flex items-center justify-center w-full h-1/2 gap-1">
+        <Link href={'/dataMainUser'} className="flex items-center justify-center w-full h-1/2 gap-1">
           <span>Dados do usuário</span>
           <i>{IconEditLogin}</i>
-        </div>
+        </Link>
         <hr className="w-4/5 border-gray-200" />
         <div className="flex items-center justify-center w-full h-1/2 gap-1 cursor-pointer" onClick={() => submitLogout(router, setLoading)}>
           <span>Sair</span>

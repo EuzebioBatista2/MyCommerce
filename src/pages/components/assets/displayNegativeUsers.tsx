@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { IconCheck, IconDelete, IconEdit, IconInfo, IconSearch } from "../../../../public/icons/icons"
+import { IconCheck, IconInfo, IconSearch, IconStore } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import { useRouter } from "next/router";
@@ -54,7 +54,7 @@ export default function DisplayNegativeUsers() {
             <th className="p-2">Nome</th>
             <th className="p-2">Info</th>
             <th className="p-2">Inserir produtos</th>
-            <th className="p-2">Del</th>
+            <th className="p-2">Pagar</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +75,7 @@ export default function DisplayNegativeUsers() {
                     setUsers(data)
                   })
                 })
-              }>{IconDelete}</button></td>
+              }>{IconStore}</button></td>
             </tr>
           ))}
         </tbody>

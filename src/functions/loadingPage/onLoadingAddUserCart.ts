@@ -23,7 +23,7 @@ export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid
     })
   })
   await onLoadingDeleteCartAll(loading).then(() => {
-    toastComponent({ type: 'success' }, 'Produto inseridos com sucesso!')
+    toastComponent({ type: 'success' }, 'Produto inseridos na conta do usuário!')
     router.push('/userNegative')
   })
 }

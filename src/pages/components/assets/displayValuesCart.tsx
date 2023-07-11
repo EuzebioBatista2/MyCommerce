@@ -2,15 +2,12 @@ import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
 import { IconDelete, IconSearch } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
-import { dbGetCart, dbGetCartSearch } from "../../../../backend/db/dbGetCart";
-import { onLoadingDeleteCart } from "@/functions/loadingPage/onLoadingDelete";
+import { dbGetCartSearch } from "../../../../backend/db/dbGetCart";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
-import Button from "./Button";
-import { onLoadingDeleteCartAll } from "@/functions/loadingPage/onLoadingDeleteCart";
 import { useRouter } from "next/router";
 import LinkButton from "./LinkButton";
 import Input from "./Input";
-import { onLoadingAddReport } from "@/functions/loadingPage/onLoadingAddReport";
+import { dbRemoveAndUpdateProductCart } from "../../../../backend/db/dbRemoveAndUpdateProductCart";
 
 export default function DisplayValuesCart() {
   const [ search, setSearch ] = useState('')
@@ -70,9 +67,11 @@ export default function DisplayValuesCart() {
               <td className="px-2 py-1">{product.data.name}</td>
               <td className="px-2 py-1">{product.data.amount}</td>
               <td className="px-2 py-1">{product.data.price}</td>
-              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteCart(setLoading, product.uid, product.name, product).then((products) => {
-                setProducts(products)
-                dbGetCartSearch(search).then((data) => {
+              <td className="px-2 py-1 text-center"><button onClick={() => dbRemoveAndUpdateProductCart(setLoading, product.data, product.uid).then(() => {
+                dbGetCartSearch('').then((data) => {
+                  setProducts(data)
+                });
+                dbGetCartSearch('').then((data) => {
                   setTotal(data.reduce((acc, product) => {
                     return acc + product.data.amount * product.data.price;
                   }, 0));
@@ -97,13 +96,7 @@ export default function DisplayValuesCart() {
         className="flex w-full items-center justify-center gap-6 h-1/5"
       />
 
-      <Button color="yellow" text="Fechar pagamento com dinheiro" onClick={() => {
-        onLoadingAddReport(setLoading)
-        onLoadingDeleteCartAll(setLoading).then((products) => {
-          setProducts(products)
-          setTotal(0)
-        })
-      }} />
+      <LinkButton link={'/identifyUser'} color="yellow" text="Fechar pagamento com dinheiro" />
       <LinkButton link={'/createOrExistsUser'} color="gray" text="Colocar na conta" />
     </div>
   )

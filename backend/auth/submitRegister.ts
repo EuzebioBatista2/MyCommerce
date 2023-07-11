@@ -26,7 +26,7 @@ export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: Re
         }
       })
       .then(() => {
-        const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/${image[0].name}`);
+        const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/mainImage/${image[0].name}`);
         if (image[0].name !== '') {
           urlImage.put(image[0]).then(() => urlImage.getDownloadURL().then((downloadURL) => dbImageAndData(downloadURL, dataUid)));
         }

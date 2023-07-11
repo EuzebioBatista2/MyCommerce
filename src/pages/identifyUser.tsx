@@ -7,7 +7,7 @@ import NavMenu from "./components/assets/NavMenu";
 import Link from "next/link";
 import UserForm from "./components/assets/UserForm";
 
-export default function CreateUser() {
+export default function IdentifyUser() {
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -31,8 +31,8 @@ export default function CreateUser() {
       </section>
       <section className="h-full w-full  bg-purple-300">
         <div className="flex flex-col items-center justify-center w-full h-full px-4">
-          <h1 className="font-semibold text-2xl">Cadastro de Usuários</h1>
-          <UserForm mode="User" />
+          <h1 className="font-semibold text-2xl">Nome do usuário</h1>
+          <UserForm mode="Identify" />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">
