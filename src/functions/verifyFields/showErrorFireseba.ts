@@ -4,7 +4,6 @@ export function showErrorFirebase(error: any) {
     case 'auth/user-not-found':
       break;
     default:
-      console.log("Erro desconhecido:", error.code);
       break;
   }
 }

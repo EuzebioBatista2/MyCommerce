@@ -37,7 +37,7 @@ export default function Input(props: IInputProps) {
         <label htmlFor={props.id}
           className={`text-sm pr-2`}
         >{props.text}</label>
-        <input type={props.type} name={props.id} id={props.id} onChange={props.onChange}
+        <input type={props.type} name={props.id} id={props.id} onChange={props.onChange} checked={props.checked}
         />
       </div>
     ) : (

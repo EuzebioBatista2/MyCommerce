@@ -26,7 +26,7 @@ export default function Products() {
             <i>{IconHome}</i>
             <span className="mt-1">Página Inicial</span>
           </Link>
-          <Link href={'/products/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/userNegative/createUser'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <span className="mt-1">Criar usuário</span>
             <i>{IconAdd}</i>
           </Link>

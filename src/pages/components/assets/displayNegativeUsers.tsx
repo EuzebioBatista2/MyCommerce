@@ -9,6 +9,7 @@ import { useInfoUserReducer } from "@/store/reducers/infoUserReducers/useInfoUse
 import { onLoadingAddUserCart } from "@/functions/loadingPage/onLoadingAddUserCart";
 import Input from "./Input";
 import { onLoadingDeleteNegativeUser } from "@/functions/loadingPage/onLoadingDeleteNegativeUser";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayNegativeUsers() {
   const [ search, setSearch ] = useState('')
@@ -17,7 +18,7 @@ export default function DisplayNegativeUsers() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const { setLoading } = useLoadingReducer()
-  const { userInfo, setUserInfo } = useInfoUserReducer()
+  const { setUserInfo } = useInfoUserReducer()
   const router = useRouter()
 
   const itemsPerPage = 3;
@@ -33,12 +34,33 @@ export default function DisplayNegativeUsers() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dbGetUsers(search).then((data) => {
-        setUsers(data)
+      authFirebase.onAuthStateChanged(async (user) => {
+        if(user) {
+          await dbGetUsers(search).then((data) => {
+            setUsers(data)
+          })
+        } else {
+          window.location.href = '/'
+        }
       })
-    };
+    }
     fetchData();
   }, [search])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="w-full">

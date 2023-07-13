@@ -10,6 +10,7 @@ import { onLoadingLogin } from "@/functions/loadingPage/onLoadingLogin"
 import Image from "next/image"
 import { onLoadingResetPassword } from "@/functions/loadingPage/onLoadingResetPassword"
 import { verifyImage } from "@/functions/verifyFields/verifyImage"
+import { verifyCheckBox } from "@/functions/verifyFields/verifyCheckbox"
 
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
@@ -37,15 +38,6 @@ export default function FormAuth(props: IFormProps) {
   const [styleInputPassword, setStyleInputPassword] = useState<boolean>(true)
 
   useEffect(() => {
-
-    if (checkbox === true) {
-      localStorage.setItem('rememberMyAccontMyCommerce', 'true')
-    } else {
-      localStorage.setItem('rememberMyAccontMyCommerce', 'false')
-    }
-  }, [checkbox])
-
-  useEffect(() => {
     if (image && image[0]) {
       const reader = new FileReader();
       let IsValid: boolean = verifyImage(image[0])
@@ -60,6 +52,15 @@ export default function FormAuth(props: IFormProps) {
       }
     }
   }, [image])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if (remember === "true") {
+      setCheckbox(true)
+    } else {
+      setCheckbox(false)
+    }
+  }, [])
 
   return (
     props.type === 'login' ? (
@@ -77,8 +78,11 @@ export default function FormAuth(props: IFormProps) {
             onChange={(event) => { setEmail(event.target.value), setStyleInputEmail(true) }} value={email} />
           <Input type="password" text="Senha" id="password" inputError={styleInputPassword}
             onChange={(event) => { setPassword(event.target.value), setStyleInputPassword(true) }} value={password} />
-          <Input type="checkbox" text="Mantenha-me conectado" id="verify"
-            onChange={(event) => { setCheckbox(event.target.checked) }} />
+          <Input type="checkbox" text="Mantenha-me conectado" id="verify" checked={checkbox}
+            onChange={(event) => { 
+              setCheckbox(event.target.checked) 
+              verifyCheckBox(event.target.checked)
+            }} />
           <Button color="blue" text="Login" submit />
         </form>
       </div>

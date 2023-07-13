@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react"
 import { dbGetAmountProducts, dbGetAmountUsers } from "../../../../backend/db/dbDataHome";
-import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
-import { useRouter } from "next/router";
 import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValuesDataHome() {
   const [amountProducts, setAmountProducts] = useState(0)
   const [amountUsers, setAmountUsers] = useState(0)
 
-  const { setLoading } = useLoadingReducer()
-  const router = useRouter()
 
   useEffect(() => {
     const fetchData = () => {
@@ -22,13 +18,28 @@ export default function DisplayValuesDataHome() {
             setAmountUsers(data)
           });
         } else {
-          router.push('/')
+          window.location.href = '/'
         }
       })
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="flex flex-col w-full">

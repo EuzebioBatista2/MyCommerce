@@ -8,6 +8,7 @@ import { useInfoUserReducer } from "@/store/reducers/infoUserReducers/useInfoUse
 import { dbGetUserCart } from "../../../../backend/db/dbGetUserCart";
 import Input from "./Input";
 import { onLoadingDeleteProductUser } from "@/functions/loadingPage/onLoadingDeleteProductUser";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValuesInfoUsers() {
   const [search, setSearch] = useState('')
@@ -34,25 +35,45 @@ export default function DisplayValuesInfoUsers() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
-    if (userInfo.uidUser !== '') {
-      setUsers(userInfo)
-      const fetchData = async () => {
-        await dbGetUserCart(userInfo.uidCart, search).then((data) => {
-          setProducts(data)
-        });
-        await dbGetUserCart(userInfo.uidCart, search).then((data) => {
-          setTotal(data.reduce((acc, product) => {
-            return acc + product.data.amount * product.data.price;
-          }, 0));
-        })
-      };
-      fetchData();
-    } else {
-      router.push('/userNegative')
-    }
-
+    authFirebase.onAuthStateChanged(async (user) => {
+      if(user) {
+        if (userInfo.uidUser !== '') {
+          setUsers(userInfo)
+          const fetchData = async () => {
+            await dbGetUserCart(userInfo.uidCart, search).then((data) => {
+              setProducts(data)
+            });
+            await dbGetUserCart(userInfo.uidCart, search).then((data) => {
+              setTotal(data.reduce((acc, product) => {
+                return acc + product.data.amount * product.data.price;
+              }, 0));
+            })
+          };
+          fetchData();
+        } else {
+          router.push('/userNegative')
+        }
+      }  else {
+        window.location.href = '/'
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="">

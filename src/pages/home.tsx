@@ -3,7 +3,7 @@ import NavProfile from "./components/assets/NavProfile";
 import Loading from "./components/assets/Loading";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
-import { IconAdd, IconHome, IconReport } from "../../public/icons/icons";
+import { IconHome, IconReport } from "../../public/icons/icons";
 import Link from "next/link";
 import LinkButton from "./components/assets/LinkButton";
 import DisplayValuesDataHome from "./components/assets/displayValuesDataHome";

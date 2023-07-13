@@ -9,17 +9,19 @@ export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid
   loading(true)
   await dbGetCart().then((list) => {
     authFirebase.onAuthStateChanged((user) => {
-      list.map((product) => {
-        dbFirebase.doc(user?.uid).collection('ListUsersProducts').doc(uid).collection('Products').add({
-          name: product.name,
-          data: {
-            name: product.data.name, 
-            amount: product.data.amount,
-            price: product.data.price,
-            date: formatDate(new Date())
-          }
+      if(user) {
+        list.map((product) => {
+          dbFirebase.doc(user.uid).collection('ListUsersProducts').doc(uid).collection('Products').add({
+            name: product.name,
+            data: {
+              name: product.data.name, 
+              amount: product.data.amount,
+              price: product.data.price,
+              date: formatDate(new Date())
+            }
+          })
         })
-      })
+      }
     })
   })
   await onLoadingDeleteCartAll(loading).then(() => {

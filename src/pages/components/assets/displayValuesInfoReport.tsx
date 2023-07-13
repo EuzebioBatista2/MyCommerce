@@ -10,14 +10,12 @@ import { onLoadingDeleteProduct } from "@/functions/loadingPage/onLoadingDelete"
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import Input from "./Input";
 import { useInfoReportReducer } from "@/store/reducers/infoReportReducer/useInfoReportReducer";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValuesInfoReport() {
-  const [ search, setSearch ] = useState('')
-
   const [products, setProducts] = useState<{ amount: number, price: number, name: string }[]>([])
   const [total, setTotal] = useState<number>(0)
   const [currentPage, setCurrentPage] = useState(0);
-
 
   const itemsPerPage = 5;
   const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -26,6 +24,8 @@ export default function DisplayValuesInfoReport() {
     setCurrentPage(selectedPage.selected);
   };
 
+  const router = useRouter()
+
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPageItems = products.slice(startIndex, endIndex);
@@ -33,12 +33,38 @@ export default function DisplayValuesInfoReport() {
   const { productInfoReport } = useInfoReportReducer()
 
   useEffect(() => {
-    setProducts(productInfoReport)
-    setTotal(productInfoReport.reduce((acc, product) => {
-      return acc + product.amount * product.price;
-    }, 0));
+    authFirebase.onAuthStateChanged(async (user) => {
+      if (user) {
+        if (productInfoReport[0].name !== '') {
+          setProducts(productInfoReport)
+          setTotal(productInfoReport.reduce((acc, product) => {
+            return acc + product.amount * product.price;
+          }, 0));
+        } else {
+          router.push('/home/reportSell')
+        }
+
+      } else {
+        window.location.href = '/'
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if (remember === "false") {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="">

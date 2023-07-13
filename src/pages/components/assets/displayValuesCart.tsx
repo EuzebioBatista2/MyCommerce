@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import LinkButton from "./LinkButton";
 import Input from "./Input";
 import { dbRemoveAndUpdateProductCart } from "../../../../backend/db/dbRemoveAndUpdateProductCart";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValuesCart() {
   const [ search, setSearch ] = useState('')
@@ -32,17 +33,39 @@ export default function DisplayValuesCart() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await dbGetCartSearch(search).then((data) => {
-        setProducts(data)
-      });
-      await dbGetCartSearch(search).then((data) => {
-        setTotal(data.reduce((acc, product) => {
-          return acc + product.data.amount * product.data.price;
-        }, 0));
-      })
+      authFirebase.onAuthStateChanged(async (user) => {
+        if(user) {
+          await dbGetCartSearch(search).then((data) => {
+            setProducts(data)
+          });
+          await dbGetCartSearch(search).then((data) => {
+            setTotal(data.reduce((acc, product) => {
+              return acc + product.data.amount * product.data.price;
+            }, 0));
+          })
+        } else {
+          window.location.href = '/'
+        }
+      }) 
     };
+
     fetchData();
   }, [search])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="w-full">

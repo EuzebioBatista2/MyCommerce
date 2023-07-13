@@ -5,16 +5,45 @@ import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
 import Input from "../components/assets/Input";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../components/assets/Loading";
-import Button from "../components/assets/Button";
 import { useRouter } from "next/router";
 import LinkButton from "../components/assets/LinkButton";
+import { authFirebase } from "../../../backend/config";
+import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 
 export default function CreateOrExistsUser() {
   const [ search, setSearch ] = useState('')
+  const router = useRouter() 
 
-  const router = useRouter()  
+  const { setLoading } = useLoadingReducer()
+
+  useEffect(() => {
+    authFirebase.onAuthStateChanged(async (user) => {
+      if(user) {
+        setLoading(false)
+      } else {
+        window.location.href = '/'
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
+
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -45,7 +74,7 @@ export default function CreateOrExistsUser() {
         </div>
         <div className="p-4">
           {/* <Button color="blue" text="Cria conta do Usuário" onClick={() => router.push('/createUser')} /> */}
-          <LinkButton link={'/cart/createOrExistsUser/createUser'} color="blue" text="Cria conta do Usuário"  />
+          <LinkButton link={'/userNegative/createUser'} color="blue" text="Cria conta do Usuário"  />
           <LinkButton link={'/userNegative'} color="yellow" text="Usuário existente"  />
         </div>
       </section>

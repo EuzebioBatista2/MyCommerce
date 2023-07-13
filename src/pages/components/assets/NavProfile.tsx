@@ -16,7 +16,7 @@ export default function NavProfile() {
   const [userImage, setUserImage] = useState('');
   const [userName, setUserName] = useState('');
   useEffect(() => {
-    const fetchUserImage = async () => {
+    const fetchUserImage = () => {
       authFirebase.onAuthStateChanged(async (user) => {
         setLoading(true);
         if(user) {
@@ -33,7 +33,7 @@ export default function NavProfile() {
             router.push('/')
           }
         } else {
-          router.push('/')
+          window.localStorage.href = '/'
         }
       })
     }

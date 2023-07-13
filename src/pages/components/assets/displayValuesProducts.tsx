@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { onLoadingDeleteProduct } from "@/functions/loadingPage/onLoadingDelete";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import Input from "./Input";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValueProducts() {
   const [ search, setSearch ] = useState('')
@@ -34,17 +35,38 @@ export default function DisplayValueProducts() {
 
   useEffect(() => {
     const fetchSearch = async () => {
-      await getDataSearchValue(search).then((data) => {
-        setProducts(data)
-      })
-      await getDataSearchValue(search).then((data) => {
-        setTotal(data.reduce((acc, product) => {
-          return acc + product.data.amount * product.data.price;
-        }, 0));
+      authFirebase.onAuthStateChanged(async (user) => {
+        if (user) {
+          await getDataSearchValue(search).then((data) => {
+            setProducts(data)
+          })
+          await getDataSearchValue(search).then((data) => {
+            setTotal(data.reduce((acc, product) => {
+              return acc + product.data.amount * product.data.price;
+            }, 0));
+          })
+        } else {
+          window.location.href = '/'
+        }
       })
     }
     fetchSearch()
   }, [search])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="">

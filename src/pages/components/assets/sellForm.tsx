@@ -6,6 +6,7 @@ import Button from "./Button"
 import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer"
 import { onLoadingEdit } from "@/functions/loadingPage/onLoadingEdit"
 import { onLoadingSell } from "@/functions/loadingPage/onLoadingSell"
+import { authFirebase } from "../../../../backend/config"
 
 
 export default function SellForm() {
@@ -21,14 +22,35 @@ export default function SellForm() {
   const [styleInputAmount, setStyleInputAmount] = useState<boolean>(true)
 
   useEffect(() => {
-    if(productId.productFinal.data.name != '') {
-      setName(productId.productFinal.data.name)
-      setAmount(+productId.productFinal.data.amount)
-    } else {
-      router.push('/products')
-    }
+    authFirebase.onAuthStateChanged(async (user) => {
+      if(user) {
+        if(productId.productFinal.data.name != '') {
+          setName(productId.productFinal.data.name)
+          setAmount(+productId.productFinal.data.amount)
+        } else {
+          router.push('/products')
+        }
+      } else {
+        window.location.href = '/'
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <form action="" className="flex flex-col items-center justify-center w-full"

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "./Input"
 import { useRouter } from "next/router"
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer"
@@ -7,6 +7,7 @@ import { onLoadingCreateUser } from "@/functions/loadingPage/onLoadingCreateUser
 import { onLoadingAddReport } from "@/functions/loadingPage/onLoadingAddReport"
 import { onLoadingDeleteCartAll } from "@/functions/loadingPage/onLoadingDeleteCart"
 import { verifyName } from "@/functions/verifyFields/verifyName"
+import { authFirebase } from "../../../../backend/config"
 
 interface IUserForm {
   mode: 'User' | 'Identify'
@@ -14,11 +15,39 @@ interface IUserForm {
 
 export default function UserForm(props: IUserForm) {
 
+  const { setLoading } = useLoadingReducer()
+  const router = useRouter()
+
+  useEffect(() => {
+    authFirebase.onAuthStateChanged(async (user) => {
+      if(user) {
+        setLoading(false)
+      } else {
+        window.location.href = '/'
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if ( remember === "false" ) {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
+
   const [name, setName] = useState<string>('')
   const [phone, setAmount] = useState<string>('')
 
-  const { setLoading } = useLoadingReducer()
-  const router = useRouter()
+  
 
   const [styleInputName, setStyleInputName] = useState<boolean>(true)
   const [styleInputPhone, setStyleInputPhone] = useState<boolean>(true)

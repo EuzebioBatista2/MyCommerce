@@ -24,7 +24,6 @@ export default function Login() {
 
   async function onStateLogin() {
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
-    
     if ( remember === "true" ) {
       setLoading(true)
       await authFirebase.onAuthStateChanged((user) => {
