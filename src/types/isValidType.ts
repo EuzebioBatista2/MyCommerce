@@ -15,3 +15,12 @@ export interface IIsValidCreateUser {
   isNameValid: boolean
   isPhoneValid: boolean
 }
+
+export interface IIsValidUpdateUser {
+  isNameValid: boolean
+  isImageValid: boolean
+}
+
+export interface IIsValidResetPassword {
+  isEmailValid: boolean
+}

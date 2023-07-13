@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { useLoadingReducer } from '@/store/reducers/loadingReducers/useLoadingReducer'
 import { useRouter } from 'next/router'
 import { authFirebase } from '../../backend/config'
+import { signWithGoogle } from '../../backend/auth/submitLoginWithGoogle'
 
 export const metadata = {
   title: 'Portfolio Euzebio Batista',
@@ -22,12 +23,18 @@ export default function Login() {
   const { setLoading } = useLoadingReducer()
 
   async function onStateLogin() {
-    setLoading(true)
-    await authFirebase.onAuthStateChanged((user) => {
-      if(user) {
-        router.push('/home')
-      }
-    })
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    
+    if ( remember === "true" ) {
+      setLoading(true)
+      await authFirebase.onAuthStateChanged((user) => {
+        if(user) {
+          router.push('/home')
+        }
+      })
+    } else {
+      router.push('/')
+    }
     setLoading(false)
   }
 
@@ -50,7 +57,7 @@ export default function Login() {
         </div>
         <div className="flex flex-col w-full items-center justify-center h-2/5 px-4">
           <Form type="login" />
-          <Button color="blue" text="conta Google" icon={IconGoogle} />
+          <Button color="blue" text="conta Google" icon={IconGoogle} onClick={() => {signWithGoogle(setLoading, router)}} />
         </div>
         <div className="flex flex-col w-full relative my-3 h-1/5 gap-2 px-4">
           <ul className="flex flex-col items-start justify-start text-sm text-gray-600 gap-2">

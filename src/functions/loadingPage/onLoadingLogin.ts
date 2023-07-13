@@ -2,9 +2,9 @@ import { IIsValidAuthType } from "@/types/isValidType";
 import { UserType } from "@/types/userType";
 import { NextRouter } from "next/router";
 import { verifyEmail } from "../verifyFields/verifyEmail";
-import { verifyPassword } from "../verifyFields/verifyPassword";
 import { submitLogin } from "../../../backend/auth/submitLogin";
 import { toastComponent } from "../toasts/Toast";
+import { verifyLoginPassword } from "../verifyFields/verifyLoginPassword";
 
 export async function onLoadingLogin(
   loading: (value: boolean) => void, 
@@ -15,10 +15,10 @@ export async function onLoadingLogin(
     loading(true)
 
     const isEmailValid = verifyEmail(data.email || '')
-    const isPasswordValid = verifyPassword(data.password || '')
+    const isPasswordValid = verifyLoginPassword(data.password || '')
 
     if (isEmailValid && isPasswordValid) {
-      await submitLogin(event, data)
+      await submitLogin(event, data, loading)
       .then(() => {
         router.push('/home')
       })
@@ -27,6 +27,5 @@ export async function onLoadingLogin(
       })
     }
     loading(false)
-
     return ({isEmailValid, isPasswordValid})
 }

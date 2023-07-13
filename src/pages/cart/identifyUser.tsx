@@ -1,13 +1,13 @@
 import Head from "next/head";
-import Loading from "./components/assets/Loading";
-import NavProfile from "./components/assets/NavProfile";
-import { IconArrowLeft, IconHome } from "../../public/icons/icons";
-import Footer from "./components/template/Footer";
-import NavMenu from "./components/assets/NavMenu";
-import FormProducts from "./components/assets/FormProducts";
+import Loading from "../components/assets/Loading";
+import NavProfile from "../components/assets/NavProfile";
+import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
+import Footer from "../components/template/Footer";
+import NavMenu from "../components/assets/NavMenu";
 import Link from "next/link";
+import UserForm from "../components/assets/UserForm";
 
-export default function Product() {
+export default function IdentifyUser() {
   return (
     <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
@@ -31,8 +31,8 @@ export default function Product() {
       </section>
       <section className="h-full w-full  bg-purple-300">
         <div className="flex flex-col items-center justify-center w-full h-full px-4">
-          <h1 className="font-semibold text-2xl">Cadastro de Produto</h1>
-          <FormProducts type="product" />
+          <h1 className="font-semibold text-2xl">Nome do usuário</h1>
+          <UserForm mode="Identify" />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">

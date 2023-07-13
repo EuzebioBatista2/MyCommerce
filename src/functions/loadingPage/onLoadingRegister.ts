@@ -14,13 +14,13 @@ export async function onLoadingRegister(loading: any, event: React.FormEvent<HTM
   const isNameValid = verifyName(data.name || '')
   const isEmailValid = verifyEmail(data.email || '')
   const isPasswordValid = verifyConfirmPassword(data.password || '', data.confirmPassword || '')
-  const isImageValid = verifyImage(data.image || '')
+  const isImageValid = verifyImage(data.image[0] || '')
 
   if (isNameValid && isEmailValid && isPasswordValid && isImageValid) {
     await submitRegister(event, data)
       .then(() => {
         toastComponent({ type: 'success' }, 'Cadastro realizado com sucesso!')
-        router.push('/')
+        router.push('/home')
       })
       .catch(() => {})
   }
@@ -28,5 +28,3 @@ export async function onLoadingRegister(loading: any, event: React.FormEvent<HTM
 
   return ({isNameValid, isEmailValid, isPasswordValid, isImageValid})
 }
-
-//(event: React.FormEvent<HTMLFormElement>) => OnloadingRegister(event)

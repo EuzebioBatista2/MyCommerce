@@ -44,9 +44,5 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
       })
     })
     dbFirebase.doc(authFirebase.currentUser?.uid).collection('Cart').doc(uidProduct).delete()
-
-    
-
-    setLoading(false)
   })
 }

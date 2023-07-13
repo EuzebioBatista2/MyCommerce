@@ -76,7 +76,7 @@ export default function DisplayValuesReport() {
               <td className="px-4 py-1"><strong>{product.date}</strong></td>
               <td className="px-4 py-1"><button onClick={() => {
                 setInfoReportProduct(product.data)
-                router.push('/infoReport')
+                router.push('/home/reportSell/infoReport')
               }}>{IconInfo}</button></td>
             </tr>
           ))}

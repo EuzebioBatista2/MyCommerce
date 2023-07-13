@@ -16,6 +16,7 @@ export default class ForgotMyPasswordLayout extends Component {
             <h1 className="font-semibold text-2xl">Esqueceu sua senha?</h1>
             <h2 className="font-semibol text-base text-gray-800">Insira seu e-mail abaixo.</h2>
             <h3 className="text-sm text-gray-600">*Será enviado um e-mail para confirmar sua autenticação*</h3>
+            <h3 className="text-sm text-gray-600">*<strong>OBS</strong>: Só funciona para e-mails existentes*</h3>
           </div>
           <Form type="forgotPassword" />
         </div>

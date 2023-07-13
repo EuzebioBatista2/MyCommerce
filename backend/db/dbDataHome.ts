@@ -1,3 +1,4 @@
+import { NextRouter } from "next/router"
 import { authFirebase, dbFirebase } from "../config"
 
 export const dbGetAmountProducts = (): Promise<number> => {
@@ -12,7 +13,7 @@ export const dbGetAmountProducts = (): Promise<number> => {
           reject(error)
         })
       } else {
-        reject(new Error('User not authenticated'))
+        reject()
       }
     })
   })

@@ -7,30 +7,33 @@ export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: Re
   let dataUid: any
   return new Promise(async (resolve, reject) => {
     event.preventDefault()
+    
     const inputName = data.name ? data.name : ''
     const inputEmail = data.email ? data.email : ''
     const inputPassword = data.password ? data.password : ''
     const image = data.image ? data.image : ''
 
     authFirebase.createUserWithEmailAndPassword(inputEmail, inputPassword)
-      .then((userCredential) => {
-        let user = userCredential.user;
-
-        if (user) {
-          dataUid = user.uid
-          return user.updateProfile({
-            displayName: inputName,
-            photoURL: image.value
-          });
-          
-        }
-      })
       .then(() => {
+        let imageUrl: any
         const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/mainImage/${image[0].name}`);
         if (image[0].name !== '') {
-          urlImage.put(image[0]).then(() => urlImage.getDownloadURL().then((downloadURL) => dbImageAndData(downloadURL, dataUid)));
+          const upload = urlImage.put(image[0]);
+          upload.on('state_changed', () => { }, () => { }, () => {
+            urlImage.getDownloadURL().then((downloadURL) => {
+              imageUrl = downloadURL
+              authFirebase.onAuthStateChanged((user) => {
+                if (user) {
+                  user.updateProfile({
+                    displayName: inputName,
+                    photoURL: imageUrl
+                  });
+                  resolve()
+                }
+              })
+            })
+          })
         }
-        resolve()
       })
       .catch(() => {
         reject()

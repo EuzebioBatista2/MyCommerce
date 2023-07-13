@@ -5,14 +5,16 @@ import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingRe
 import Button from "./Button"
 import { dbImagePerfil, dbNamePerfil } from "../../../../backend/db/dbImagePerfil"
 import Image from "next/image"
+import { onLoadingUpdateRegister } from "@/functions/loadingPage/onLoadingUpdateRegister"
+import { verifyImage } from "@/functions/verifyFields/verifyImage"
 
 
 export default function DisplayDataMainUser() {
 
   const [userName, setUserName] = useState<string>('')
   const [userImage, setUserImage] = useState('');
-  const [userImageSub, setUserImageSub] = useState<any>();
-  const [previewImage, setPreviewImage] = useState<any>();
+  const [userImageSub, setUserImageSub] = useState<any>('');
+  const [previewImage, setPreviewImage] = useState<any>('');
 
 
   const { setLoading } = useLoadingReducer()
@@ -34,19 +36,23 @@ export default function DisplayDataMainUser() {
         router.push('/')
       }
     }
-    fetchUserImage().finally(() => {
-      setLoading(false);
-    });
+    fetchUserImage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    if (userImageSub) {
+    if (userImageSub && userImageSub[0]) {
       const reader = new FileReader();
-      reader.readAsDataURL(userImageSub[0]);
-      reader.onload = () => {
-        setPreviewImage(reader.result);
-      };
+      let IsValid: boolean = verifyImage(userImageSub[0])
+      if (IsValid) {
+        reader.readAsDataURL(userImageSub[0]);
+        reader.onload = () => {
+          setPreviewImage(reader.result);
+        };
+      } else {
+        setPreviewImage('/userUnknown.jpg')
+        setUserImage('')
+      }
     }
   }, [userImageSub])
 
@@ -55,7 +61,14 @@ export default function DisplayDataMainUser() {
       <div className="flex items-center justify-center h-32 w-32 rounded-full overflow-hidden">
         <Image src={previewImage ? previewImage : userImage ? userImage : '/userUnknown.jpg' } alt="FotoDePerfil" width={160} height={140} priority={true} className="h-auto w-auto" />
       </div>
-      <form action="" className="flex flex-col items-center justify-center w-full">
+      <form action="" className="flex flex-col items-center justify-center w-full" 
+      onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+        onLoadingUpdateRegister(setLoading, event, router, {userName, userImageSub })
+        .then((isValid) => {
+          setStyleInputName(!!isValid.isNameValid)
+          setStyleInputImage(!!isValid.isImageValid)
+        })
+      }}>
         <Input type="file" text="Imagem de perfil" id="imagemProfile" inputError={styleInputImage} userImage
           onChange={(event) => { setUserImageSub(event.target.files), setStyleInputImage(true) }} 
         />

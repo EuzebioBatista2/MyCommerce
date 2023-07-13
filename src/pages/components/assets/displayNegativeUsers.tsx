@@ -63,7 +63,7 @@ export default function DisplayNegativeUsers() {
               <td className="px-2 py-1">{users.data.name}</td>
               <td className="px-2 py-1 text-center"><button onClick={() => {
                 setUserInfo({ userInfo: { data: users.data, uidCart: users.uidCart, uidUser: users.uidUser } })
-                router.push('/infoUser')
+                router.push('/userNegative/infoUser')
               }}
               >{IconInfo}</button></td>
               <td className="px-2 py-1 text-center"><button onClick={() => {

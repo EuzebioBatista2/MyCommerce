@@ -21,12 +21,12 @@ export default function Cart() {
       </nav>
       <section  className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
-          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <i>{IconHome}</i>
             <span className="mt-1">Página Inicial</span>
-          </div>
-          <Link href={'/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <span className="mt-1">Adcionar Produto</span>
+          </Link>
+          <Link href={'/userNegative/createUser'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <span className="mt-1">Criar usuário</span>
             <i>{IconAdd}</i>
           </Link>
         </div>

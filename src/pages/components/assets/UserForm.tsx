@@ -50,7 +50,7 @@ export default function UserForm(props: IUserForm) {
           if(value) {
             onLoadingAddReport(setLoading, name)
             onLoadingDeleteCartAll(setLoading)
-            router.push('/products')
+            router.push('/home')
           } else {
             setStyleInputName(false)
           }

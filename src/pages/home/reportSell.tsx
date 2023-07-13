@@ -1,12 +1,12 @@
 import Head from "next/head";
-import NavProfile from "./components/assets/NavProfile";
-import Loading from "./components/assets/Loading";
-import Footer from "./components/template/Footer";
-import NavMenu from "./components/assets/NavMenu";
-import { IconAdd, IconHome, IconReport } from "../../public/icons/icons";
+import NavProfile from "../components/assets/NavProfile";
+import Loading from "../components/assets/Loading";
+import Footer from "../components/template/Footer";
+import NavMenu from "../components/assets/NavMenu";
+import { IconAdd, IconArrowLeft, IconHome, IconReport } from "../../../public/icons/icons";
 import Link from "next/link";
-import LinkButton from "./components/assets/LinkButton";
-import DisplayValuesReport from "./components/assets/displayValuesReport";
+import LinkButton from "../components/assets/LinkButton";
+import DisplayValuesReport from "../components/assets/displayValuesReport";
 
 export default function ReportSell() {
   return (
@@ -21,13 +21,12 @@ export default function ReportSell() {
       </nav>
       <section className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
-          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <i>{IconArrowLeft}</i>
+          </Link>
+          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <span className="mt-1">Página inicial</span>
             <i>{IconHome}</i>
-            <span className="mt-1">Página Inicial</span>
-          </div>
-          <Link href={'/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <span className="mt-1">Adcionar Produto</span>
-            <i>{IconAdd}</i>
           </Link>
         </div>
       </section>

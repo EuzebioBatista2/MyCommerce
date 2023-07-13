@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Loading from "./components/assets/Loading";
-import NavProfile from "./components/assets/NavProfile";
-import { IconArrowLeft, IconHome } from "../../public/icons/icons";
-import Footer from "./components/template/Footer";
-import NavMenu from "./components/assets/NavMenu";
+import Loading from "../components/assets/Loading";
+import NavProfile from "../components/assets/NavProfile";
+import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
+import Footer from "../components/template/Footer";
+import NavMenu from "../components/assets/NavMenu";
 import Link from "next/link";
-import UserForm from "./components/assets/UserForm";
+import UserForm from "../components/assets/UserForm";
 
 export default function CreateUser() {
   return (
@@ -20,7 +20,7 @@ export default function CreateUser() {
       </nav>
       <section className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
-          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/userNegative'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <i>{IconArrowLeft}</i>
           </Link>
           <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">

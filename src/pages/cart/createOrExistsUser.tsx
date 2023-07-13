@@ -1,15 +1,15 @@
 import Head from "next/head";
-import NavProfile from "./components/assets/NavProfile";
-import { IconAdd, IconHome, IconSearch } from "../../public/icons/icons";
-import NavMenu from "./components/assets/NavMenu";
-import Footer from "./components/template/Footer";
-import Input from "./components/assets/Input";
+import NavProfile from "../components/assets/NavProfile";
+import { IconArrowLeft, IconHome, IconSearch } from "../../../public/icons/icons";
+import NavMenu from "../components/assets/NavMenu";
+import Footer from "../components/template/Footer";
+import Input from "../components/assets/Input";
 import Link from "next/link";
 import { useState } from "react";
-import Loading from "./components/assets/Loading";
-import Button from "./components/assets/Button";
+import Loading from "../components/assets/Loading";
+import Button from "../components/assets/Button";
 import { useRouter } from "next/router";
-import LinkButton from "./components/assets/LinkButton";
+import LinkButton from "../components/assets/LinkButton";
 
 export default function CreateOrExistsUser() {
   const [ search, setSearch ] = useState('')
@@ -26,14 +26,13 @@ export default function CreateOrExistsUser() {
         <NavProfile /> 
       </nav>
       <section  className="w-full h-16 bg-red-500">
-        <div className="flex h-full justify-between items-center">
-          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+      <div className="flex h-full justify-between items-center">
+          <Link href={'/cart'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <i>{IconArrowLeft}</i>
+          </Link>
+          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+            <span className="mt-1">Página inicial</span>
             <i>{IconHome}</i>
-            <span className="mt-1">Página Inicial</span>
-          </div>
-          <Link href={'/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <span className="mt-1">Adcionar Produto</span>
-            <i>{IconAdd}</i>
           </Link>
         </div>
       </section>
@@ -45,7 +44,8 @@ export default function CreateOrExistsUser() {
         <i className="absolute right-2 top-6">{IconSearch}</i>
         </div>
         <div className="p-4">
-          <Button color="blue" text="Cria conta do Usuário" onClick={() => router.push('/createUser')} />
+          {/* <Button color="blue" text="Cria conta do Usuário" onClick={() => router.push('/createUser')} /> */}
+          <LinkButton link={'/cart/createOrExistsUser/createUser'} color="blue" text="Cria conta do Usuário"  />
           <LinkButton link={'/userNegative'} color="yellow" text="Usuário existente"  />
         </div>
       </section>

@@ -20,5 +20,6 @@ const appFirebase = firebase.apps.length
 export const authFirebase = appFirebase.auth()
 export const storageFirebase = appFirebase.storage()
 export const dbFirebase = appFirebase.firestore().collection('users')
+export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 
 

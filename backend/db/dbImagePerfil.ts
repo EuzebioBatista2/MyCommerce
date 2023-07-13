@@ -1,19 +1,12 @@
-import { authFirebase, dbFirebase } from "../config";
+import { authFirebase } from "../config";
 
 export function dbImagePerfil() {
   return new Promise((resolve, reject) => {
-    dbFirebase.doc(authFirebase.currentUser?.uid).collection('ImageUser').get()
-      .then((data) => {
-        let urlImg = '';
-        data.forEach((doc) => {
-          urlImg = doc.data().imgUrl;
-        });
-        resolve(urlImg);
-      })
-      .catch((error) => {
-        console.error('Erro ao obter a imagem do perfil:', error);
-        reject(error);
-      });
+    authFirebase.onAuthStateChanged((user) => {
+      if(user?.photoURL) {
+        resolve(user.photoURL)
+      }
+    })
   });
 }
 

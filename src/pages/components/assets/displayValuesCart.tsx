@@ -96,8 +96,8 @@ export default function DisplayValuesCart() {
         className="flex w-full items-center justify-center gap-6 h-1/5"
       />
 
-      <LinkButton link={'/identifyUser'} color="yellow" text="Fechar pagamento com dinheiro" />
-      <LinkButton link={'/createOrExistsUser'} color="gray" text="Colocar na conta" />
+      <LinkButton link={'/cart/identifyUser'} color="yellow" text="Fechar pagamento com dinheiro" />
+      <LinkButton link={'/cart/createOrExistsUser'} color="gray" text="Colocar na conta" />
     </div>
   )
 }

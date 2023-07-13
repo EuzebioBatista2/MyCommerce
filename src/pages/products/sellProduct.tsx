@@ -5,7 +5,7 @@ import NavProfile from "../components/assets/NavProfile";
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
-import SellForm from "../components/assets/sellForm";
+import SellForm from "../components/assets/SellForm";
 
 export default function SellProduct() {
   return (
@@ -20,7 +20,7 @@ export default function SellProduct() {
       </nav>
       <section className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
-          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/products'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <i>{IconArrowLeft}</i>
           </Link>
           <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">

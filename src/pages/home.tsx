@@ -21,13 +21,9 @@ export default function Home() {
       </nav>
       <section  className="w-full h-16 bg-red-500">
         <div className="flex h-full justify-between items-center">
-          <div className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
+          <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
             <i>{IconHome}</i>
             <span className="mt-1">Página Inicial</span>
-          </div>
-          <Link href={'/product'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <span className="mt-1">Adcionar Produto</span>
-            <i>{IconAdd}</i>
           </Link>
         </div>
       </section>
@@ -37,7 +33,7 @@ export default function Home() {
         </div>
         <div className="flex h-full items-start flex-col text-xl gap-14 px-4">
           <DisplayValuesDataHome />
-          <LinkButton link="/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
+          <LinkButton link="/home/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
         </div>
       </section>
       <nav className="h-20 bg-gray-700">
