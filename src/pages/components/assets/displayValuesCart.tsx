@@ -69,7 +69,7 @@ export default function DisplayValuesCart() {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full">
       <div className="flex w-full items-center justify-center h-16 px-2 bg-gradient-to-r from-gray-100 to-gray-400 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
+        <Input type="search" text="Pesquisar" id="search" value={search}
           onChange={(event) => { setSearch(event.target.value) }} inputError={true}
         />
         <i className="absolute right-3 top-8">{IconSearch}</i>

@@ -65,7 +65,7 @@ export default function DisplayNegativeUsers() {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full">
       <div className="flex w-full items-center justify-center h-16 px-2 bg-gradient-to-r from-gray-100 to-gray-400 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
+        <Input type="search" text="Pesquisar" id="search" value={search}
           onChange={(event) => { setSearch(event.target.value) }} inputError={true}
         />
         <i className="absolute right-3 top-8">{IconSearch}</i>
@@ -74,31 +74,31 @@ export default function DisplayNegativeUsers() {
         <table className="rounded-t-md overflow-hidden w-full h-full">
           <thead className="text-left">
             <tr className="bg-blue-500 ">
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Nome</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Info</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Inserir<br/>produtos</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Pagar</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Nome</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Info</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Inserir<br/>produtos</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-b border-white">Pagar</th>
             </tr>
           </thead>
           <tbody>
             {currentPageItems.map((users, index) => (
               <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
-                <td className="text-sm break-all leading-tight border-r border-b border-white capitalize">{users.data.name}</td>
-                <td className="text-sm break-all leading-tight border-r border-b border-white"><button onClick={() => {
+                <td className="text-sm md:text-base break-all leading-tight border-r border-b border-white capitalize">{users.data.name}</td>
+                <td className="text-sm md:text-base break-all leading-tight border-r border-b border-white"><button onClick={() => {
                   setUserInfo({ userInfo: { data: users.data, uidCart: users.uidCart, uidUser: users.uidUser } })
                   router.push('/userNegative/infoUser')
                 }}
-                ><i className="flex h-5 w-5 text-blue-500">{IconInfo}</i></button></td>
-                <td className="text-sm break-all leading-tight border-r border-b border-white"><button onClick={() => {
+                ><i className="flex h-5 w-5 md:h-6 md:w-6 text-blue-500">{IconInfo}</i></button></td>
+                <td className="text-sm md:text-base break-all leading-tight border-r border-b border-white"><button onClick={() => {
                   onLoadingAddUserCart(setLoading, router, users.uidCart)
-                }}><i className="flex h-5 w-5 text-yellow-700">{IconCheck}</i></button></td>
-                <td className="text-sm break-all leading-tight border-b border-white"><button onClick={() => onLoadingDeleteNegativeUser(setLoading, users.uidUser, users.uidCart)
+                }}><i className="flex h-5 w-5 md:h-6 md:w-6 text-yellow-700">{IconCheck}</i></button></td>
+                <td className="text-sm md:text-base break-all leading-tight border-b border-white"><button onClick={() => onLoadingDeleteNegativeUser(setLoading, users.uidUser, users.uidCart)
                   .then(() => {
                     dbGetUsers('').then((data) => {
                       setUsers(data)
                     })
                   })
-                }><i className="flex h-5 w-5 text-orange-500">{IconStore}</i></button></td>
+                }><i className="flex h-5 w-5 md:h-6 md:w-6 text-orange-500">{IconStore}</i></button></td>
               </tr>
             ))}
           </tbody>

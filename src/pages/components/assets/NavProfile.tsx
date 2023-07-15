@@ -41,7 +41,7 @@ export default function NavProfile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <div className="flex items-center justify-between w-full h-full">
+    <div className="flex items-center justify-between w-full h-full relative">
       <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} className="h-12 pl-2 w-auto" />
       <div className="flex items-center justify-end w-1/2 h-full gap-1 pr-2 cursor-pointer bg-gradient-to-br from-transparent from-20% to-gray-200" onClick={() => setMenu(!activate)}>
         <div className="flex flex-col">
@@ -53,7 +53,7 @@ export default function NavProfile() {
         </div>
         <i className="flex items-center h-4 w-4">{activate ? IconArrowDown : IconArrowLeft}</i>
       </div>
-      <div className={`absolute w-1/2 bg-gray-200 bg-opacity-90 right-0 top-14 overflow-hidden transition-all duration-300 ease-in-out ${activate ? 'flex flex-col items-center h-24 z-20' : 'h-0'}`}>
+      <div className={`absolute w-1/2 bg-gray-200 bg-opacity-90 right-0 top-[100%] overflow-hidden transition-all duration-300 ease-in-out ${activate ? 'flex flex-col items-center h-24 z-20' : 'h-0'}`}>
         <Link href={'/dataMainUser'} className="flex items-center text-sm text-center justify-center w-full h-1/2 gap-1">
           <span>Dados do usuário</span>
           <i className="flex h-5 w-5">{IconEditLogin}</i>

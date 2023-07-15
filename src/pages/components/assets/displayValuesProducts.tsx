@@ -73,7 +73,7 @@ export default function DisplayValueProducts() {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full">
       <div className="flex w-full items-center justify-center h-16 px-2 bg-gradient-to-r from-gray-100 to-gray-400 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
+        <Input type="search" text="Pesquisar" id="search" value={search}
           onChange={(event) => { setSearch(event.target.value) }} inputError={true}
         />
         <i className="absolute right-3 top-8">{IconSearch}</i>
@@ -82,19 +82,19 @@ export default function DisplayValueProducts() {
         <table className="rounded-t-md overflow-hidden w-full h-full">
           <thead className="text-left">
             <tr className="bg-blue-500">
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Preço</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Opções</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Preço</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-b border-white">Opções</th>
             </tr>
           </thead>
           <tbody>
             {currentPageItems.map((product, index) => (
               <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
-                <td className="text-sm px-2 break-all leading-tight border-r border-b border-white capitalize">{product.data.name}</td>
-                <td className="text-sm px-2 break-all leading-tight border-r border-b border-white">{product.data.amount}x</td>
-                <td className="text-sm px-2 break-all leading-tight border-r border-b border-white">{formatCurrency(+product.data.price)}</td>
-                <td className="text-sm px-2 border-b border-white">
+                <td className="text-sm md:text-base px-2 break-all leading-tight border-r border-b border-white capitalize">{product.data.name}</td>
+                <td className="text-sm md:text-base px-2 break-all leading-tight border-r border-b border-white">{product.data.amount}x</td>
+                <td className="text-sm md:text-base px-2 break-all leading-tight border-r border-b border-white">{formatCurrency(+product.data.price)}</td>
+                <td className="text-sm md:text-base px-2 border-b border-white">
                   <MenuOptionProduct>
                     <button className="flex items-center justify-center w-5 h-5 text-yellow-500" onClick={() => (dbOnlyOneProduct(product.uid).then((data) => {
                       setUpdateProduct(data)

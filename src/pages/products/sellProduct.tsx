@@ -6,6 +6,7 @@ import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
 import SellForm from "../components/assets/SellForm";
+import NavMenuMd from "../components/assets/NavMenuMd";
 
 export default function SellProduct() {
   return (
@@ -29,13 +30,16 @@ export default function SellProduct() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col w-full h-full bg-[url('/background.png')] bg-center bg-no-repeat bg-cover">
-        <div className="flex flex-col items-center justify-center w-full h-full px-4">
-          <h1 className="font-semibold text-2xl">Vender Produto</h1>
-          <SellForm />
+      <section className="flex h-full w-full bg-[url('/background.png')] bg-center bg-no-repeat bg-cover">
+        <NavMenuMd />
+        <div className="flex flex-col h-full border-transparent justify-between w-full md:w-2/3">
+          <div className="flex flex-col items-center justify-center w-full h-full px-4">
+            <h1 className="font-semibold text-2xl">Vender Produto</h1>
+            <SellForm />
+          </div>
         </div>
       </section>
-      <nav className="h-20 bg-blue-500">
+      <nav className="h-20 bg-blue-500 md:hidden">
         <NavMenu />
       </nav>
       <footer className="h-16">

@@ -64,22 +64,22 @@ export default function DisplayValuesInfoReport() {
       <div className="flex flex-col items-center pt-1 h-5/6 w-11/12 my-4 px-1 bg-white rounded-lg bg-opacity-80">
         <div className="flex flex-col items-center justify-center mt-4 mb-2">
           <h2>Nome:<strong> {productInfoReport.user}</strong></h2>
-          <p className="text-sm text-gray-600">Produtos comprados</p>
+          <p className="text-sm md:text-base text-gray-600">Produtos comprados</p>
         </div>
         <table className="rounded-t-md overflow-hidden w-full h-full">
           <thead className="text-left">
             <tr className="bg-blue-500 ">
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Preço</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-b border-white">Preço</th>
             </tr>
           </thead>
           <tbody>
             {currentPageItems.map((product, index) => (
               <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
-                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white capitalize">{product.name}</td>
-                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white">{product.amount}x</td>
-                <td className="text-sm px-1 leading-tight border-r border-b border-white">{formatCurrency(+product.price)}</td>
+                <td className="text-sm md:text-base px-1 break-all leading-tight border-r border-b border-white capitalize">{product.name}</td>
+                <td className="text-sm md:text-base px-1 break-all leading-tight border-r border-b border-white">{product.amount}x</td>
+                <td className="text-sm md:text-base px-1 leading-tight border-r border-b border-white">{formatCurrency(+product.price)}</td>
               </tr>
             ))}
             <tr className="text-right text-white bg-blue-500"><td className="px-4 py-1" colSpan={6}><strong>Valor total:</strong> {formatCurrency(+total)}</td></tr>

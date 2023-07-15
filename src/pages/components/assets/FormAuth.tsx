@@ -11,6 +11,7 @@ import Image from "next/image"
 import { onLoadingResetPassword } from "@/functions/loadingPage/onLoadingResetPassword"
 import { verifyImage } from "@/functions/verifyFields/verifyImage"
 import { verifyCheckBox } from "@/functions/verifyFields/verifyCheckbox"
+import LinkButton from "./LinkButton"
 
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
@@ -65,7 +66,7 @@ export default function FormAuth(props: IFormProps) {
   return (
     props.type === 'login' ? (
       <div className="flex flex-col items-center justify-center w-full">
-        <form action="" method="post" className="flex flex-col w-full"
+        <form action="" method="post" className="flex flex-col w-full items-center justify-center"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             onLoadingLogin(setLoading, event, router, { email, password })
               .then((isValid) => {
@@ -91,7 +92,7 @@ export default function FormAuth(props: IFormProps) {
         <div className="flex items-center justify-center h-32 w-32 rounded-full overflow-hidden border border-gray-200 bg-white">
           <Image src={previewImage ? previewImage : '/userUnknown.jpg'} alt="FotoDePerfil" width={160} height={140} priority={true} className="h-auto w-auto" />
         </div>
-        <form action="" className="flex flex-col w-full"
+        <form action="" className="flex flex-col w-full items-center justify-center"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             onLoadingRegister(setLoading, event, router, { name, email, password, confirmPassword, image })
               .then((isValid) => {
@@ -115,7 +116,7 @@ export default function FormAuth(props: IFormProps) {
       </div>
     ) : (
       <div className="flex flex-col items-center justify-center w-full">
-        <form action="" method="post" className="flex flex-col w-full"
+        <form action="" method="post" className="flex flex-col w-full items-center justify-center"
           onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
             onLoadingResetPassword(setLoading, event, email)
             .then((isValid) => {
@@ -126,9 +127,7 @@ export default function FormAuth(props: IFormProps) {
           <Input type="text" text="Email" id="email" inputError={styleInputEmail}
             onChange={(event) => { setEmail(event.target.value), setStyleInputEmail(true) }} value={email} />
           <Button color="blue" text="Enviar" submit />
-          <Link href={'/'}>
-            <Button color="yellow" text="Retornar" icon={IconBack} />
-          </Link>
+          <LinkButton link="/" color="yellow" text="Retornar" icon={IconBack} />
         </form>
       </div>
     ))

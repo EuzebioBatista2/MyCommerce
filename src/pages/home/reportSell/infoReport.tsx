@@ -6,6 +6,7 @@ import Footer from "../../components/template/Footer";
 import Link from "next/link";
 import Loading from "../../components/assets/Loading";
 import DisplayValuesInfoReport from "../../components/assets/displayValuesInfoReport";
+import NavMenuMd from "@/pages/components/assets/NavMenuMd";
 
 export default function Products() {
   return (
@@ -29,10 +30,13 @@ export default function Products() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col w-full h-full bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover">
-        <DisplayValuesInfoReport />
+      <section className="flex h-full w-full bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover">
+        <NavMenuMd />
+        <div className="flex flex-col h-full border-transparent justify-between w-full md:w-2/3">
+          <DisplayValuesInfoReport />
+        </div>
       </section>
-      <nav className="h-20 bg-blue-500">
+      <nav className="h-20 bg-blue-500 md:hidden">
         <NavMenu />
       </nav>
       <footer className="h-16">

@@ -3,10 +3,12 @@ import NavProfile from "./components/assets/NavProfile";
 import Loading from "./components/assets/Loading";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
-import { IconHome, IconReport } from "../../public/icons/icons";
+import { IconBag, IconCart, IconHome, IconReport, IconUserNegative } from "../../public/icons/icons";
 import Link from "next/link";
 import LinkButton from "./components/assets/LinkButton";
 import DisplayValuesDataHome from "./components/assets/displayValuesDataHome";
+import Image from "next/image";
+import NavMenuMd from "./components/assets/NavMenuMd";
 
 export default function Home() {
   return (
@@ -27,19 +29,23 @@ export default function Home() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col h-full justify-between bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover p-2">
-        <div className="bg-white bg-opacity-80 rounded-lg h-full">
-          <div className="flex w-full items-center justify-center py-10">
-            <h1 className="font-semibold text-xl">Dados do comércio</h1>
-          </div>
-          <div className="flex h-full items-start flex-col text-xl gap-14 px-4">
-            <span className="text-center text-sm text-gray-500">*Aqui contém os dados referente a vendas e produtos*</span>
-            <DisplayValuesDataHome />
-            <LinkButton link="/home/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
+      <section className="flex h-full bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover">
+        <NavMenuMd />
+        <div className="flex flex-col h-full border-8 border-transparent justify-between md:w-2/3">
+          <div className="bg-white bg-opacity-80 rounded-lg h-full">
+            <div className="flex w-full items-center justify-center py-10">
+              <h1 className="font-semibold text-xl md:text-3xl">Dados do comércio</h1>
+            </div>
+            <div className="flex items-center justify-center flex-col text-xl gap-14 px-4">
+              <span className="text-center text-sm md:text-base text-gray-500">*Aqui contém os dados referente a vendas e produtos*</span>
+              <DisplayValuesDataHome />
+              <LinkButton link="/home/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
+            </div>
           </div>
         </div>
+
       </section>
-      <nav className="h-20 bg-blue-500">
+      <nav className="h-20 bg-blue-500 md:hidden">
         <NavMenu />
       </nav>
       <footer className="h-16">

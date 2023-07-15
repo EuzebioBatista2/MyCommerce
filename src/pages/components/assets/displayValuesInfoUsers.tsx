@@ -79,7 +79,7 @@ export default function DisplayValuesInfoUsers() {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full">
       <div className="flex w-full items-center justify-center h-16 px-2 bg-gradient-to-r from-gray-100 to-gray-400 relative">
-        <Input type="text" text="Pesquisar" id="search" value={search}
+        <Input type="search" text="Pesquisar" id="search" value={search}
           onChange={(event) => { setSearch(event.target.value) }} inputError={true}
         />
         <i className="absolute right-3 top-8">{IconSearch}</i>
@@ -93,21 +93,21 @@ export default function DisplayValuesInfoUsers() {
         <table className="rounded-t-md overflow-hidden w-full h-full">
           <thead className="text-left">
             <tr className="bg-blue-500">
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Preço</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Data</th>
-              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Del</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Preço</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-r border-b border-white">Data</th>
+              <th className="text-sm md:text-base px-1 py-1 text-center text-white border-b border-white">Del</th>
             </tr>
           </thead>
           <tbody>
             {currentPageItems.map((product, index) => (
               <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
-                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white capitalize">{product.data.name}</td>
-                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white">{product.data.amount}x</td>
-                <td className="text-xs px-1 leading-tight border-r border-b border-white">{formatCurrency(+product.data.price)}</td>
-                <td className="text-xs px-1 leading-tight border-r border-b border-white">{product.data.date}</td>
-                <td className="text-sm px-1 border-b border-white"><button onClick={() => onLoadingDeleteProductUser(setLoading, userInfo.uidCart, product.uid)
+                <td className="text-sm md:text-base px-1 break-all leading-tight border-r border-b border-white capitalize">{product.data.name}</td>
+                <td className="text-sm md:text-base px-1 break-all leading-tight border-r border-b border-white">{product.data.amount}x</td>
+                <td className="text-xs md:text-base px-1 leading-tight border-r border-b border-white">{formatCurrency(+product.data.price)}</td>
+                <td className="text-xs md:text-base px-1 leading-tight border-r border-b border-white">{product.data.date}</td>
+                <td className="text-sm md:text-base px-1 border-b border-white"><button onClick={() => onLoadingDeleteProductUser(setLoading, userInfo.uidCart, product.uid)
                   .then(() => {
                     dbGetUserCart(userInfo.uidCart, '').then((data) => {
                       setProducts(data)
@@ -118,7 +118,7 @@ export default function DisplayValuesInfoUsers() {
                       }, 0));
                     })
                   })}
-                ><i className="flex h-5 w-5 text-red-500">{IconDelete}</i></button></td>
+                ><i className="flex h-5 w-5 md:h-6 md:w-6 text-red-500">{IconDelete}</i></button></td>
               </tr>
             ))}
             <tr className="text-right text-white bg-blue-500"><td className="px-4 py-1" colSpan={5}><strong>Valor total:</strong> {formatCurrency(+total)}</td></tr>

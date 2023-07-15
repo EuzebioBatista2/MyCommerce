@@ -42,9 +42,9 @@ export default function DisplayValuesDataHome() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
-      <span className="text-sm font-semibold">Quantidade de produtos: {amountProducts}</span>
-      <span className="text-sm font-semibold">Usuários em dívida: {amountUsers}</span>
+    <div className="flex items-center justify-center flex-col w-full">
+      <span className="text-sm md:text-lg">Quantidade de produtos: <strong>{amountProducts}</strong></span>
+      <span className="text-sm md:text-lg">Usuários em dívida: <strong>{amountUsers}</strong></span>
     </div>
   )
 }
