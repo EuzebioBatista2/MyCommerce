@@ -88,7 +88,7 @@ export default function UserForm(props: IUserForm) {
         <Input type="text" text="Name" id="name" inputError={styleInputName} value={name}
           onChange={(event) => { setName(event.target.value), setStyleInputName(true) }}
         />
-        <Button color="blue" text="Inserir" submit />
+        <Button color="yellow" text="Finalizar pagamento" submit />
       </form>
     )
   )

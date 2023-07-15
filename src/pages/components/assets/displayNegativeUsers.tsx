@@ -12,7 +12,7 @@ import { onLoadingDeleteNegativeUser } from "@/functions/loadingPage/onLoadingDe
 import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayNegativeUsers() {
-  const [ search, setSearch ] = useState('')
+  const [search, setSearch] = useState('')
 
   const [users, setUsers] = useState<{ name: string, data: UserNegative, uidCart: string, uidUser: string }[]>([])
   const [currentPage, setCurrentPage] = useState(0);
@@ -21,7 +21,7 @@ export default function DisplayNegativeUsers() {
   const { setUserInfo } = useInfoUserReducer()
   const router = useRouter()
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
   const totalPages = Math.ceil(users.length / itemsPerPage);
 
   const handlePageChange = (selectedPage: any) => {
@@ -35,7 +35,7 @@ export default function DisplayNegativeUsers() {
   useEffect(() => {
     const fetchData = async () => {
       authFirebase.onAuthStateChanged(async (user) => {
-        if(user) {
+        if (user) {
           await dbGetUsers(search).then((data) => {
             setUsers(data)
           })
@@ -49,13 +49,13 @@ export default function DisplayNegativeUsers() {
 
   useEffect(() => {
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
-    if ( remember === "false" ) {
+    if (remember === "false") {
       const handleBeforeUnload = () => {
         authFirebase.signOut();
       };
-  
+
       window.addEventListener("beforeunload", handleBeforeUnload);
-  
+
       return () => {
         window.removeEventListener("beforeunload", handleBeforeUnload);
       };
@@ -63,58 +63,60 @@ export default function DisplayNegativeUsers() {
   }, []);
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-center h-16 bg-gray-700 relative">
+    <div className="flex flex-col items-center justify-between h-full w-full">
+      <div className="flex w-full items-center justify-center h-16 px-2 bg-gradient-to-r from-gray-100 to-gray-400 relative">
         <Input type="text" text="Pesquisar" id="search" value={search}
           onChange={(event) => { setSearch(event.target.value) }} inputError={true}
         />
-        <i className="absolute right-2 top-6">{IconSearch}</i>
+        <i className="absolute right-3 top-8">{IconSearch}</i>
       </div>
-      <table className="my-6 w-full">
-        <thead className="text-left">
-          <tr className="bg-gray-400 ">
-            <th className="p-2">Nome</th>
-            <th className="p-2">Info</th>
-            <th className="p-2">Inserir produtos</th>
-            <th className="p-2">Pagar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentPageItems.map((users, index) => (
-            <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-600'} py-4`}>
-              <td className="px-2 py-1">{users.data.name}</td>
-              <td className="px-2 py-1 text-center"><button onClick={() => {
-                setUserInfo({ userInfo: { data: users.data, uidCart: users.uidCart, uidUser: users.uidUser } })
-                router.push('/userNegative/infoUser')
-              }}
-              >{IconInfo}</button></td>
-              <td className="px-2 py-1 text-center"><button onClick={() => {
-                onLoadingAddUserCart(setLoading, router, users.uidCart)
-              }}>{IconCheck}</button></td>
-              <td className="px-2 py-1 text-center"><button onClick={() => onLoadingDeleteNegativeUser(setLoading, users.uidUser, users.uidCart)
-                .then(() => {
-                  dbGetUsers('').then((data) => {
-                    setUsers(data)
-                  })
-                })
-              }>{IconStore}</button></td>
+      <div className="flex flex-col items-center pt-1 h-5/6 w-11/12 my-4 px-1 bg-white rounded-lg bg-opacity-80">
+        <table className="rounded-t-md overflow-hidden w-full h-full">
+          <thead className="text-left">
+            <tr className="bg-blue-500 ">
+              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Nome</th>
+              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Info</th>
+              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Inserir<br/>produtos</th>
+              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Pagar</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <ReactPaginate
-        previousLabel={'◄'}
-        nextLabel={'►'}
-        breakLabel={'...'}
-        breakClassName={'break-me'}
-        pageCount={totalPages}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageChange}
-        containerClassName={'pagination'}
-        activeClassName={'bg-red-500 px-2 py-1'}
-        className="flex w-full items-center justify-center gap-6 h-1/5"
-      />
+          </thead>
+          <tbody>
+            {currentPageItems.map((users, index) => (
+              <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
+                <td className="text-sm break-all leading-tight border-r border-b border-white capitalize">{users.data.name}</td>
+                <td className="text-sm break-all leading-tight border-r border-b border-white"><button onClick={() => {
+                  setUserInfo({ userInfo: { data: users.data, uidCart: users.uidCart, uidUser: users.uidUser } })
+                  router.push('/userNegative/infoUser')
+                }}
+                ><i className="flex h-5 w-5 text-blue-500">{IconInfo}</i></button></td>
+                <td className="text-sm break-all leading-tight border-r border-b border-white"><button onClick={() => {
+                  onLoadingAddUserCart(setLoading, router, users.uidCart)
+                }}><i className="flex h-5 w-5 text-yellow-700">{IconCheck}</i></button></td>
+                <td className="text-sm break-all leading-tight border-b border-white"><button onClick={() => onLoadingDeleteNegativeUser(setLoading, users.uidUser, users.uidCart)
+                  .then(() => {
+                    dbGetUsers('').then((data) => {
+                      setUsers(data)
+                    })
+                  })
+                }><i className="flex h-5 w-5 text-orange-500">{IconStore}</i></button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ReactPaginate
+          previousLabel={'◄'}
+          nextLabel={'►'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={'pagination'}
+          activeClassName={'border-b border-blue-500 text-blue-500 transtion duration-500 ease-in-out'}
+          className="text-sm flex w-full items-center justify-center gap-3 h-1/5"
+        />
+      </div>
     </div>
   )
 }

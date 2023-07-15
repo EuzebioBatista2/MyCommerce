@@ -43,29 +43,32 @@ export default function Login() {
   }, [])
 
   return (
-    <main className={`flex w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
+    <main className={`flex w-screen h-screen min-h-[650px] bg-gray-100 bg-[url('/background.png')]`}>
       <Head>
         <title>MyCommerce</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
     
-      <div className='flex flex-col items-center justify-center w-full h-full'>
+      <div className='flex flex-col items-center justify-center w-full'>
         <Loading />
-        <div className="flex items-center justify-center h-1/5">
-          <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} style={{ height: "auto", width: "auto" }} />
+        <div className="flex items-center justify-center h-40 w-full">
+          <div className='h-4/5 w-2/5'>
+            <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} className='w-auto h-auto' />
+          </div>
         </div>
-        <div className="flex flex-col w-full items-center justify-center h-2/5 px-4">
+        <div className="flex flex-col w-full items-center justify-center h-full px-4">
+          <h1 className="font-semibold text-2xl mt-2">Página de login</h1>
           <Form type="login" />
-          <Button color="blue" text="conta Google" icon={IconGoogle} onClick={() => {signWithGoogle(setLoading, router)}} />
+          <Button color="blue" text="Conta Google" icon={IconGoogle} onClick={() => {signWithGoogle(setLoading, router)}} />
         </div>
-        <div className="flex flex-col w-full relative my-3 h-1/5 gap-2 px-4">
+        <div className="flex flex-col w-full relative my-3 h-56 gap-2 px-4">
           <ul className="flex flex-col items-start justify-start text-sm text-gray-600 gap-2">
             <li>Esqueceu sua <Link href={'/forgotPassword'} className="text-blue-700"><strong>senha</strong></Link>?</li>
             <li>Não tem conta? <Link href={'/register'} className="text-blue-700"><strong>criar</strong></Link></li>
             <li>Acesse meu PORTFOLIO clicando: <Link href={'#'} className="text-blue-700"><strong>aqui</strong></Link></li>
           </ul>
         </div>
-        <div className="flex w-full items-end justify-center h-1/5">
+        <div className="flex w-full items-end justify-center h-20">
           <Footer />
         </div>
       </div>

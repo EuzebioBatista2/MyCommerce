@@ -29,7 +29,7 @@ export async function onLoadingSell(loading: any, event: React.FormEvent<HTMLFor
             }
           },
           uid: data.uid}, event).then(() => {
-            toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
+            toastComponent({ type: 'success' }, 'Produto inserido no carrinho com sucesso!')
             router.push('/products')
           })
       })

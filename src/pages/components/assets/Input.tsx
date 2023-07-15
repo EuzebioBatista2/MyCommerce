@@ -26,10 +26,11 @@ export default function Input(props: IInputProps) {
   return (
     props.type === "file" ? (
       <div className="flex items-center h-14 relative px-1 py-3.5 text-sm">
-        <label htmlFor={props.id} className="w-full text-base">
-          <span className="flex items-center justify-center w-full h-8 mt-4 relative bg-blue-500 text-lg font-semibold text-white rounded-sm">Selecione uma imagem</span></label>
+        <label htmlFor={props.id} className="flex items-center justify-center w-full h-8 mt-4 px-2 relative bg-yellow-500 text-lg font-semibold text-white rounded-sm">
+          Selecione uma imagem
+        </label>
         <input type={props.type} name={props.id} id={props.id} accept="image/*" onChange={props.onChange}
-          className={`${props.inputError ? '' : 'text-red-500 border-red-500'} hidden`}
+          className={`hidden`}
         />
       </div>
     ) : props.type === "checkbox" ?  (

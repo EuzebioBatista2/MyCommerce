@@ -4,6 +4,11 @@ export interface ProductType {
   price: number;
 }
 
+export interface ProductStateType {
+  data: ProductType[];
+  user: string;
+}
+
 export interface FinalProductType {
   name: string;
   data: ProductType;

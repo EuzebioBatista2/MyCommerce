@@ -1,6 +1,7 @@
 import { update } from '../../src/store/reducers/editProductReducers/index';
 import { FinalProductType, ProductType } from "@/types/productType";
 import { authFirebase, dbFirebase } from "../config";
+import { toastComponent } from '@/functions/toasts/Toast';
 
 export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType, uidProduct: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -15,7 +16,7 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
     authFirebase.onAuthStateChanged((user) => {
       dbFirebase.doc(user?.uid).collection('Products').get().then((values) => {
         values.docs.map((value) => {
-          if(value.data().name === data.name.toLocaleLowerCase()) {
+          if(value.data().name === data.name.toLocaleLowerCase() && value.data().data.price === data.price) {
             repeat = true
             repeatData = value.data().data.amount
             uid = value.id
@@ -24,7 +25,11 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
 
         if(repeat === false) {
           dbFirebase.doc(authFirebase.currentUser?.uid).collection('Products').add(dataNew).then(() => {
-            resolve()
+            dbFirebase.doc(authFirebase.currentUser?.uid).collection('Cart').doc(uidProduct).delete().then(() => {
+              toastComponent({ type: 'success' }, 'Produto retirado do carrinho com sucesso!')
+              setLoading(false)
+              resolve()
+            })
           })
         }
         else {
@@ -37,12 +42,14 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
             }
           }
           dbFirebase.doc(authFirebase.currentUser?.uid).collection('Products').doc(uid).update(dataUpdate).then(() => {
-            resolve()
+            dbFirebase.doc(authFirebase.currentUser?.uid).collection('Cart').doc(uidProduct).delete().then(() => {
+              toastComponent({ type: 'success' }, 'Produto retirado do carrinho com sucesso!')
+              setLoading(false)
+              resolve()
+            })
           })
         }
-
       })
     })
-    dbFirebase.doc(authFirebase.currentUser?.uid).collection('Cart').doc(uidProduct).delete()
   })
 }

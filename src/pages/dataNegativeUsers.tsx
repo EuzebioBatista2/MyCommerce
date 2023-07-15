@@ -13,7 +13,7 @@ export default function Cart() {
   const [ search, setSearch ] = useState('')
   
   return (
-    <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
+    <main className={`flex flex-col w-screen h-screen min-h-[650px] bg-gray-100 bg-[url('/background.png')]`}>
       <Loading />
       <Head>
         <title>MyCommerce</title>

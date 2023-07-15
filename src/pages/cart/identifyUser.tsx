@@ -9,36 +9,37 @@ import UserForm from "../components/assets/UserForm";
 
 export default function IdentifyUser() {
   return (
-    <main className={`flex flex-col w-screen h-screen bg-gray-100 bg-[url('/background.png')]`}>
+    <main className={`flex flex-col w-screen h-screen min-h-[650px] bg-gray-100`}>
       <Loading />
       <Head>
         <title>MyCommerce</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <nav className="w-full h-20 bg-gray-600">
+      <nav className="w-full h-20 bg-gradient-to-r from-gray-100 to-gray-400">
         <NavProfile />
       </nav>
-      <section className="w-full h-16 bg-red-500">
-        <div className="flex h-full justify-between items-center">
+      <section className="w-full h-16">
+        <div className="flex h-full justify-between items-center bg-blue-500">
           <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <i>{IconArrowLeft}</i>
+            <i className="text-white">{IconArrowLeft}</i>
           </Link>
           <Link href={'/home'} className="flex h-full items-center justify-center cursor-pointer mx-2 gap-1">
-            <span className="mt-1">Página inicial</span>
-            <i>{IconHome}</i>
+            <span className="text-white">Página inicial</span>
+            <i className="text-white">{IconHome}</i>
           </Link>
         </div>
       </section>
-      <section className="h-full w-full  bg-purple-300">
+      <section className="flex flex-col w-full h-full bg-[url('/background.png')] bg-center bg-no-repeat bg-cover">
         <div className="flex flex-col items-center justify-center w-full h-full px-4">
           <h1 className="font-semibold text-2xl">Nome do usuário</h1>
+          <span className="text-gray-700 text-center mt-1 text-sm">*Insira o nome do usuário que pagará a conta*</span>
           <UserForm mode="Identify" />
         </div>
       </section>
-      <nav className="h-20 bg-gray-700">
+      <nav className="h-20 bg-blue-500">
         <NavMenu />
       </nav>
-      <footer className="h-16 bg-green-400">
+      <footer className="h-16">
         <Footer />
       </footer>
     </main>

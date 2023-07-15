@@ -1,16 +1,9 @@
-import { ProductType } from "@/types/productType"
 import { useEffect, useState } from "react"
-import { getDataSearchValue } from "../../../../backend/db/dbSearch"
-import { IconDelete, IconEdit, IconMoney, IconSearch } from "../../../../public/icons/icons"
 import ReactPaginate from 'react-paginate';
-import { dbOnlyOneProduct } from "../../../../backend/db/dbOnlyOneProduct";
-import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer";
 import { useRouter } from "next/router";
-import { onLoadingDeleteProduct } from "@/functions/loadingPage/onLoadingDelete";
-import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
-import Input from "./Input";
 import { useInfoReportReducer } from "@/store/reducers/infoReportReducer/useInfoReportReducer";
 import { authFirebase } from "../../../../backend/config";
+import { formatCurrency } from "@/functions/verifyFields/verifyCurrency";
 
 export default function DisplayValuesInfoReport() {
   const [products, setProducts] = useState<{ amount: number, price: number, name: string }[]>([])
@@ -35,9 +28,9 @@ export default function DisplayValuesInfoReport() {
   useEffect(() => {
     authFirebase.onAuthStateChanged(async (user) => {
       if (user) {
-        if (productInfoReport[0].name !== '') {
-          setProducts(productInfoReport)
-          setTotal(productInfoReport.reduce((acc, product) => {
+        if (productInfoReport.user !== '') {
+          setProducts(productInfoReport.data)
+          setTotal(productInfoReport.data.reduce((acc, product) => {
             return acc + product.amount * product.price;
           }, 0));
         } else {
@@ -67,40 +60,46 @@ export default function DisplayValuesInfoReport() {
   }, []);
 
   return (
-    <div className="">
-      <table className="my-6 mx-4 h-4/5">
-        <thead className="text-left">
-          <tr className="bg-gray-400 ">
-            <th className="p-2">Produto</th>
-            <th className="p-2">Qnt</th>
-            <th className="p-2">Preço</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentPageItems.map((product, index) => (
-            <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-600'} py-4`}>
-              <td className="px-2 py-1">{product.name}</td>
-              <td className="px-2 py-1">{product.amount}</td>
-              <td className="px-2 py-1">{product.price}</td>
+    <div className="flex flex-col items-center justify-between h-full w-full">
+      <div className="flex flex-col items-center pt-1 h-5/6 w-11/12 my-4 px-1 bg-white rounded-lg bg-opacity-80">
+        <div className="flex flex-col items-center justify-center mt-4 mb-2">
+          <h2>Nome:<strong> {productInfoReport.user}</strong></h2>
+          <p className="text-sm text-gray-600">Produtos comprados</p>
+        </div>
+        <table className="rounded-t-md overflow-hidden w-full h-full">
+          <thead className="text-left">
+            <tr className="bg-blue-500 ">
+              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Produto</th>
+              <th className="text-sm px-1 py-1 text-center text-white border-r border-b border-white">Qnt</th>
+              <th className="text-sm px-1 py-1 text-center text-white border-b border-white">Preço</th>
             </tr>
-          ))}
-          <tr className="text-right bg-gray-700"><td className="px-4 py-1" colSpan={6}><strong>Valor total:</strong> {total}</td></tr>
-        </tbody>
-      </table>
-      <ReactPaginate
-        previousLabel={'Ante'}
-        nextLabel={'Prox'}
-        breakLabel={'...'}
-        breakClassName={'break-me'}
-        pageCount={totalPages}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageChange}
-        containerClassName={'pagination'}
-        activeClassName={'bg-red-500 px-2 py-1'}
-        className="flex w-full items-center justify-center gap-6 h-1/5"
+          </thead>
+          <tbody>
+            {currentPageItems.map((product, index) => (
+              <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-300'} py-4 text-center`}>
+                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white capitalize">{product.name}</td>
+                <td className="text-sm px-1 break-all leading-tight border-r border-b border-white">{product.amount}x</td>
+                <td className="text-sm px-1 leading-tight border-r border-b border-white">{formatCurrency(+product.price)}</td>
+              </tr>
+            ))}
+            <tr className="text-right text-white bg-blue-500"><td className="px-4 py-1" colSpan={6}><strong>Valor total:</strong> {formatCurrency(+total)}</td></tr>
+          </tbody>
+        </table>
+        <ReactPaginate
+          previousLabel={'◄'}
+          nextLabel={'►'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={'pagination'}
+          activeClassName={'border-b border-blue-500 text-blue-500 transtion duration-500 ease-in-out'}
+          className="text-sm flex w-full items-center justify-center gap-3 h-1/5"
+        />
+      </div>
 
-      />
 
     </div>
   )

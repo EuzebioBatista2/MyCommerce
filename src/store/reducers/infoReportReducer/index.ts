@@ -1,24 +1,27 @@
-import { ProductType, ProductTypeState } from '@/types/productType';
+import { ProductStateType, ProductType, ProductTypeState } from '@/types/productType';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ProductState {
-  productInfoReport: ProductType[];
+export interface ProductState {
+  productInfoReport: ProductStateType
 }
 
 const initialState: ProductState = {
-  productInfoReport: [{
-    name: '',
-    amount: 0,
-    price: 0,
-  }]
+  productInfoReport:{
+    data: [{
+      name: '',
+      amount: 0,
+      price: 0,
+    }],
+    user: ''
+  }
 }
 
 export const productInfo = createSlice({
   name: 'productInfo',
   initialState,
   reducers: {
-    setInfoAction: (state, action: PayloadAction<ProductType[]>) => {
-      state.productInfoReport = action.payload;
+    setInfoAction: (state, action: PayloadAction<ProductState>) => {
+      state.productInfoReport = action.payload.productInfoReport;
     },
   },
 });

@@ -5,7 +5,7 @@ import { toastComponent } from "../toasts/Toast";
 import { verifyAmount } from "../verifyFields/verifyAmount";
 import { verifyPrice } from "../verifyFields/verifyPrice";
 import { verifyName } from "../verifyFields/verifyName";
-import { submitUpdate } from "../../../backend/db/dbUpdateProduct";
+import { dbUpdateProductEdit } from "../../../backend/db/dbUpdateProductEdit";
 
 export async function onLoadingEdit(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: ProductTypeState): Promise<IIsValidProductType> {
   event.preventDefault()
@@ -15,7 +15,7 @@ export async function onLoadingEdit(loading: any, event: React.FormEvent<HTMLFor
   const isPriceValid = verifyPrice(data.productFinal.data.price)
 
   if(isNameValid && isAmountValid && isPriceValid) {
-    await submitUpdate(data, event)
+    await dbUpdateProductEdit(data, event)
       .then(() => {
         toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
         router.push('/products')

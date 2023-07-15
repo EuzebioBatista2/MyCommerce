@@ -1,5 +1,4 @@
 import { ReportType } from '@/types/reportType';
-import { UserCart } from '@/types/userType';
 import { authFirebase, dbFirebase } from "../config"
 
 export const dbGetReport = ( value: string): Promise<{ name: string, data: ReportType[], user: string, date: string, uid: string }[]> => {

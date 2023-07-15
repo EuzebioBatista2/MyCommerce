@@ -5,18 +5,18 @@ export default function NavMenu() {
   return (
     <div className="flex items-center w-full h-full">
       <Link href={'/products'} className="flex flex-col items-center justify-center w-1/3">
-        <i>{IconBag}</i>
-        <span>Produtos</span>
+        <i className="text-white">{IconBag}</i>
+        <span className="text-sm text-white">Produtos</span>
       </Link>
-      <hr className="h-4/5 border border-black" />
+      <hr className="h-4/5 border-l border-white" />
       <Link href={'/cart'} className="flex flex-col items-center justify-center w-1/3">
-        <i>{IconCart}</i>
-        <span>Carrinho</span>
+        <i className="text-white">{IconCart}</i>
+        <span className="text-sm text-white">Carrinho</span>
       </Link>
-      <hr className="h-4/5 border border-black" />
+      <hr className="h-4/5 border-l border-white" />
       <Link href={'/userNegative'} className="flex flex-col items-center justify-center w-1/3">
-        <i>{IconUserNegative}</i>
-        <span>Fiado</span>
+        <i className="text-white">{IconUserNegative}</i>
+        <span className="text-sm text-white">Fiado</span>
       </Link>
     </div>
   )
