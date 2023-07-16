@@ -2,11 +2,11 @@ import Head from "next/head";
 import Link from "next/link";
 import Loading from "../components/assets/Loading";
 import NavProfile from "../components/assets/NavProfile";
-import EditForm from "../components/assets/EditForm"
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
 import NavMenuMd from "../components/assets/NavMenuMd";
+import EditFormProduct from "../components/assets/EditFormProduct";
 
 export default function EditProduct() {
 
@@ -36,7 +36,7 @@ export default function EditProduct() {
         <div className="flex flex-col h-full border-transparent justify-between w-full md:w-2/3">
           <div className="flex flex-col items-center justify-center w-full h-full px-4">
             <h1 className="font-semibold text-2xl">Editar Produto</h1>
-            <EditForm />
+            <EditFormProduct />
           </div>
         </div>
       </section>

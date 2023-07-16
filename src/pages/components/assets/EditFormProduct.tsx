@@ -8,7 +8,7 @@ import { onLoadingEdit } from "@/functions/loadingPage/onLoadingEdit"
 import { authFirebase } from "../../../../backend/config"
 
 
-export default function EditForm() {
+export default function EditFormProduct() {
 
   const [name, setName] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
