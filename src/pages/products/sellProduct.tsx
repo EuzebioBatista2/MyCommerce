@@ -5,8 +5,8 @@ import NavProfile from "../components/assets/NavProfile";
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
-import SellForm from "../components/assets/SellForm";
 import NavMenuMd from "../components/assets/NavMenuMd";
+import SellFormProduct from "../components/assets/SellFormProduct";
 
 export default function SellProduct() {
   return (
@@ -35,7 +35,7 @@ export default function SellProduct() {
         <div className="flex flex-col h-full border-transparent justify-between w-full md:w-2/3">
           <div className="flex flex-col items-center justify-center w-full h-full px-4">
             <h1 className="font-semibold text-2xl">Vender Produto</h1>
-            <SellForm />
+            <SellFormProduct />
           </div>
         </div>
       </section>

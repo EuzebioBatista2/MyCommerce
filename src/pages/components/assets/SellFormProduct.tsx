@@ -8,7 +8,7 @@ import { onLoadingSell } from "@/functions/loadingPage/onLoadingSell"
 import { authFirebase } from "../../../../backend/config"
 
 
-export default function SellForm() {
+export default function SellFormProduct() {
 
   const [name, setName] = useState<string>('')
   const [amount, setAmount] = useState<number>(0)
