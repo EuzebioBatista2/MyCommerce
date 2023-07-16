@@ -28,6 +28,8 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
 
 # Historio de atualizações:
 
+* 1.0.5
+    * FIX: UrlPassword.
 * 1.0.4
     * REFACTOR: SellForm to SellFormProduct.
 * 1.0.3

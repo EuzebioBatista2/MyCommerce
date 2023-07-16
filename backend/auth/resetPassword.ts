@@ -3,7 +3,7 @@ import { authFirebase } from "../config"
 
 // Objeto que armazena a URL do botão de retorno
 let actionCodeSettings = {
-  url: 'http://192.168.15.29:3000/'
+  url: 'https://my-commerce-euzebiobatista2.vercel.app/'
 }
 
 // Função responsavel por enviar um e-mail com o reset de senha
