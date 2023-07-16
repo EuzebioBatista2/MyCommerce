@@ -13,9 +13,9 @@ export default function Register() {
       </Head>
 
       <div className='flex w-full h-full'>
+        <Loading />
         <div className="hidden md:flex md:w-4/6 bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover"></div>
         <div className='flex flex-col items-center justify-center w-full md:w-2/6'>
-          <Loading />
           <div className="flex flex-col w-full items-center justify-center h-full px-4 gap-4">
             <h1 className="font-semibold text-2xl mt-2">Cadastro de conta</h1>
             <FormAuth type="register" />

@@ -21,7 +21,7 @@ export async function onLoadingRegister(loading: any, event: React.FormEvent<HTM
     await submitRegister(event, data)
       .then(() => {
         toastComponent({ type: 'success' }, 'Cadastro realizado com sucesso!')
-        router.push('/home')
+        router.push('/')
       })
       .catch(() => {})
   }
