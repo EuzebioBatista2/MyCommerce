@@ -2,11 +2,11 @@ import Head from "next/head";
 import Link from "next/link";
 import Loading from "../components/assets/Loading";
 import NavProfile from "../components/assets/NavProfile";
+import EditForm from "../components/assets/EditForm"
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
 import NavMenuMd from "../components/assets/NavMenuMd";
-import EditForm from "../components/assets/EditForm";
 
 export default function EditProduct() {
 
