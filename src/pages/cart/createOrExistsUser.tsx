@@ -70,8 +70,16 @@ export default function CreateOrExistsUser() {
         <div className="flex flex-col h-full border-transparent justify-between w-full md:w-2/3">
           <div className="flex flex-col items-center justify-center w-full h-full px-4">
             <h1 className="font-semibold text-2xl">Opções de usuário</h1>
-            <LinkButton link={'/userNegative/createUser'} color="blue" text="Cria conta do Usuário" />
-            <LinkButton link={'/userNegative'} color="yellow" text="Usuário existente" />
+            <LinkButton color="blue">
+              <Link href='/userNegative/createUser'>
+                <span className="flex items-center justify-center w-full h-full">Cria conta do Usuário</span>
+              </Link>
+            </LinkButton>
+            <LinkButton color="yellow">
+              <Link href='/userNegative'>
+                <span className="flex items-center justify-center w-full h-full">Usuário existente</span>
+              </Link>
+            </LinkButton>
           </div>
         </div>
       </section>

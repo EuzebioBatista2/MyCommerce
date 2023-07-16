@@ -21,7 +21,7 @@ export default function DisplayNegativeUsers() {
   const { setUserInfo } = useInfoUserReducer()
   const router = useRouter()
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 7;
   const totalPages = Math.ceil(users.length / itemsPerPage);
 
   const handlePageChange = (selectedPage: any) => {

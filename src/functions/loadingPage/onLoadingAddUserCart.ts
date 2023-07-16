@@ -9,12 +9,12 @@ import { formatDate } from "../verifyFields/verifyDate";
 export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid: string): Promise<void> {
   loading(true)
   await dbGetCart().then((list) => {
-    authFirebase.onAuthStateChanged((user) => {
+    authFirebase.onAuthStateChanged(async (user) => {
       if (list.length > 0) {
         if(user) {
-          list.map((product) => {
+          await list.map(async (product) => {
             // Realiza a transferencia da lista de produtos do carrinho principal para o carrinho do usuário em dívida
-            dbFirebase.doc(user.uid).collection('ListUsersProducts').doc(uid).collection('Products').add({
+            await dbFirebase.doc(user.uid).collection('ListUsersProducts').doc(uid).collection('Products').add({
               name: product.name,
               data: {
                 name: product.data.name, 
@@ -22,12 +22,11 @@ export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid
                 price: product.data.price,
                 date: formatDate(new Date())
               }
-            }).then(() => {
-              onLoadingDeleteCartAll(loading).then(() => {
-                toastComponent({ type: 'success' }, 'Produto inseridos na conta do usuário!')
-                router.push('/userNegative')
-              })
             })
+          })
+          await onLoadingDeleteCartAll(loading).then(() => {
+            toastComponent({ type: 'success' }, 'Produto inseridos na conta do usuário!')
+            router.push('/userNegative')
           })
         }
       } else {

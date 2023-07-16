@@ -38,7 +38,12 @@ export default function Home() {
             <div className="flex items-center justify-center flex-col text-xl gap-14 px-4">
               <span className="text-center text-sm md:text-base text-gray-500">*Aqui contém os dados referente a vendas e produtos*</span>
               <DisplayValuesDataHome />
-              <LinkButton link="/home/reportSell" color="blue" text="Relátorio de vendas" icon={IconReport} />
+              <LinkButton color="blue">
+                <Link href='/home/reportSell'>
+                  <i className="flex items-center justify-center absolute h-6 w-6 top-1 left-1">{IconReport}</i>
+                  <span className="flex items-center justify-center w-full h-full">Relátorio de vendas</span>
+                </Link>
+              </LinkButton>
             </div>
           </div>
         </div>

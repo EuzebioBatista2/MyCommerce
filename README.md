@@ -28,22 +28,8 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
 
 # Historio de atualizações:
 
-* 3.0.0
-    * FINISH: Att ReadMe.
-* 2.0.6
-    * UPDATE: Finish pages fixed.
-* 2.0.5
-    * FIX: Fixed coding and bug response.
-* 2.0.4
-    * UPDATE: Fix page AboutMe v3.
-* 2.0.3
-    * UPDATE: Fix page AboutMe v2.
-* 2.0.2
-    * UPDATE: Fix page AboutMe.
-* 2.0.1
-    * FINISH: README PAGE UPDATE and fixed bugs.
-* 2.6.0
-    * FINISH: Fixed finish v2.0.
+* 1.0.0
+    * FEAT: Deploy first version.
 * 0.5.1
     * FEAT: create page responsiveness PC
 * 0.5.0
@@ -84,8 +70,6 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
     * FEAT: Starting PageLogin.
 * 0.0.0
     * FEAT: Starting project.
-
-Créditos: "Agradeço a Kaique pela dica de atualização do ReadMe e Edvaldo pelo apoio."
 
 Euzebio Batista [@Linkedin](https://www.linkedin.com/in/euzebio-batista) - euzebio.batista2@gmail.com
 

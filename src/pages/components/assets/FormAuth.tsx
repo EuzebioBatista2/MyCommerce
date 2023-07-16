@@ -11,6 +11,7 @@ import { onLoadingResetPassword } from "@/functions/loadingPage/onLoadingResetPa
 import { verifyImage } from "@/functions/verifyFields/verifyImage"
 import { verifyCheckBox } from "@/functions/verifyFields/verifyCheckbox"
 import LinkButton from "./LinkButton"
+import Link from "next/link"
 
 interface IFormProps {
   type: 'login' | 'register' | 'forgotPassword'
@@ -128,7 +129,12 @@ export default function FormAuth(props: IFormProps) {
           <Input type="text" text="Email" id="email" inputError={styleInputEmail}
             onChange={(event) => { setEmail(event.target.value), setStyleInputEmail(true) }} value={email} />
           <Button color="blue" text="Enviar" submit />
-          <LinkButton link="/" color="yellow" text="Retornar" icon={IconBack} />
+          <LinkButton color="yellow">
+            <Link href='/'>
+              <i className="flex items-center justify-center absolute h-6 w-6 top-1 left-1">{IconBack}</i>
+              <span className="flex items-center justify-center w-full h-full">Retornar</span>
+            </Link>
+          </LinkButton>
         </form>
       </div>
     ))

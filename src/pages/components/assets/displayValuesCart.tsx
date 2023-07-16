@@ -9,6 +9,7 @@ import Input from "./Input";
 import { dbRemoveAndUpdateProductCart } from "../../../../backend/db/dbRemoveAndUpdateProductCart";
 import { authFirebase } from "../../../../backend/config";
 import { formatCurrency } from "@/functions/verifyFields/verifyCurrency";
+import Link from "next/link";
 
 export default function DisplayValuesCart() {
   const [search, setSearch] = useState('')
@@ -19,7 +20,7 @@ export default function DisplayValuesCart() {
 
   const { setLoading } = useLoadingReducer()
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   const handlePageChange = (selectedPage: any) => {
@@ -35,7 +36,7 @@ export default function DisplayValuesCart() {
     const fetchData = async () => {
       authFirebase.onAuthStateChanged(async (user) => {
         if (user) {
-          await dbGetCartSearch(search).then( async (data) => {
+          await dbGetCartSearch(search).then(async (data) => {
             setProducts(data)
             setTotal((data.reduce((acc, products) => {
               return acc + products.data.amount * products.data.price
@@ -104,8 +105,16 @@ export default function DisplayValuesCart() {
             <tr className="text-right text-white bg-blue-500"><td className="px-4 py-1" colSpan={4}><strong>Valor total:</strong> {formatCurrency(+total)}</td></tr>
           </tbody>
         </table>
-        <LinkButton link={'/cart/identifyUser'} color="yellow" text="Fechar pagamento com dinheiro" />
-        <LinkButton link={'/cart/createOrExistsUser'} color="gray" text="Colocar na conta" />
+        <LinkButton color="yellow">
+          <Link href='/cart/identifyUser'>
+            <span className="flex items-center justify-center w-full h-full">Pagar com dinheiro</span>
+          </Link>
+        </LinkButton>
+        <LinkButton color="gray">
+          <Link href='/cart/createOrExistsUser'>
+            <span className="flex items-center justify-center w-full h-full">Colocar na conta</span>
+          </Link>
+        </LinkButton>
 
         <ReactPaginate
           previousLabel={'◄'}

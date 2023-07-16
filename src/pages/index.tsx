@@ -68,7 +68,7 @@ export default function Login() {
             <ul className="flex flex-col items-start justify-start text-sm text-gray-600 gap-2">
               <li>Esqueceu sua <Link href={'/forgotPassword'} className="text-blue-700"><strong>senha</strong></Link>?</li>
               <li>Não tem conta? <Link href={'/register'} className="text-blue-700"><strong>criar</strong></Link></li>
-              <li>Acesse meu PORTFOLIO clicando: <Link href={'#'} className="text-blue-700"><strong>aqui</strong></Link></li>
+              <li>Acesse meu PORTFOLIO clicando: <Link href={'https://portfolio-euzebiobatista.vercel.app/'} className="text-blue-700"><strong>aqui</strong></Link></li>
             </ul>
           </div>
           <div className="flex w-full items-end justify-center h-20">
