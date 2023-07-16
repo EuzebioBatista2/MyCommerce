@@ -1,7 +1,7 @@
-import { update } from './../../src/store/reducers/editProductReducers/index';
 import { FinalProductType, ProductType } from "@/types/productType";
 import { authFirebase, dbFirebase } from "../config";
 
+// Função responsável por verificar se existe um produto repetido e inserir na tabela
 export function submitProduct (data: ProductType, event?: React.FormEvent<HTMLFormElement>): Promise<void> {
   return new Promise((resolve, reject) => {
     event?.preventDefault()
@@ -10,23 +10,25 @@ export function submitProduct (data: ProductType, event?: React.FormEvent<HTMLFo
       name: data.name.toLocaleLowerCase(),
       data: data
     }
-    authFirebase.onAuthStateChanged((user) => {
-      dbFirebase.doc(user?.uid).collection('Products').get().then((values) => {
+    authFirebase.onAuthStateChanged(async (user) => {
+      // Consulta e verificação se já existe um produto cadastrado com o mesmo preço
+      await dbFirebase.doc(user?.uid).collection('Products').get().then((values) => {
         values.docs.map((value) => {
-          if(value.data().name === data.name.toLocaleLowerCase()) {
+          if(value.data().name === data.name.toLocaleLowerCase() && value.data().data.price === data.price) {
             repeat = true
           }
         })
       })
+      // Caso não exista, permite a criação do produto
+      if(repeat === false) {
+        dbFirebase.doc(authFirebase.currentUser?.uid).collection('Products').add(dataNew).then(() => {
+          resolve()
+        })
+      }
+      // Caso já exista, será negado o cadastro
+      else {
+        reject()
+      }
     })
-
-    if(repeat === false) {
-      dbFirebase.doc(authFirebase.currentUser?.uid).collection('Products').add(dataNew).then(() => {
-        resolve()
-      })
-    }
-    else {
-      resolve()
-    }
   })
 }

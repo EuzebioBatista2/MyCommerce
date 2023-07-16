@@ -1,6 +1,7 @@
 import { UserNegative } from '@/types/userType';
 import { authFirebase, dbFirebase } from "../config"
 
+// Função responsável por realizar consulta na tabela de usuários em dívida
 export const dbGetUsers = (value: string): Promise<{ name: string, data: UserNegative, uidCart: string, uidUser: string }[]> => {
   return new Promise((resolve, reject) => {
     let list: any[] = []
@@ -26,7 +27,7 @@ export const dbGetUsers = (value: string): Promise<{ name: string, data: UserNeg
             reject(error)
           })
       } else {
-        reject(new Error('User not authenticated'))
+        window.location.href = '/'
       }
     })
   })

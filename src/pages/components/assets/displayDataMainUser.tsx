@@ -24,6 +24,7 @@ export default function DisplayDataMainUser() {
   const [styleInputImage, setStyleInputImage] = useState<boolean>(true)
 
   useEffect(() => {
+    // Função responsável por carregar os dados de nome de imagem
     const fetchUserImage = async () => {
       try {
         const name = await dbNamePerfil()
@@ -41,6 +42,7 @@ export default function DisplayDataMainUser() {
   }, [])
 
   useEffect(() => {
+    // Exibe a imagem nos display onde pode substituir a imagem atual
     if (userImageSub && userImageSub[0]) {
       const reader = new FileReader();
       let IsValid: boolean = verifyImage(userImageSub[0])

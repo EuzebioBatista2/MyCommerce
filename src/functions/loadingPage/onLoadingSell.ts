@@ -2,13 +2,13 @@ import { IIsValidProductType } from "@/types/isValidType";
 import { ProductTypeState } from "@/types/productType";
 import { NextRouter } from "next/router";
 import { toastComponent } from "../toasts/Toast";
-import { verifyAmount } from "../verifyFields/verifyAmount";
 import { verifyPrice } from "../verifyFields/verifyPrice";
 import { verifyName } from "../verifyFields/verifyName";
 import { submitUpdate } from "../../../backend/db/dbUpdateProduct";
 import { verifySellAmount } from "../verifyFields/verifySellAmount";
 import { dbPutOnCart } from "../../../backend/db/dbPutOnCart";
 
+// Função responsável por carregar o loading enquanto uma determinada quantia é retirada é da tabela de produtos pra ser inserida no carrrinho principal
 export async function onLoadingSell(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: ProductTypeState, amount: number): Promise<IIsValidProductType> {
   event.preventDefault()
   loading(true)

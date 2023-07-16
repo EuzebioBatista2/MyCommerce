@@ -1,6 +1,7 @@
 import { ReportType } from '@/types/reportType';
 import { authFirebase, dbFirebase } from "../config"
 
+// Função responsável por realizar consultas na tabela de relátorio
 export const dbGetReport = ( value: string): Promise<{ name: string, data: ReportType[], user: string, date: string, uid: string }[]> => {
   return new Promise((resolve, reject) => {
     let list: any[] = []
@@ -32,7 +33,7 @@ export const dbGetReport = ( value: string): Promise<{ name: string, data: Repor
           reject(error)
         })
       } else {
-        reject(new Error('User not authenticated'))
+        window.location.href = '/'
       }
     })
   })

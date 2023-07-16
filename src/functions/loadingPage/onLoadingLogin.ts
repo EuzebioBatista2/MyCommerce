@@ -6,6 +6,7 @@ import { submitLogin } from "../../../backend/auth/submitLogin";
 import { toastComponent } from "../toasts/Toast";
 import { verifyLoginPassword } from "../verifyFields/verifyLoginPassword";
 
+// Função responsável por carregar o loading enquanto o usuário realiza o login
 export async function onLoadingLogin(
   loading: (value: boolean) => void, 
   event: React.FormEvent<HTMLFormElement>, 
@@ -18,7 +19,7 @@ export async function onLoadingLogin(
     const isPasswordValid = verifyLoginPassword(data.password || '')
 
     if (isEmailValid && isPasswordValid) {
-      await submitLogin(event, data, loading)
+      await submitLogin(event, data)
       .then(() => {
         router.push('/home')
       })

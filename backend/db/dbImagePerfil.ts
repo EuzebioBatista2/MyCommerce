@@ -1,5 +1,6 @@
 import { authFirebase } from "../config";
 
+// Função responsável por pegar a URL da imagem do usuário logado
 export function dbImagePerfil() {
   return new Promise((resolve, reject) => {
     authFirebase.onAuthStateChanged((user) => {
@@ -10,6 +11,7 @@ export function dbImagePerfil() {
   });
 }
 
+// Função responsável por pegar os dados do usuário logado
 export function dbNamePerfil() {
   return new Promise((resolve, reject) => {
     authFirebase.onAuthStateChanged((user) => {

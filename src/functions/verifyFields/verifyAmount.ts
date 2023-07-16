@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast";
 
+// Função responsável por verificar se a quantidade é permitida
 export const verifyAmount = (value: number): boolean => {
   const isValid = value.toString().indexOf('.');
   if (value <= 0) {

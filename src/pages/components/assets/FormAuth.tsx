@@ -1,7 +1,6 @@
 import Input from "./Input"
 import Button from "./Button"
 import { IconBack } from "../../../../public/icons/icons"
-import Link from "next/link"
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -39,6 +38,7 @@ export default function FormAuth(props: IFormProps) {
   const [styleInputPassword, setStyleInputPassword] = useState<boolean>(true)
 
   useEffect(() => {
+    // Função responsável por carregar a imagem durante o cadastro
     if (image && image[0]) {
       const reader = new FileReader();
       let IsValid: boolean = verifyImage(image[0])
@@ -55,6 +55,7 @@ export default function FormAuth(props: IFormProps) {
   }, [image])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "true") {
       setCheckbox(true)

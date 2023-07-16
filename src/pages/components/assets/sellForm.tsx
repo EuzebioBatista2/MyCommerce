@@ -4,7 +4,6 @@ import { useRouter } from "next/router"
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer"
 import Button from "./Button"
 import { useUpdateProductReducer } from "@/store/reducers/editProductReducers/useUpdateProductReducer"
-import { onLoadingEdit } from "@/functions/loadingPage/onLoadingEdit"
 import { onLoadingSell } from "@/functions/loadingPage/onLoadingSell"
 import { authFirebase } from "../../../../backend/config"
 
@@ -22,6 +21,7 @@ export default function SellForm() {
   const [styleInputAmount, setStyleInputAmount] = useState<boolean>(true)
 
   useEffect(() => {
+    // Função responsável por passar os dados para vender produto no formulário
     authFirebase.onAuthStateChanged(async (user) => {
       if(user) {
         if(productId.productFinal.data.name != '') {
@@ -38,6 +38,7 @@ export default function SellForm() {
   }, [productId])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if ( remember === "false" ) {
       const handleBeforeUnload = () => {

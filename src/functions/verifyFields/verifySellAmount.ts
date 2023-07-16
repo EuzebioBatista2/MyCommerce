@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast";
 
+// Função responsável por verificar se a diferença na quantidade inserida é valida na hora da venda
 export const verifySellAmount = (value: number, amount: number ): boolean => {
   if(amount - value >= 0) {
       const isValid = value.toString().indexOf('.');

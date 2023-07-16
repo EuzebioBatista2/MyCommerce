@@ -1,5 +1,6 @@
 import { authFirebase, dbFirebase } from "../config";
 
+// Função responsável por deletar todos os produtos do carrinho principal
 export function dbDeleteCart():Promise<void> {
   return new Promise((resolve, reject) => {
     authFirebase.onAuthStateChanged((user) => {

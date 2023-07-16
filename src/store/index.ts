@@ -1,4 +1,3 @@
-import { useUpdateProductReducer } from './reducers/editProductReducers/useUpdateProductReducer';
 import { configureStore } from '@reduxjs/toolkit';
 
 import loadingReducer from './reducers/loadingReducers'

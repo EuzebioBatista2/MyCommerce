@@ -1,6 +1,7 @@
 import { ProductType } from './../../src/types/productType';
 import { authFirebase, dbFirebase } from "../config"
 
+// Função responsável por realizar consultas na tabela de produto
 export const getDataSearchValue = (value: string): Promise<{name: string, data: ProductType, uid: string}[]> => {
   return new Promise<{name: string, data: ProductType, uid: string}[]>((resolve, reject) => {
     let list: any[] = []
@@ -19,8 +20,6 @@ export const getDataSearchValue = (value: string): Promise<{name: string, data: 
                 data: product.data().data,
                 uid: product.id
               })
-            } else {
-              dbFirebase.doc(user.uid).collection('Products').doc(product.id).delete()
             }
           })
           resolve(list)
@@ -28,7 +27,7 @@ export const getDataSearchValue = (value: string): Promise<{name: string, data: 
           reject(error)
         })
       } else {
-        reject(new Error('User not authenticated'))
+        window.location.href = '/'
       }
     })
   })

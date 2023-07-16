@@ -14,6 +14,9 @@ module.exports = {
     {
       pattern: /^border-(blue|yellow|gray|red)-(300|500)/,
     },
+    'hover:bg-blue-600',
+    'hover:bg-gray-600',
+    'hover:bg-yellow-600',
   ],
   theme: {
     extend: {

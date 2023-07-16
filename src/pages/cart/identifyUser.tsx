@@ -7,8 +7,28 @@ import NavMenu from "../components/assets/NavMenu";
 import Link from "next/link";
 import UserForm from "../components/assets/UserForm";
 import NavMenuMd from "../components/assets/NavMenuMd";
+import { useEffect } from "react";
+import { authFirebase } from "../../../backend/config";
 
+// Pagina responsável por exibir o formulário onde será inserido o nome do usuário que pagará a conta
 export default function IdentifyUser() {
+
+  useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if (remember === "false") {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
+
   return (
     <main className={`flex flex-col w-screen h-screen min-h-[650px] bg-gray-100`}>
       <Loading />

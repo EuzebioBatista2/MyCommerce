@@ -8,6 +8,7 @@ import { submitRegister } from "../../../backend/auth/submitRegister"
 import { toastComponent } from "../toasts/Toast"
 import { IIsValidAuthType } from "@/types/isValidType"
 
+// Função responsável por carregar o loading enquanto o usuário é cadastrado no db
 export async function onLoadingRegister(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: RegisterType): Promise<IIsValidAuthType> {
   event.preventDefault()
   loading(true)

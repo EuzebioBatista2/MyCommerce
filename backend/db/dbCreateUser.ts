@@ -1,6 +1,7 @@
 import { UserNegative } from './../../src/types/userType';
 import { authFirebase, dbFirebase } from "../config";
 
+// Função responsável por criar os dados do usuário, juntamente com sua coluna onde será armazenado todos os produtos comprados
 export function dbCreateUser (data: UserNegative, event?: React.FormEvent<HTMLFormElement>): Promise<void> {
   return new Promise((resolve, reject) => {
     event?.preventDefault()

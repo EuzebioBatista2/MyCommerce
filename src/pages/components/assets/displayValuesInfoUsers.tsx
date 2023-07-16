@@ -36,6 +36,7 @@ export default function DisplayValuesInfoUsers() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
+    // 
     authFirebase.onAuthStateChanged(async (user) => {
       if (user) {
         if (userInfo.uidUser !== '') {
@@ -43,12 +44,10 @@ export default function DisplayValuesInfoUsers() {
           const fetchData = async () => {
             await dbGetUserCart(userInfo.uidCart, search).then((data) => {
               setProducts(data)
-            });
-            await dbGetUserCart(userInfo.uidCart, search).then((data) => {
               setTotal(data.reduce((acc, product) => {
                 return acc + product.data.amount * product.data.price;
               }, 0));
-            })
+            });
           };
           fetchData();
         } else {
@@ -62,6 +61,7 @@ export default function DisplayValuesInfoUsers() {
   }, [search])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {

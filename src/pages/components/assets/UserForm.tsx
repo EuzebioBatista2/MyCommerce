@@ -5,7 +5,6 @@ import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingRe
 import Button from "./Button"
 import { onLoadingCreateUser } from "@/functions/loadingPage/onLoadingCreateUser"
 import { onLoadingAddReport } from "@/functions/loadingPage/onLoadingAddReport"
-import { onLoadingDeleteCartAll } from "@/functions/loadingPage/onLoadingDeleteCart"
 import { verifyName } from "@/functions/verifyFields/verifyName"
 import { authFirebase } from "../../../../backend/config"
 
@@ -30,6 +29,7 @@ export default function UserForm(props: IUserForm) {
   }, [])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if ( remember === "false" ) {
       const handleBeforeUnload = () => {
@@ -78,8 +78,7 @@ export default function UserForm(props: IUserForm) {
           let value = verifyName(name)
           if(value) {
             onLoadingAddReport(setLoading, name)
-            onLoadingDeleteCartAll(setLoading)
-            router.push('/home')
+            router.push('/cart')
           } else {
             setStyleInputName(false)
           }

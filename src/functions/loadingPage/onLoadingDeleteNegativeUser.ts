@@ -1,8 +1,8 @@
-import { resolve } from "path"
 import { authFirebase, dbFirebase } from "../../../backend/config"
 import { toastComponent } from "../toasts/Toast"
 import { formatDate } from "../verifyFields/verifyDate"
 
+// Função responsável por carregar o loading enquanto o usuário em dívida é removido da lista
 export function onLoadingDeleteNegativeUser(loading: any, uidUser: string, uidCart: string): Promise<void> {
   return new Promise((resolve) => {
     let list: { amount: number; price: number; name: string }[] = [];
@@ -10,21 +10,14 @@ export function onLoadingDeleteNegativeUser(loading: any, uidUser: string, uidCa
     loading(true);
 
     authFirebase.onAuthStateChanged((user) => {
-      dbFirebase
-        .doc(user?.uid)
-        .collection("ListUsers")
-        .doc(uidUser)
-        .get()
+      // Realiza uma consulta especifica pegando o nome do usuário no qual será excluído
+      dbFirebase.doc(user?.uid).collection("ListUsers").doc(uidUser).get()
         .then((user) => {
           userName = user.data()?.data.name;
         })
         .then(() => {
-          dbFirebase
-            .doc(user?.uid)
-            .collection("ListUsersProducts")
-            .doc(uidCart)
-            .collection("Products")
-            .get()
+          // Realiza uma consulta especifica pegando os produtos cadastrados dentro do carrinho especifico do usuário em dívida
+          dbFirebase.doc(user?.uid).collection("ListUsersProducts").doc(uidCart).collection("Products").get()
             .then((products) => {
               list = products.docs.map((product) => ({
                 amount: product.data().data.amount,
@@ -34,9 +27,8 @@ export function onLoadingDeleteNegativeUser(loading: any, uidUser: string, uidCa
               return list;
             })
             .then((list) => {
-              dbFirebase
-                .doc(user?.uid)
-                .collection("Report")
+              // Realiza a insersão desses dados consultados na tabela de relátorio
+              dbFirebase.doc(user?.uid).collection("Report")
                 .add({
                   user: userName,
                   data: list,
@@ -44,42 +36,24 @@ export function onLoadingDeleteNegativeUser(loading: any, uidUser: string, uidCa
                   date: formatDate(new Date()),
                 })
                 .then(() => {
-                  dbFirebase
-                    .doc(user?.uid)
-                    .collection("ListUsersProducts")
-                    .doc(uidCart)
-                    .collection("Products")
-                    .get()
+                  // Realiza novamente uma consulta na tabela do carrinho do usuário em dívida e exclui todos os produtos dentro.
+                  dbFirebase.doc(user?.uid).collection("ListUsersProducts").doc(uidCart).collection("Products").get()
                     .then((products) => {
                       products.docs.map((product) => {
-                        dbFirebase
-                          .doc(user?.uid)
-                          .collection("ListUsersProducts")
-                          .doc(uidCart)
-                          .collection("Products")
-                          .doc(product.id)
+                        dbFirebase.doc(user?.uid).collection("ListUsersProducts").doc(uidCart).collection("Products").doc(product.id)
                           .delete();
                       });
                     })
                     .then(() => {
-                      dbFirebase
-                        .doc(user?.uid)
-                        .collection("ListUsersProducts")
-                        .doc(uidCart)
-                        .delete();
+                      // Realiza a mesma consulta, porém exclui a tabela vazia do carrinho do usuário em dívida
+                      dbFirebase.doc(user?.uid).collection("ListUsersProducts").doc(uidCart).delete();
                     })
                     .then(() => {
-                      dbFirebase
-                        .doc(user?.uid)
-                        .collection("ListUsers")
-                        .doc(uidUser)
-                        .delete();
+                      // Realiza novamente a consulta especifica nos dados usuário em dívida e retira seus dados
+                      dbFirebase.doc(user?.uid).collection("ListUsers").doc(uidUser).delete();
                     })
                     .then(() => {
-                      toastComponent(
-                        { type: "success" },
-                        `Produtos vendidos com sucesso!`
-                      );
+                      toastComponent({ type: "success" }, `Produtos vendidos com sucesso!`);
                       loading(false);
                       resolve();
                     });

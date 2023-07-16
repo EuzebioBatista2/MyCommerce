@@ -25,8 +25,9 @@ export default function Input(props: IInputProps) {
 
   return (
     props.type === "file" ? (
+      // Input par ao tipo file
       <div className="flex items-center h-14 relative px-1 py-3.5 text-sm max-w-[400px]">
-        <label htmlFor={props.id} className="flex items-center justify-center w-full h-8 mt-4 px-2 relative bg-yellow-500 text-lg font-semibold text-white rounded-sm">
+        <label htmlFor={props.id} className="flex items-center justify-center w-full h-8 mt-4 px-2 relative bg-yellow-500 hover:bg-yellow-600 text-lg font-semibold text-white rounded-sm transition duration-500 ease-in-out">
           Selecione uma imagem
         </label>
         <input type={props.type} name={props.id} id={props.id} accept="image/*" onChange={props.onChange}
@@ -34,6 +35,7 @@ export default function Input(props: IInputProps) {
         />
       </div>
     ) : props.type === "checkbox" ?  (
+      // Input para o tipo checkbox
       <div className="flex items-center h-14 relative px-1 w-full max-w-[400px]">
         <label htmlFor={props.id}
           className={`text-sm pr-2`}
@@ -42,6 +44,7 @@ export default function Input(props: IInputProps) {
         />
       </div>
     ) : props.type === "search" ? (
+      // Input para o tipo search
       <div className="flex items-center justify-center h-14 relative px-1 w-full">
         <label htmlFor={props.id}
           className={`absolute ${animation || props.value != '' ? 'text-sm left-1 top-1' : 'text-base left-2 top-7'} transtion duration-500 ease-in-out`}
@@ -52,6 +55,7 @@ export default function Input(props: IInputProps) {
         />
       </div>
     ) : (
+      // Input para os demais
       <div className="flex items-center justify-center h-14 relative px-1 w-full max-w-[400px]">
         <label htmlFor={props.id}
           className={`absolute ${animation || props.value != '' ? 'text-sm left-1 top-1' : 'text-base left-2 top-7'} transtion duration-500 ease-in-out`}

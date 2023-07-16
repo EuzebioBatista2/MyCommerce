@@ -5,6 +5,7 @@ import { toastComponent } from "../toasts/Toast"
 import { IIsValidUpdateUser } from "@/types/isValidType"
 import { submitUpdateRegister } from "../../../backend/auth/submitUpdateRegister"
 
+// Função responsável por carregar o loading enquanto os dados do usuário são atualizado(Imagem e nome) 
 export async function onLoadingUpdateRegister(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: {userName: string, userImageSub: any}): Promise<IIsValidUpdateUser> {
   event.preventDefault()
   loading(true)

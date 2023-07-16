@@ -1,18 +1,18 @@
 import Head from "next/head";
 import NavProfile from "../components/assets/NavProfile";
-import { IconArrowLeft, IconHome, IconSearch } from "../../../public/icons/icons";
+import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
-import Input from "../components/assets/Input";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Loading from "../components/assets/Loading";
-import { useRouter } from "next/router";
 import LinkButton from "../components/assets/LinkButton";
 import { authFirebase } from "../../../backend/config";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import NavMenuMd from "../components/assets/NavMenuMd";
 
+
+// Página responsável por criar usuário em dívida ou levar para página de usuário em dívida
 export default function CreateOrExistsUser() {
 
   const { setLoading } = useLoadingReducer()
@@ -29,6 +29,7 @@ export default function CreateOrExistsUser() {
   }, [])
 
   useEffect(() => {
+    // Função responsável por verificar se o check de lembrar conta foi marcado quando a for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {

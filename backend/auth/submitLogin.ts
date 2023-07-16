@@ -2,12 +2,14 @@ import { UserType } from "@/types/userType";
 import { authFirebase, providerGoogle } from "../config";
 import { toastComponent } from "@/functions/toasts/Toast";
 
-export function submitLogin(event: React.FormEvent<HTMLFormElement>, data: UserType, loading: any): Promise<void> {
+// Função responsável por lidar com o login manual padrão
+export function submitLogin(event: React.FormEvent<HTMLFormElement>, data: UserType): Promise<void> {
   return new Promise((resolve, reject) => {
     event.preventDefault()
     const inputEmail = data.email ? data.email : ''
     const inputPassword = data.password ? data.password : ''
 
+    // Verifica se o login é da plataforma Gmail
     const isGmail = inputEmail.includes("@gmail.com");
 
     if (isGmail) {

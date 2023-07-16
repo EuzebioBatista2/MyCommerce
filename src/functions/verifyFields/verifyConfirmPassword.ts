@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast"
 
+// Função responsável por verificar se os dados da senha e confirmar senha são iguais e validos
 export const verifyConfirmPassword = (inputPassword: string, inputConfirmPassword: string ): boolean => {
   if (inputPassword === inputConfirmPassword && (inputPassword !== '' && inputConfirmPassword !== '')) {
     if (inputPassword.match(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%!&^*]).{6,20}$/g)) {

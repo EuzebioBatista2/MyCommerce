@@ -33,6 +33,7 @@ export default function DisplayNegativeUsers() {
   const currentPageItems = users.slice(startIndex, endIndex);
 
   useEffect(() => {
+    // Função responsável por pegar os dados personalizado caso o usuário digite uma palavra em pesquisar
     const fetchData = async () => {
       authFirebase.onAuthStateChanged(async (user) => {
         if (user) {
@@ -48,6 +49,7 @@ export default function DisplayNegativeUsers() {
   }, [search])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {

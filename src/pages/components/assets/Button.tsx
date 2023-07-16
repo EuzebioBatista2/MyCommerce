@@ -9,7 +9,7 @@ export default function Button(props: IButtonProps) {
   return(
     <button 
       type={props.submit ? 'submit' : 'button'} 
-      className={`flex items-center justify-center w-full h-8 mt-4 relative max-w-[400px] bg-${props.color}-500 text-lg font-semibold text-white rounded-sm`}
+      className={`flex items-center justify-center w-full h-8 mt-4 relative max-w-[400px] bg-${props.color}-500 hover:bg-${props.color}-600 text-lg font-semibold text-white rounded-sm transition duration-500 ease-in-out`}
       onClick={props.onClick}
       >
         {props.icon ? <i className="flex absolute h-6 w-6 left-2">{props.icon}</i> : undefined }

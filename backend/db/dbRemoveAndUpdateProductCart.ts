@@ -1,8 +1,8 @@
-import { update } from '../../src/store/reducers/editProductReducers/index';
 import { FinalProductType, ProductType } from "@/types/productType";
 import { authFirebase, dbFirebase } from "../config";
 import { toastComponent } from '@/functions/toasts/Toast';
 
+// Função responsável por remover o produto do carrinho principal e verificar se ele já existe atualiza-lo
 export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType, uidProduct: string): Promise<void> {
   return new Promise((resolve, reject) => {
     setLoading(true)
@@ -14,6 +14,7 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
       data: data
     }
     authFirebase.onAuthStateChanged((user) => {
+      // Verifica se já existe um produto com o mesmo nome em produtos
       dbFirebase.doc(user?.uid).collection('Products').get().then((values) => {
         values.docs.map((value) => {
           if(value.data().name === data.name.toLocaleLowerCase() && value.data().data.price === data.price) {
@@ -23,6 +24,7 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
           }
         })
 
+        // Caso não exista, adiciona o produto removido do carrinho e o retira do carrinho principal.
         if(repeat === false) {
           dbFirebase.doc(authFirebase.currentUser?.uid).collection('Products').add(dataNew).then(() => {
             dbFirebase.doc(authFirebase.currentUser?.uid).collection('Cart').doc(uidProduct).delete().then(() => {
@@ -32,6 +34,7 @@ export function dbRemoveAndUpdateProductCart (setLoading: any, data: ProductType
             })
           })
         }
+        // Caso exista, atualiza a quantidade do produto existente e o retira do carrinho principal
         else {
           const dataUpdate = {
             name: data.name.toLocaleLowerCase(),

@@ -1,3 +1,4 @@
+// Função responsável por formatar a data para um padrão brasileiro de data
 export const formatDate = (date: Date): string => {
   const day = date.getDate();
   const month = date.getMonth() + 1;

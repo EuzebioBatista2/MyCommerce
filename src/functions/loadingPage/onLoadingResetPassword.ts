@@ -3,6 +3,7 @@ import { IIsValidResetPassword } from "@/types/isValidType"
 import { resetPassword } from "../../../backend/auth/resetPassword"
 import { verifyEmailWithGoogle } from "../verifyFields/verifyEmailWithGoogle"
 
+// Função responsável por carregar o loading enquanto um e-mail de reset de senha é enviado
 export async function onLoadingResetPassword(loading: any, event: React.FormEvent<HTMLFormElement>, email: string ): Promise<IIsValidResetPassword> {
   event.preventDefault()
   loading(true)

@@ -7,6 +7,7 @@ import { verifyPrice } from "../verifyFields/verifyPrice";
 import { verifyName } from "../verifyFields/verifyName";
 import { dbUpdateProductEdit } from "../../../backend/db/dbUpdateProductEdit";
 
+// Função responsável por carregar o loading enquanto os dados do produto editado são atulizados
 export async function onLoadingEdit(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: ProductTypeState): Promise<IIsValidProductType> {
   event.preventDefault()
   loading(true)

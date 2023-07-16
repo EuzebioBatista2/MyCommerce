@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast"
 
+// Função responsávle por verificar se o preço é valido
 export const verifyPrice = (value: number): boolean => {
   if(value <= 0) {
     toastComponent({type: 'error'}, 'Erro no campo Preço - Não pode ser zero ou negativo')

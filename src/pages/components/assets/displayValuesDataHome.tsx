@@ -8,6 +8,7 @@ export default function DisplayValuesDataHome() {
 
 
   useEffect(() => {
+    // Função responsável por exebir os dados de quantidades de produtos e quantidade de usuários em dívida
     const fetchData = () => {
       authFirebase.onAuthStateChanged(async (user) => {
         if(user) {
@@ -27,6 +28,7 @@ export default function DisplayValuesDataHome() {
   }, [])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if ( remember === "false" ) {
       const handleBeforeUnload = () => {

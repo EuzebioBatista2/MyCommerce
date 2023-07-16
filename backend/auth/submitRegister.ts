@@ -1,13 +1,12 @@
 import { RegisterType } from '@/types/registerType';
 import { authFirebase, storageFirebase } from '../config';
-import { dbImageAndData } from '../db/dbImageAndData';
 
-
+// Função responsavél pelo registro de e-mail padrão do firebase
 export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: RegisterType): Promise<void> {
-  let dataUid: any
   return new Promise(async (resolve, reject) => {
     event.preventDefault()
     
+    //  Dados vindo do formulário
     const inputName = data.name ? data.name : ''
     const inputEmail = data.email ? data.email : ''
     const inputPassword = data.password ? data.password : ''
@@ -18,12 +17,14 @@ export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: Re
         let imageUrl: any
         const urlImage = storageFirebase.ref(`myCommerceFiles/${authFirebase.currentUser?.uid}/mainImage/${image[0].name}`);
         if (image[0].name !== '') {
+          // Verificação do upload quando concluída
           const upload = urlImage.put(image[0]);
           upload.on('state_changed', () => { }, () => { }, () => {
             urlImage.getDownloadURL().then((downloadURL) => {
               imageUrl = downloadURL
               authFirebase.onAuthStateChanged((user) => {
                 if (user) {
+                  // Atualização dos dados da conta nome e URL da foto
                   user.updateProfile({
                     displayName: inputName,
                     photoURL: imageUrl

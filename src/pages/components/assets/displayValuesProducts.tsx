@@ -24,27 +24,27 @@ export default function DisplayValueProducts() {
   const { setLoading } = useLoadingReducer()
   const router = useRouter()
 
+  // Responsável pela páginação
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage)
 
   const handlePageChange = (selectedPage: any) => {
-    setCurrentPage(selectedPage.selected);
+    setCurrentPage(selectedPage.selected)
   };
 
-  const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentPageItems = products.slice(startIndex, endIndex);
+  const startIndex = currentPage * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentPageItems = products.slice(startIndex, endIndex)
 
   useEffect(() => {
+    // Função responsável por pegar os dados consultado na pesquisa
     const fetchSearch = async () => {
       authFirebase.onAuthStateChanged(async (user) => {
         if (user) {
           await getDataSearchValue(search).then((data) => {
             setProducts(data)
-          })
-          await getDataSearchValue(search).then((data) => {
             setTotal(data.reduce((acc, product) => {
-              return acc + product.data.amount * product.data.price;
+              return acc + product.data.amount * product.data.price
             }, 0));
           })
         } else {
@@ -56,6 +56,7 @@ export default function DisplayValueProducts() {
   }, [search])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {
@@ -101,7 +102,7 @@ export default function DisplayValueProducts() {
                       router.push('/products/editProduct')
                     }))}><i className="flex h-5 w-5">{IconEdit}</i><span className="text-sm pt-1.5">Editar</span></button>
 
-                    <button className="flex w-5 h-5 items-center justify-center text-red-500" onClick={() => onLoadingDeleteProduct(setLoading, product.uid, product.name).then((products) => {
+                    <button className="flex w-5 h-5 items-center justify-center text-red-500" onClick={() => onLoadingDeleteProduct(setLoading, product.uid, product.name, router).then((products) => {
                       setProducts(products)
                       getDataSearchValue(search).then((data) => {
                         setTotal(data.reduce((acc, product) => {

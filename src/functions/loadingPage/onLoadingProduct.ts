@@ -7,6 +7,7 @@ import { verifyAmount } from "../verifyFields/verifyAmount";
 import { verifyPrice } from "../verifyFields/verifyPrice";
 import { verifyName } from "../verifyFields/verifyName";
 
+// Função responsável por carregar o loading enquanto o produto é cadastrado(Ou não)
 export async function onLoadingProduct(loading: any, event: React.FormEvent<HTMLFormElement>, router: NextRouter, data: ProductType): Promise<IIsValidProductType> {
   event.preventDefault()
   loading(true)
@@ -18,7 +19,7 @@ export async function onLoadingProduct(loading: any, event: React.FormEvent<HTML
     await submitProduct(data, event)
       .then(() => {
         toastComponent({ type: 'success' }, 'Produto cadastrado com sucesso!')
-        router.push('/home')
+        router.push('/products')
       }).catch(() => {
         toastComponent({ type: 'error' }, 'Produto já existe!')
       })

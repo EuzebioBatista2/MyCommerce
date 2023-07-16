@@ -5,6 +5,7 @@ import { authFirebase, dbFirebase } from "../../../backend/config";
 import { onLoadingDeleteCartAll } from "./onLoadingDeleteCart";
 import { formatDate } from "../verifyFields/verifyDate";
 
+// Função responsável por carregar o loading enquanto os dados do carrinho principal são inseridos nos usuários em dívida(Ou não)
 export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid: string): Promise<void> {
   loading(true)
   await dbGetCart().then((list) => {
@@ -12,6 +13,7 @@ export async function onLoadingAddUserCart(loading: any, router: NextRouter, uid
       if (list.length > 0) {
         if(user) {
           list.map((product) => {
+            // Realiza a transferencia da lista de produtos do carrinho principal para o carrinho do usuário em dívida
             dbFirebase.doc(user.uid).collection('ListUsersProducts').doc(uid).collection('Products').add({
               name: product.name,
               data: {

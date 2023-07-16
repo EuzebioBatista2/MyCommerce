@@ -31,27 +31,26 @@ export default function DisplayValuesCart() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
+    // Função responsável por realizar uma pesquisa personalizada de forma a pegar os dados de acordo com a pesquisa
     const fetchData = async () => {
       authFirebase.onAuthStateChanged(async (user) => {
         if (user) {
-          await dbGetCartSearch(search).then((data) => {
+          await dbGetCartSearch(search).then( async (data) => {
             setProducts(data)
+            setTotal((data.reduce((acc, products) => {
+              return acc + products.data.amount * products.data.price
+            }, 0)))
           });
-          await dbGetCartSearch(search).then((data) => {
-            setTotal(data.reduce((acc, product) => {
-              return acc + product.data.amount * product.data.price;
-            }, 0));
-          })
         } else {
           window.location.href = '/'
         }
       })
     };
-
     fetchData();
   }, [search])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {

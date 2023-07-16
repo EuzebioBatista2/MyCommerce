@@ -26,6 +26,7 @@ export default function DisplayValuesInfoReport() {
   const { productInfoReport } = useInfoReportReducer()
 
   useEffect(() => {
+    // Função responsável por pegar as informações do usuário e exibi-la na tabela
     authFirebase.onAuthStateChanged(async (user) => {
       if (user) {
         if (productInfoReport.user !== '') {
@@ -45,6 +46,7 @@ export default function DisplayValuesInfoReport() {
   }, [])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if (remember === "false") {
       const handleBeforeUnload = () => {

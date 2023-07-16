@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast"
 
+// Função responsável por verificar se a iamgem inserida é valida
 export const verifyImage = (inputImage: any): boolean => {
   if(inputImage && inputImage.name !== '') {
     if(inputImage.type.includes('image')) {

@@ -1,6 +1,7 @@
 import { UserCart } from '@/types/userType';
 import { authFirebase, dbFirebase } from "../config"
 
+// Realiza consulta na tabela de um usuário especifico com a lista dos produtos cadastrado em seu carrinho unico
 export const dbGetUserCart = (uidCart: string, value: string): Promise<{ name: string, data: UserCart, uid: string }[]> => {
   return new Promise((resolve, reject) => {
     let list: any[] = []
@@ -27,7 +28,7 @@ export const dbGetUserCart = (uidCart: string, value: string): Promise<{ name: s
           reject(error)
         })
       } else {
-        reject(new Error('User not authenticated'))
+        window.location.href = '/'
       }
     })
   })

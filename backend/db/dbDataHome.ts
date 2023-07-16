@@ -1,6 +1,6 @@
-import { NextRouter } from "next/router"
 import { authFirebase, dbFirebase } from "../config"
 
+// Função responsável por pegar a quantidade de produtos cadastrados
 export const dbGetAmountProducts = (): Promise<number> => {
   return new Promise((resolve, reject) => {
     let values: number
@@ -13,12 +13,13 @@ export const dbGetAmountProducts = (): Promise<number> => {
           reject(error)
         })
       } else {
-        reject()
+        window.location.href = '/'
       }
     })
   })
 }
 
+// Função responsável por pegar a quantidade de usuários cadastrados
 export const dbGetAmountUsers = (): Promise<number> => {
   return new Promise((resolve, reject) => {
     let values: number
@@ -31,7 +32,7 @@ export const dbGetAmountUsers = (): Promise<number> => {
           reject(error)
         })
       } else {
-        reject(new Error('User not authenticated'))
+        window.location.href = '/'
       }
     })
   })

@@ -10,6 +10,7 @@ import Button from "./Button";
 import { onLoadingRemoveAllReport } from "@/functions/loadingPage/onLoadingRemoveAllReport";
 import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 import { formatCurrency } from "@/functions/verifyFields/verifyCurrency";
+import { authFirebase } from "../../../../backend/config";
 
 export default function DisplayValuesReport() {
   const [search, setSearch] = useState('')
@@ -35,6 +36,7 @@ export default function DisplayValuesReport() {
   const currentPageItems = products.slice(startIndex, endIndex);
 
   useEffect(() => {
+    // Função responsável por pegar os dados consultado ao pesquisar
     const fetchData = async () => {
       await dbGetReport(search).then((data) => {
         setProducts(data)
@@ -52,6 +54,22 @@ export default function DisplayValuesReport() {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search])
+
+  useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
+    const remember = localStorage.getItem('rememberMyAccontMyCommerce')
+    if (remember === "false") {
+      const handleBeforeUnload = () => {
+        authFirebase.signOut();
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-between h-full w-full">

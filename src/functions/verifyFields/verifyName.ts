@@ -1,5 +1,6 @@
 import { toastComponent } from "../toasts/Toast"
 
+// Função responsável por verificar se o nome inserido é valido
 export const verifyName = (nameInput: string ): boolean => {
   if ( (nameInput.length >= 3 && nameInput.length < 25 )) {
     return true

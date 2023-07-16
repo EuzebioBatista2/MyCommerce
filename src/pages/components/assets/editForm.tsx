@@ -24,6 +24,7 @@ export default function EditForm() {
   const [styleInputPrice, setStyleInputPrice] = useState<boolean>(true)
 
   useEffect(() => {
+    // Função responsável por pegar os dados selecionado para o cadastro
     authFirebase.onAuthStateChanged(async (user) => {
       if(user) {
         if(productId.productFinal.data.name != '') {
@@ -41,6 +42,7 @@ export default function EditForm() {
   }, [productId])
 
   useEffect(() => {
+    // Verifica se o checkbox de manter conectado foi marcado quando a tela for fechada
     const remember = localStorage.getItem('rememberMyAccontMyCommerce')
     if ( remember === "false" ) {
       const handleBeforeUnload = () => {

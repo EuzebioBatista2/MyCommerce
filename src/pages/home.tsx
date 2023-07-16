@@ -3,11 +3,10 @@ import NavProfile from "./components/assets/NavProfile";
 import Loading from "./components/assets/Loading";
 import Footer from "./components/template/Footer";
 import NavMenu from "./components/assets/NavMenu";
-import { IconBag, IconCart, IconHome, IconReport, IconUserNegative } from "../../public/icons/icons";
+import { IconHome, IconReport } from "../../public/icons/icons";
 import Link from "next/link";
 import LinkButton from "./components/assets/LinkButton";
 import DisplayValuesDataHome from "./components/assets/displayValuesDataHome";
-import Image from "next/image";
 import NavMenuMd from "./components/assets/NavMenuMd";
 
 export default function Home() {
@@ -31,7 +30,7 @@ export default function Home() {
       </section>
       <section className="flex h-full bg-[url('/cart.jpg')] bg-center bg-no-repeat bg-cover">
         <NavMenuMd />
-        <div className="flex flex-col h-full border-8 border-transparent justify-between md:w-2/3">
+        <div className="flex flex-col h-full border-8 border-transparent justify-between md:w-2/3 w-full">
           <div className="bg-white bg-opacity-80 rounded-lg h-full">
             <div className="flex w-full items-center justify-center py-10">
               <h1 className="font-semibold text-xl md:text-3xl">Dados do comércio</h1>

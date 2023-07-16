@@ -15,7 +15,9 @@ export default function NavProfile() {
   const router = useRouter()
   const [userImage, setUserImage] = useState('');
   const [userName, setUserName] = useState('');
+
   useEffect(() => {
+    // Função responsável por exebir o nome é a foto no topo da página
     const fetchUserImage = () => {
       authFirebase.onAuthStateChanged(async (user) => {
         setLoading(true);
@@ -41,7 +43,7 @@ export default function NavProfile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <div className="flex items-center justify-between w-full h-full relative">
+    <header className="flex items-center justify-between w-full h-full relative">
       <Image src="/ProjectPhotoLogo.png" alt="LogoMarca" width={160} height={140} priority={true} className="h-12 pl-2 w-auto" />
       <div className="flex items-center justify-end w-1/2 h-full gap-1 pr-2 cursor-pointer bg-gradient-to-br from-transparent from-20% to-gray-200" onClick={() => setMenu(!activate)}>
         <div className="flex flex-col">
@@ -64,6 +66,6 @@ export default function NavProfile() {
           <i className="flex h-5 w-5">{IconLogOut}</i>
         </div>
       </div>
-    </div>
+    </header>
   )
 }
