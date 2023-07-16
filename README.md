@@ -28,6 +28,8 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
 
 # Historio de atualizações:
 
+* 1.0.1
+    * FIX: EditForm import.
 * 1.0.0
     * FEAT: Deploy first version.
 * 0.5.1

@@ -5,8 +5,8 @@ import NavProfile from "../components/assets/NavProfile";
 import { IconArrowLeft, IconHome } from "../../../public/icons/icons";
 import NavMenu from "../components/assets/NavMenu";
 import Footer from "../components/template/Footer";
-import EditForm from "../components/assets/EditForm";
 import NavMenuMd from "../components/assets/NavMenuMd";
+import EditForm from "../components/assets/EditForm";
 
 export default function EditProduct() {
 
