@@ -28,6 +28,8 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
 
 # Historio de atualizações:
 
+* 1.0.7
+    * FIX: Warning in account exists.
 * 1.0.6
     * FIX: Loading in Register.
 * 1.0.5

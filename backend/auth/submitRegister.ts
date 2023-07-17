@@ -1,5 +1,6 @@
 import { RegisterType } from '@/types/registerType';
 import { authFirebase, storageFirebase } from '../config';
+import { showErrorFirebase } from '@/functions/verifyFields/showErrorFireseba';
 
 // Função responsavél pelo registro de e-mail padrão do firebase
 export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: RegisterType): Promise<void> {
@@ -36,7 +37,8 @@ export function submitRegister(event: React.FormEvent<HTMLFormElement>, data: Re
           })
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        showErrorFirebase(error)
         reject()
       });
   }
