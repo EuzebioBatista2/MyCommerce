@@ -28,6 +28,8 @@ O projeto tem como intuito de servir como um controlador e gerenciados de gastos
 
 # Historio de atualizações:
 
+* 1.0.9
+    * FEAT: search with convertToDate.
 * 1.0.8
     * FIX: pageLogin and nameProfile.
 * 1.0.7

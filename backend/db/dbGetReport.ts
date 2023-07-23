@@ -1,5 +1,6 @@
 import { ReportType } from '@/types/reportType';
 import { authFirebase, dbFirebase } from "../config"
+import { convertToDate } from '@/functions/verifyFields/convertToDate';
 
 // Função responsável por realizar consultas na tabela de relátorio
 export const dbGetReport = ( value: string): Promise<{ name: string, data: ReportType[], user: string, date: string, uid: string }[]> => {
@@ -20,12 +21,11 @@ export const dbGetReport = ( value: string): Promise<{ name: string, data: Repor
             date: product.data().date,
             uid: product.id
           }))
-
           list.sort((a, b) => {
-            const dateA = new Date(a.date)
-            const dateB = new Date(b.date)
+            const dateA = convertToDate(a.date)
+            const dateB = convertToDate(b.date)
 
-            return dateA.getTime() - dateB.getTime()
+            return dateB.getTime() - dateA.getTime()
           });
 
           resolve(list)
