@@ -7,13 +7,14 @@ import { dbDeleteCart } from "../../../backend/db/dbDeleteCart";
 export async function onLoadingDeleteCartAll(loading: any): Promise<any> {
   let listProducts: {name: string, data: ProductType, uid: string}[] = []
   loading(true)
+  console.log("cheguei aqui pra excluir")
   await dbDeleteCart()
       .then(() => {
         toastComponent({ type: 'success' }, `Produtos do carrinho retirados com sucesso!`)
       })
   await dbGetCartSearch('').then((list) => {
-    loading(false)
     listProducts = list
+    loading(false)
   })
   return listProducts
 }

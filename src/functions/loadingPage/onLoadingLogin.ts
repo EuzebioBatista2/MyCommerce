@@ -1,10 +1,10 @@
 import { IIsValidAuthType } from "@/types/isValidType";
 import { UserType } from "@/types/userType";
 import { NextRouter } from "next/router";
-import { verifyEmail } from "../verifyFields/verifyEmail";
 import { submitLogin } from "../../../backend/auth/submitLogin";
 import { toastComponent } from "../toasts/Toast";
 import { verifyLoginPassword } from "../verifyFields/verifyLoginPassword";
+import { verifyEmailWithGoogle } from "../verifyFields/verifyEmailWithGoogle";
 
 // Função responsável por carregar o loading enquanto o usuário realiza o login
 export async function onLoadingLogin(
@@ -15,7 +15,7 @@ export async function onLoadingLogin(
     event.preventDefault()
     loading(true)
 
-    const isEmailValid = verifyEmail(data.email || '')
+    const isEmailValid = verifyEmailWithGoogle(data.email || '')
     const isPasswordValid = verifyLoginPassword(data.password || '')
 
     if (isEmailValid && isPasswordValid) {

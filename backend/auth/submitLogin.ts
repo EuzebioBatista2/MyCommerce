@@ -9,24 +9,11 @@ export function submitLogin(event: React.FormEvent<HTMLFormElement>, data: UserT
     const inputEmail = data.email ? data.email : ''
     const inputPassword = data.password ? data.password : ''
 
-    // Verifica se o login é da plataforma Gmail
-    const isGmail = inputEmail.includes("@gmail.com");
-
-    if (isGmail) {
-      toastComponent({ type: 'warning' }, 'Login da plataforma GMAIL detectado!')
-      authFirebase.signInWithPopup(providerGoogle)
-      .then(() => {
-        toastComponent({ type: 'success' }, 'Login realizado com sucesso!')
-        resolve()
-      }).catch(() => {
-        reject()
-      })
-    }
-    else {
-      authFirebase
-        .signInWithEmailAndPassword(inputEmail, inputPassword)
-        .then(() => resolve())
+    authFirebase.signInWithEmailAndPassword(inputEmail, inputPassword)
+        .then(() => {
+          toastComponent({ type: 'success' }, 'Login realizado com sucesso!')
+          resolve()
+        })
         .catch(() => reject())
-    }
   })
 }

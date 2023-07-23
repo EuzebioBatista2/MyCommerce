@@ -26,8 +26,9 @@ export default function NavProfile() {
             const name = await dbNamePerfil()
             const url = await dbImagePerfil()
             if (typeof url === 'string' && typeof name === 'string') {
+              let firstName = name.split(' ')
               setUserImage(url)
-              setUserName(name)
+              setUserName(firstName[0])
             }
             setMenu(false)
             setLoading(false)
@@ -48,7 +49,7 @@ export default function NavProfile() {
       <div className="flex items-center justify-end w-1/2 h-full gap-1 pr-2 cursor-pointer bg-gradient-to-br from-transparent from-20% to-gray-200" onClick={() => setMenu(!activate)}>
         <div className="flex flex-col">
           <span className="text-xs text-right mr-1 capitalize">Olá!</span>
-          <h2 className="font-semibold mr-1 p-0 mt-0 capitalize leading-tight">{userName}</h2>
+          <h2 className="font-semibold mr-1 p-0 mt-0 capitalize leading-none text-right">{userName}</h2>
         </div>
         <div className="flex items-center justify-center h-10 w-10 rounded-full overflow-hidden border border-gray-200 bg-white">
           <Image src={userImage ? userImage : '/userUnknown.jpg'} alt="FotoDePerfil" width={160} height={140} priority={true} className="h-auto w-auto" />

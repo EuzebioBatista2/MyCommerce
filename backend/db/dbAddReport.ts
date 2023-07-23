@@ -6,6 +6,7 @@ export function dbAddReport(userName: string):Promise<void> {
   let list: any[] = []
   return new Promise((resolve, reject) => {
     authFirebase.onAuthStateChanged((user) => {
+      console.log("chegeui aqui no report")
       if (user) {
         // Pegando a lista de produtos do carrinho
         dbFirebase.doc(user.uid).collection('Cart').get().then((products) => {
@@ -24,6 +25,7 @@ export function dbAddReport(userName: string):Promise<void> {
             date: formatDate(new Date())
           })
         })
+        resolve()
       }
     })
   })

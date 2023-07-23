@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { IconBag, IconCart, IconUserNegative } from "../../../../public/icons/icons";
 import Link from "next/link";
 import { dbGetCart } from "../../../../backend/db/dbGetCart";
+import { useLoadingReducer } from "@/store/reducers/loadingReducers/useLoadingReducer";
 
 export default function NavMenu() {
 
   const [amountProduct, setAmountProduct] = useState<number>(0)
+  
+  const {loading} = useLoadingReducer()
 
   useEffect(() => {
     // Função responsável por pegar a quantidade de produtos dentro do carrinho principal
     dbGetCart().then((list) => {
       setAmountProduct(list.length)
     })
-  }, [])
+  }, [loading])
   return (
     <div className="flex items-center w-full h-full">
       <Link href={'/products'} className="flex flex-col items-center justify-center w-1/3 h-full">

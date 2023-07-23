@@ -7,7 +7,9 @@ import { onLoadingDeleteCartAll } from "./onLoadingDeleteCart";
 export async function onLoadingAddReport(loading: any, userName: string): Promise<void> {
   return new Promise((resolve, reject) => {
     loading(true)
+    // Verificar se no carrinho há mais de um produto
     dbGetCart().then(async (list) => {
+      console.log(list.length)
       if (list.length > 0) {
         await dbAddReport(userName)
         await onLoadingDeleteCartAll(loading)

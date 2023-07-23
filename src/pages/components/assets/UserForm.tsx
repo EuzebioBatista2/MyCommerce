@@ -77,8 +77,10 @@ export default function UserForm(props: IUserForm) {
           event.preventDefault()
           let value = verifyName(name)
           if(value) {
-            onLoadingAddReport(setLoading, name)
-            router.push('/cart')
+            console.log("entrei aqui")
+            onLoadingAddReport(setLoading, name).then(() => {
+              router.push('/cart')
+            }).catch(() => {})
           } else {
             setStyleInputName(false)
           }
